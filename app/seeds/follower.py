@@ -1,4 +1,5 @@
 from app.models import db, Follower, environment, SCHEMA
+from sqlalchemy.sql import text
 
 
 def seed_follower():
@@ -15,4 +16,14 @@ def seed_follower():
     db.session.add(follower1)
     db.session.add(follower2)
     db.session.add(follower3)
+    db.session.commit()
+
+
+def undo_follower(): 
+    if environment == "production": 
+        db.session.execute(f"TRUNCATE table {SCHEMA}.follower RESTART IDENTITY CASCADE")
+    else:
+        db.session.execute(text("DELETE FROM follower"))
+
+
     db.session.commit()
