@@ -18,9 +18,15 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     #relationships
-    follower = db.relationship('Follower', back_populates='following', foreign_keys=[Follower.follower_id])
-    following = db.relationship('Follower', back_populates='follower', foreign_keys=[Follower.following_id])
-    
+    followers = db.relationship('Follower', back_populates='follower', foreign_keys=[Follower.following_id])
+    followings = db.relationship('Follower', back_populates='following', foreign_keys=[Follower.follower_id])
+    stories = db.relationship('Story',back_populates='user')
+
+    likes = db.relationship('Like',back_populates='user')
+    comments = db.relationship('Comment',back_populates='user')
+
+
+
 
 
     @property
@@ -43,4 +49,5 @@ class User(db.Model, UserMixin):
             'lastname': self.lastname,
             'bio': self.bio,
             'icon': self.icon,
+
         }

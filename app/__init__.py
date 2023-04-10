@@ -89,3 +89,21 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+from app.models import User, Story, db
+
+@app.route('/test', methods=['GET'])
+def all_stories():
+
+    stories = db.session.query(Story,User).join(User).all()
+
+    lst = []
+
+    for story,user in stories:
+        user_name = user.to_dict()['username']
+        story = story.to_dict()
+        story['username'] = user_name
+        del story['user_id']
+        lst.append(story)
+
+    return lst

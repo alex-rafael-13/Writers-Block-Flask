@@ -14,9 +14,12 @@ class Comment(db.Model):
     story_id = db.Column(db.Integer, db.ForeignKey('stories.id'), nullable=False)
     comment = db.Column(db.String, nullable=False)
 
+    user = db.relationship('User',back_populates='comments')
+    story = db.relationship('Story',back_populates='comments')
 
-    def to_dict(self): 
-        return { 
+
+    def to_dict(self):
+        return {
             'id': self.id,
             'user_id': self.user_id,
             'story_id': self.story_id,

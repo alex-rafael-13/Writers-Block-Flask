@@ -11,11 +11,11 @@ class Follower(db.Model):
     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     following_id = db.Column(db.Integer, db.ForeignKey('users.id') ,nullable=False)
      #relationships
-    follower = db.relationship('User', foreign_keys=[follower_id], back_populates='following')
-    following = db.relationship('User', foreign_keys=[following_id], back_populates='follower')
+    follower = db.relationship('User', foreign_keys=[follower_id], back_populates='followings')
+    following = db.relationship('User', foreign_keys=[following_id], back_populates='followers')
 
     def to_dict(self):
-        return { 
+        return {
             'id': self.id,
             'follower_id': self.follower_id,
             'following_id': self.following_id
