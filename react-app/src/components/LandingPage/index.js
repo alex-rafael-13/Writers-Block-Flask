@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import * as storyActions from '../../store/story'
+import StoryCard from "./storyCard"
 
 
 export default function LandingPage(){
@@ -16,7 +17,7 @@ export default function LandingPage(){
     return (
         <div>
             {allStories?.map(story =>(
-                <h1>{story.title}</h1>
+                <StoryCard story={story}/>
             ))}
         </div>
     )

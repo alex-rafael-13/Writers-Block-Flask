@@ -1,6 +1,8 @@
 
 
-export default function storyCard(story){
+export default function StoryCard(story){
 
-    
+    return(
+        <h1>Hello</h1>
+    )
 }
