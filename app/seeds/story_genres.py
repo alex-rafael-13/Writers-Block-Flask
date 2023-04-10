@@ -8,7 +8,7 @@ def seed_story_genres():
     )
     story_genre2 = StoryGenre(
         story_id = 2,
-        genre_id = 2
+        genre_id = 2,
     )
     story_genre3 = StoryGenre(
         story_id = 2,

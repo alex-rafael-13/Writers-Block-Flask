@@ -6,18 +6,22 @@ story_routes = Blueprint('stories', __name__)
 @story_routes.route('/', methods=['GET'])
 def all_stories():
 
-    # stories = db.session.query(Story,User).join(User).all()
-    stories = User.query.join(Story).join(StoryGenre).join(Genre).all()
-    print(stories)
-    lst = []
+    stories = db.session.query(Story, Genre.name, User.username)\
+        .select_from(Story)\
+        .join(StoryGenre)\
+        .join(User)\
+        .join(Genre)\
+        .all()
+    
+    story_dict = {}
 
-    for user in stories:
-        user_name = user.to_dict()['username']
-        genres = story.genres
-        story = story.to_dict()
-        story['username'] = user_name
-        story['genres'] = [genre.to_dict() for genre in genres]
-        del story['user_id']
-        lst.append(story)
+    for story, genre, username in stories:
+        if story.id not in story_dict:
+            story_dict[story.id] = story.to_dict()
+            story_dict[story.id]['genres'] = [genre]
+            story_dict[story.id]['username'] = username
+        else:
+            story_dict[story.id]['genres'].append(genre)
 
-    return lst
+    return list(story_dict.values())
+
