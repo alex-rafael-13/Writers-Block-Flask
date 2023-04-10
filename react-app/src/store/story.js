@@ -9,7 +9,7 @@ const setStories = (stories) => {
 
 
 export const retrieveStories = () => async (dispatch) => {
-    const response = await fetch('/api/stories', {
+    const response = await fetch('/api/stories/', {
         headers: {
             "Content-Type": "application/json",
         }

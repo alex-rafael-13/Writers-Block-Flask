@@ -5,7 +5,7 @@ import storyReducer from './story';
 
 const rootReducer = combineReducers({
   session,
-  storyReducer
+  stories: storyReducer
 });
 
 
