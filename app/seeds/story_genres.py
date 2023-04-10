@@ -1,20 +1,20 @@
-from app.models import db, story_genre, environment, SCHEMA
+from app.models import db, StoryGenre, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_story_genres():
-    story_genre1 = story_genre(
+    story_genre1 = StoryGenre(
         story_id = 1,
         genre_id = 1
     )
-    story_genre2 = story_genre(
+    story_genre2 = StoryGenre(
         story_id = 2,
         genre_id = 2
     )
-    story_genre3 = story_genre(
+    story_genre3 = StoryGenre(
         story_id = 2,
         genre_id = 1
     )
-    story_genre4 = story_genre(
+    story_genre4 = StoryGenre(
         story_id = 3,
         genre_id = 3
     )
