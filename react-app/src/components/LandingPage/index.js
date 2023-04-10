@@ -2,12 +2,13 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import * as storyActions from '../../store/story'
 import StoryCard from "./storyCard"
+import SideNavBar from "../SideNavBar"
 
 
 export default function LandingPage(){
     const dispatch = useDispatch()
     const allStories = useSelector(state => state.stories.stories)
-
+  
     useEffect(() => {
         dispatch(storyActions.retrieveStories())
     },[dispatch])
