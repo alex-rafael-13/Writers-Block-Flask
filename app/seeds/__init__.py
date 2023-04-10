@@ -5,6 +5,7 @@ from .like import seed_like, undo_like
 from .comment import seed_comment, undo_comment
 from .story import seed_story, undo_story
 from .genre import seed_genre, undo_genre
+from .story_genres import seed_story_genres, undo_story_genre
 
 from app.models.db import db, environment, SCHEMA
 
@@ -29,6 +30,7 @@ def seed():
     seed_like()
     seed_genre()
     seed_story()
+    seed_story_genres()
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
@@ -39,4 +41,5 @@ def undo():
     undo_like()
     undo_genre()
     undo_story()
+    undo_story_genre()
     # Add other undo functions here

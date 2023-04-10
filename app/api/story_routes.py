@@ -12,10 +12,10 @@ def all_stories():
 
     for story,user in stories:
         user_name = user.to_dict()['username']
+        genres = story.genres
         story = story.to_dict()
-        # genres = db.session.query(story_genre, Genre).join(Genre).filter(story_genre,story_id=story.id).all()
-        # print('--------------------->',genres)
         story['username'] = user_name
+        story['genres'] = genres
         del story['user_id']
         lst.append(story)
 
