@@ -1,13 +1,24 @@
-.main-side-navbar { 
+.main-side-navbar {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.icon-image { 
+.icon-image {
     width: 5%;
 }
 
-.fa-solid { 
+.fa-solid {
     font-size: 50px;
+}
+
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+}
+
+.nabar-top {
+    display: flex;
+    flex-direction: column;
 }
