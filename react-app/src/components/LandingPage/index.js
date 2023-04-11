@@ -15,7 +15,7 @@ export default function LandingPage(){
         dispatch(storyActions.retrieveStories())
     },[dispatch])
 
-
+    console.log(allStories)
 
     return (
         <div className="story-list">

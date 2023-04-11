@@ -19,6 +19,7 @@ def all_stories():
     story_dict = {}
 
     for story, genre, username in stories:
+        print(story)
         if story.id not in story_dict:
             story_dict[story.id] = story.to_dict()
             story_dict[story.id]['genres'] = [genre]

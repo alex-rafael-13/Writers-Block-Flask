@@ -11,13 +11,13 @@ function SideNavBar(){
 
         <div className="side-bar-div-boxes">
 
-        <i class="fa-sharp fa-solid fa-house"></i>
+        <i className="fa-sharp fa-solid fa-house"></i>
         <p>Home</p>
         </div>
 
         <div className="side-bar-div-boxes">
 
-        <i class="fa-solid fa-user"></i>
+        <i className="fa-solid fa-user"></i>
         <p>User</p>
         </div>
 

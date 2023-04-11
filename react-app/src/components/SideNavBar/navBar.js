@@ -22,7 +22,7 @@ export default function NavBar({handleClicked}) {
 
                 <button className='menu-button' onClick={handleClicked}>
 
-               <i class="fa-solid fa-bars"></i>
+               <i className="fa-solid fa-bars"></i>
 
                 </button>
                 
