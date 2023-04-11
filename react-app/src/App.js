@@ -41,6 +41,8 @@ function App() {
 
           : <ToggledNavBar />
         }
+        <div className="content-body">
+
         {isLoaded && (
           <Switch>
 
@@ -58,6 +60,7 @@ function App() {
             </Route>
           </Switch>
         )}
+        </div>
       </div>
     </>
   );

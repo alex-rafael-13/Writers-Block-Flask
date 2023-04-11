@@ -30,14 +30,20 @@ export default function SingleStory(){
         <div className="single-story-cont">
             <div className="title-genre-cont">
                 <h1>{storyContent?.title}</h1>
-                {story?.genre?.map(genre => (
-                    <div key={genre} className={`genre ${genre}`}>{genre}</div>
-                ))}
+                <div className="single-story-genres">
+                    {story?.genre?.map(genre => (
+                        <div key={genre} className={`genre ${genre}`}>{genre}</div>
+                    ))}
+
+                </div>
             </div>
             <img className="story-image" src={imgUrl} alt='story-img'/>
             <div className="author-like-button">
                 <div className="author-cont">By {story?.user}</div>
-                <div className="like-button">Like</div>
+                <div className="likes-cont">
+                    <div className="like-button">Like</div>
+                    <div>5</div>
+                </div>
             </div>
             <div className="story-content-cont">
                 {storyContent?.content}

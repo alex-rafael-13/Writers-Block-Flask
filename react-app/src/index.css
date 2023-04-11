@@ -9,13 +9,20 @@ body{
 .page-body{
     display: flex;
     width: 90%;
-    border: solid black;
+    gap: 5px;
+    justify-content: center;
+
+    /* border: solid black; */
 }
 .navbar{
     width: 100%;
 }
 .main-side-navbar{
-    border: solid black;
+    /* border: solid black; */
+    width: 10%;
+}
+.content-body{
+    width: 90%;
 }
 
 
