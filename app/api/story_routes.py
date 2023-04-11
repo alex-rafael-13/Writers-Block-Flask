@@ -1,9 +1,9 @@
 from app.models import User, Story, db, Genre, StoryGenre, Comment,Like , Story
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.forms import StoryForm
 from flask_login import current_user
-
+import ast
 
 story_routes = Blueprint('stories', __name__)
 
@@ -68,7 +68,7 @@ def get_story(storyId):
         'genre': [genre[0] for genre in genres]
     }
 
-    print(current_user,'--------------------------------------')
+
 
     return result
 
@@ -101,14 +101,18 @@ def like_story(storyId):
 @login_required
 def create_story():
 
+
     form = StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
 
+
+    genres = ast.literal_eval(form.data['genres'])
+
     if form.validate_on_submit():
 
         new_story = Story(
-            user_id = form.data['userId'],
+            user_id = current_user.id,
             title = form.data['title'],
             content = form.data['content'],
             image = form.data['image']
@@ -116,7 +120,99 @@ def create_story():
         )
         db.session.add(new_story)
         db.session.commit()
+
+        for genre in genres:
+            genre_to_add = StoryGenre(
+                story_id = new_story.id,
+                genre_id = genre
+            )
+            db.session.add(genre_to_add)
+            db.session.commit()
+
         return new_story.to_dict()
+
 
     if form.errors:
         return jsonify(form.errors), 400
+
+
+
+@story_routes.route('/<int:storyId>', methods=['PUT'])
+@login_required
+def update_story(storyId):
+
+    story_to_edit = Story.query.get(storyId)
+
+    if not story_to_edit:
+        return {
+            'message': 'Story not found'
+        }, 404
+
+    form = StoryForm()
+
+
+
+
+
+
+
+
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+
+    story_to_edit
+    if form.validate_on_submit():
+
+
+        story_to_edit.user_id = current_user.id
+        story_to_edit.title = form.data['title']
+        story_to_edit.content = form.data['content']
+        story_to_edit.image = form.data['image']
+
+
+        db.session.commit()
+
+        genres = form.data['genres']
+        print(json.loads(genres),'---------------------------------')
+
+        # for genreId, action in genres:
+
+        #     if action == 'delete':
+        #         entry = StoryGenre.query.filter(StoryGenre.genre_id == genreId, StoryGenre.story_id == storyId).first()
+        #         db.session.delete(entry)
+        #         db.session.commit()
+        #     else:
+        #         entry = StoryGenre(
+        #             story_id = storyId,
+        #             genre_id = genreId
+
+        #         )
+        return story_to_edit.to_dict()
+
+
+
+
+    if form.errors:
+        return jsonify(form.errors), 400
+
+
+
+
+
+@story_routes.route('/<int:storyId>',methods=['DELETE'])
+@login_required
+def delete_story(storyId):
+
+
+    story_to_delete = Story.query.get(storyId)
+
+
+    if not story_to_delete:
+        return {'errors': ['Story does not exist']}, 400
+
+    db.session.delete(story_to_delete)
+    db.session.commit()
+
+
+    return {'message': 'Successfully deleted'}

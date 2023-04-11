@@ -18,7 +18,7 @@ class Story(db.Model):
     user = db.relationship('User',back_populates='stories')
     likes = db.relationship('Like',back_populates='stories')
     comments = db.relationship('Comment',back_populates='story')
-    genres = db.relationship('StoryGenre', back_populates='story')
+    genres = db.relationship('StoryGenre', back_populates='story',cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -69,7 +69,7 @@ class StoryGenre(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    story_id = db.Column(db.Integer, db.ForeignKey('stories.id'), nullable=False)
+    story_id = db.Column(db.Integer, db.ForeignKey('stories.id',ondelete='CASCADE') ,nullable=False)
     genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'), nullable=False)
 
     story = db.relationship('Story', foreign_keys=[story_id], back_populates='genres')
