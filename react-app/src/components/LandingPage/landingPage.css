@@ -1,0 +1,41 @@
+.story-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+
+    border: solid black;
+    width: 80%;
+}
+
+.story-card{
+    display: flex;
+    flex-direction: column;
+
+    margin: 5px;
+    border: solid black;
+}
+
+.preview-image{
+    width: 270px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.author-name{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.genres-cont{
+    display: flex;
+    flex-direction: row;
+}
+
+.genre{
+    margin-right: 3px;
+    margin-bottom: 3px;
+}
+
