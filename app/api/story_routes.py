@@ -1,8 +1,11 @@
 from app.models import User, Story, db, Genre, StoryGenre, Comment,Like
 from flask import Blueprint
+from flask_login import current_user, login_required
+
 
 story_routes = Blueprint('stories', __name__)
 
+#get all story
 @story_routes.route('/', methods=['GET'])
 def all_stories():
 
@@ -26,6 +29,7 @@ def all_stories():
     return list(story_dict.values())
 
 
+#get a single story
 @story_routes.route('/<int:storyId>')
 def get_story(storyId):
     story = db.session.query(Story, User.username,)\
@@ -34,6 +38,11 @@ def get_story(storyId):
         .filter(Story.id == storyId)\
         .first()
     
+    if not story:
+        return { 
+            'message': 'Story not found'
+        }, 404
+
     likes = db.session.query(Like).filter(Like.story_id == storyId).count()
 
     genres = db.session.query(Genre.name)\
@@ -58,3 +67,26 @@ def get_story(storyId):
     
     return result
  
+
+#allow user to like a story
+@story_routes.route('/<int:storyId>/like', methods=['POST'])
+@login_required
+def like_story(storyId): 
+    story = db.session.query(Story).filter(Story.id == storyId).first()
+
+    if not story:
+        return { 
+            'message': 'Story not found'
+        }, 404
+    
+    liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
+
+    if liked: 
+        return { 
+            'message': 'Your already liked this story'
+        }, 400
+    
+    like = Like(user_id=current_user.id, story_id=storyId)
+    db.session.add(like)
+    db.session.commit()
+    return like.to_dict()
