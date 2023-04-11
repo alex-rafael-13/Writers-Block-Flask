@@ -33,11 +33,10 @@ def post_comment(storyId):
 
     if request.method == 'GET':
         story_comment = db.session.query(Comment).filter(Comment.story_id == storyId)
-
-        if not story_comment:
+        if not [comment for comment in story_comment]:
             return { 
                 'message': 'Story does not have any comments'
-            }
+            }, 404
         
         return [comment.to_dict() for comment in story_comment]
 
@@ -97,12 +96,12 @@ def post_comment(storyId):
         if not commented: 
             return {
                 'message': 'You didnt comment this story'
-            }
+            }, 400
         
         if current_user.id != commented.user_id:
             return { 
                 'message': 'Authroization failed'
-            }
+            }, 401
 
         if form.validate_on_submit(): 
             commented.comment = form.data['comment']
