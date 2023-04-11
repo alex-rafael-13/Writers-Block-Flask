@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { retrieveOneStory } from "../../store/story"
-import { useParams } from "react-router-dom/cjs/react-router-dom.min"
+import { useParams } from "react-router-dom"
 
 
 export default function SingleStory(){
@@ -10,11 +10,16 @@ export default function SingleStory(){
     const dispatch = useDispatch()
     
     useEffect(() => {
-        dispatch(retrieveOneStory(storyId))
+        dispatch(retrieveOneStory(parseInt(storyId)))
     },[dispatch])
 
+    console.log(story)
+    
+    const storyContent = story?.story
+
+
     return(
-            <h1>{story?.story.title}</h1>
+        <h1>{storyContent?.title}</h1>
         // <div className="single-story-cont">
         // </div>
     )
