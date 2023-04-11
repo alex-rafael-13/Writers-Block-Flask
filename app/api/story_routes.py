@@ -2,6 +2,7 @@ from app.models import User, Story, db, Genre, StoryGenre, Comment,Like , Story
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.forms import StoryForm
+import ast
 
 story_routes = Blueprint('stories', __name__)
 
@@ -191,7 +192,6 @@ def update_story(storyId):
         db.session.commit()
 
         genres = form.data['genres']
-        print(json.loads(genres),'---------------------------------')
 
         # for genreId, action in genres:
 
