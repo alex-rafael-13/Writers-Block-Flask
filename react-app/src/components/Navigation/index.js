@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import SideNavBar from '../SideNavBar';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
@@ -12,7 +13,7 @@ function Navigation({ isLoaded }){
 
 			{isLoaded && (
 				<li>
-					<ProfileButton user={sessionUser} />
+					<SideNavBar user={sessionUser} />
 				</li>
 			)}
 		</ul>
