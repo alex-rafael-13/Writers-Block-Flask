@@ -1,0 +1,11 @@
+.comments-section{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.user-comment{
+    font-size: 15px;
+    font-weight: 600;
+}
+

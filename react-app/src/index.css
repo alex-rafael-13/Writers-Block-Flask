@@ -8,11 +8,23 @@ body{
 
 .page-body{
     display: flex;
-    width: 100%;
+    width: 90%;
+    gap: 5px;
+    justify-content: center;
+
+    /* border: solid black; */
 }
 .navbar{
     width: 100%;
 }
+.main-side-navbar{
+    /* border: solid black; */
+    width: 10%;
+}
+.content-body{
+    width: 90%;
+}
+
 
 #root{
     width: 100%;
