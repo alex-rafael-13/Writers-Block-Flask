@@ -7,8 +7,8 @@ from wtforms.validators import DataRequired, Email, ValidationError
 
 
 class StoryForm(FlaskForm):
-    userId = IntegerField(
-        'user_id', validators=[DataRequired()], nullable=False)
-    title = StringField('title', validators=[DataRequired()], nullable=False)
-    content = StringField('password', validators=[DataRequired()], nullable=False)
+
+    title = StringField('title', validators=[DataRequired()])
+    content = StringField('content', validators=[DataRequired()])
     image = StringField('image')
+    genres = StringField('genres',validators=[DataRequired()])
