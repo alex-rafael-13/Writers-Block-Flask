@@ -1,6 +1,8 @@
-from app.models import User, Story, db, Genre, StoryGenre, Comment,Like
-from flask import Blueprint
+from app.models import User, Story, db, Genre, StoryGenre, Comment,Like , Story
+from flask import Blueprint, jsonify
 from flask_login import current_user, login_required
+from app.forms import StoryForm
+from flask_login import current_user
 
 
 story_routes = Blueprint('stories', __name__)
@@ -15,7 +17,7 @@ def all_stories():
         .join(User)\
         .join(Genre)\
         .all()
-    
+
     story_dict = {}
 
     for story, genre, username in stories:
@@ -38,9 +40,9 @@ def get_story(storyId):
         .join(User)\
         .filter(Story.id == storyId)\
         .first()
-    
+
     if not story:
-        return { 
+        return {
             'message': 'Story not found'
         }, 404
 
@@ -50,44 +52,71 @@ def get_story(storyId):
         .join(StoryGenre)\
         .filter(StoryGenre.story_id == storyId)\
         .all()
-    
+
     comments = db.session.query(Comment.comment, User.username)\
         .join(User)\
         .filter(Comment.story_id == storyId)\
         .all()
-    
+
     single_story, user = story
 
-    result = { 
+    result = {
         'story': single_story.to_dict(),
         'user': user,
         'comments': [ {'comment': comment[0], 'username': comment[1]} for comment in comments ],
         'likes': likes,
         'genre': [genre[0] for genre in genres]
     }
-    
+
+    print(current_user,'--------------------------------------')
+
     return result
- 
+
 
 #allow user to like a story
 @story_routes.route('/<int:storyId>/like', methods=['POST'])
 @login_required
-def like_story(storyId): 
+def like_story(storyId):
     story = db.session.query(Story).filter(Story.id == storyId).first()
 
     if not story:
-        return { 
+        return {
             'message': 'Story not found'
         }, 404
-    
+
     liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
 
-    if liked: 
-        return { 
+    if liked:
+        return {
             'message': 'Your already liked this story'
         }, 400
-    
+
     like = Like(user_id=current_user.id, story_id=storyId)
     db.session.add(like)
     db.session.commit()
     return like.to_dict()
+
+
+@story_routes.route('/', methods=['POST'])
+@login_required
+def create_story():
+
+    form = StoryForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+
+    if form.validate_on_submit():
+
+        new_story = Story(
+            user_id = form.data['userId'],
+            title = form.data['title'],
+            content = form.data['content'],
+            image = form.data['image']
+
+        )
+        db.session.add(new_story)
+        db.session.commit()
+        return new_story.to_dict()
+
+    if form.errors:
+        return jsonify(form.errors), 400
