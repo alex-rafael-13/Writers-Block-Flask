@@ -4,6 +4,7 @@ from flask_login import current_user, login_required
 from app.forms import StoryForm
 from flask_login import current_user
 import ast
+import json
 
 story_routes = Blueprint('stories', __name__)
 
@@ -173,21 +174,21 @@ def update_story(storyId):
 
         db.session.commit()
 
-        genres = form.data['genres']
-        print(json.loads(genres),'---------------------------------')
+        genres = json.loads(form.data['genres'])
 
-        # for genreId, action in genres:
 
-        #     if action == 'delete':
-        #         entry = StoryGenre.query.filter(StoryGenre.genre_id == genreId, StoryGenre.story_id == storyId).first()
-        #         db.session.delete(entry)
-        #         db.session.commit()
-        #     else:
-        #         entry = StoryGenre(
-        #             story_id = storyId,
-        #             genre_id = genreId
+        for genreId, action in genres.items():
 
-        #         )
+            if action == 'delete':
+                entry = StoryGenre.query.filter(StoryGenre.genre_id == genreId, StoryGenre.story_id == storyId).first()
+                db.session.delete(entry)
+                db.session.commit()
+            else:
+                entry = StoryGenre(
+                    story_id = storyId,
+                    genre_id = genreId
+
+                )
         return story_to_edit.to_dict()
 
 
