@@ -2,7 +2,6 @@ from app.models import User, Story, db, Genre, StoryGenre, Comment,Like , Story
 from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.forms import StoryForm
-from flask_login import current_user
 import ast
 import json
 
@@ -75,7 +74,7 @@ def get_story(storyId):
 
 
 #allow user to like a story
-@story_routes.route('/<int:storyId>/like', methods=['POST'])
+@story_routes.route('/<int:storyId>/like', methods=['POST', 'DELETE'])
 @login_required
 def like_story(storyId):
     story = db.session.query(Story).filter(Story.id == storyId).first()
@@ -85,17 +84,36 @@ def like_story(storyId):
             'message': 'Story not found'
         }, 404
 
-    liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
 
-    if liked:
+    if request.method == 'DELETE':
+        liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
+
+        if not liked:
+            return {
+                'message': 'You didnt like this story'
+            }, 400
+
+        db.session.delete(liked)
+        db.session.commit()
         return {
-            'message': 'Your already liked this story'
-        }, 400
+            'message': 'Delete Successful'
+        }
 
-    like = Like(user_id=current_user.id, story_id=storyId)
-    db.session.add(like)
-    db.session.commit()
-    return like.to_dict()
+
+    if request.method == 'POST':
+        liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
+        if liked:
+            return {
+                'message': 'Your already liked this story'
+            }, 400
+
+        like = Like(user_id=current_user.id, story_id=storyId)
+        db.session.add(like)
+        db.session.commit()
+        return like.to_dict()
+
+
+
 
 
 @story_routes.route('/', methods=['POST'])

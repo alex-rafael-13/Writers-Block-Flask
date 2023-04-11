@@ -33,14 +33,16 @@ function App() {
 
   return (
     <>
-        <NavBar handleClicked={handleClicked} sideOpen={sideOpen} />
+      <NavBar handleClicked={handleClicked} sideOpen={sideOpen} />
       <div className="page-body">
 
         {!sideOpen ?
-          <SideNavBar />
+          <SideNavBar/>
 
           : <ToggledNavBar />
         }
+        <div className="content-body">
+
         {isLoaded && (
           <Switch>
 
@@ -58,6 +60,7 @@ function App() {
             </Route>
           </Switch>
         )}
+        </div>
       </div>
     </>
   );
