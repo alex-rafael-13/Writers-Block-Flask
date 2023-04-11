@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
 from app.forms import StoryForm
 import ast
+import json
 
 story_routes = Blueprint('stories', __name__)
 
@@ -84,17 +85,17 @@ def like_story(storyId):
         }, 404
 
 
-    if request.method == 'DELETE': 
+    if request.method == 'DELETE':
         liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
 
-        if not liked: 
-            return { 
+        if not liked:
+            return {
                 'message': 'You didnt like this story'
             }, 400
-        
+
         db.session.delete(liked)
         db.session.commit()
-        return { 
+        return {
             'message': 'Delete Successful'
         }
 
@@ -105,13 +106,13 @@ def like_story(storyId):
             return {
                 'message': 'Your already liked this story'
             }, 400
-    
+
         like = Like(user_id=current_user.id, story_id=storyId)
         db.session.add(like)
         db.session.commit()
         return like.to_dict()
 
-        
+
 
 
 
@@ -191,20 +192,21 @@ def update_story(storyId):
 
         db.session.commit()
 
-        genres = form.data['genres']
+        genres = json.loads(form.data['genres'])
 
-        # for genreId, action in genres:
 
-        #     if action == 'delete':
-        #         entry = StoryGenre.query.filter(StoryGenre.genre_id == genreId, StoryGenre.story_id == storyId).first()
-        #         db.session.delete(entry)
-        #         db.session.commit()
-        #     else:
-        #         entry = StoryGenre(
-        #             story_id = storyId,
-        #             genre_id = genreId
+        for genreId, action in genres.items():
 
-        #         )
+            if action == 'delete':
+                entry = StoryGenre.query.filter(StoryGenre.genre_id == genreId, StoryGenre.story_id == storyId).first()
+                db.session.delete(entry)
+                db.session.commit()
+            else:
+                entry = StoryGenre(
+                    story_id = storyId,
+                    genre_id = genreId
+
+                )
         return story_to_edit.to_dict()
 
 
