@@ -11,6 +11,7 @@ from .api.story_routes import story_routes
 from .api.comment_routes import comment_routes
 from .seeds import seed_commands
 from .config import Config
+from .api.genre_routes import genre_routes
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -32,6 +33,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(story_routes, url_prefix='/api/stories')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
+app.register_blueprint(genre_routes, url_prefix='/api/genres')
 db.init_app(app)
 Migrate(app, db)
 

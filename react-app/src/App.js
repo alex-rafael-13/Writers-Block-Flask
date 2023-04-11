@@ -10,6 +10,7 @@ import SideNavBar from "./components/SideNavBar";
 import ToggledNavBar from "./components/SideNavBar/toggledOn";
 import NavBar from "./components/SideNavBar/navBar";
 import SingleStory from "./components/SingleStory";
+import StoryForm from "./components/StoryForm/storyForm";
 
 
 function App() {
@@ -57,6 +58,9 @@ function App() {
             </Route>
             <Route exact path='/stories/:storyId'>
               <SingleStory />
+            </Route>
+            <Route path='/story-form'>
+              <StoryForm />
             </Route>
           </Switch>
         )}
