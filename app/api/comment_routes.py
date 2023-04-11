@@ -20,7 +20,7 @@ def currentUser_comment():
 
 
 #current user posting a comment on a story
-@comment_routes.route('/<int:storyId>', methods=['POST', 'DELETE', 'PUT'])
+@comment_routes.route('/<int:storyId>', methods=['GET', 'POST', 'DELETE', 'PUT'])
 @login_required
 def post_comment(storyId):
     story = db.session.query(Story).filter(Story.id == storyId).first()
@@ -29,6 +29,17 @@ def post_comment(storyId):
         return { 
             'message': 'Story not found'
         }, 404
+
+
+    if request.method == 'GET':
+        story_comment = db.session.query(Comment).filter(Comment.story_id == storyId)
+
+        if not story_comment:
+            return { 
+                'message': 'Story does not have any comments'
+            }
+        
+        return [comment.to_dict() for comment in story_comment]
 
 
     if request.method == 'POST':
