@@ -3,7 +3,16 @@
     flex-direction: column;
     gap: 25px;
     height: 100%;
+    width: 150px;
+    /* position: absolute; */
+    background-color: white;
+    /* transform: translateX(-150px); */
+    transition: .2s ease;
 }
+
+/* button: ~ .main-side-navbar{
+    transform: translateX(150px);
+} */
 
 .icon-image {
     width:35% 

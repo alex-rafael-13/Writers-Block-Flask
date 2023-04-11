@@ -32,27 +32,29 @@ function App() {
 
   return (
     <>
+        <NavBar handleClicked={handleClicked} sideOpen={sideOpen} />
+      <div className="page-body">
 
-<NavBar handleClicked={handleClicked} sideOpen={sideOpen}  />
-    {!sideOpen?
-      <SideNavBar />
+        {!sideOpen ?
+          <SideNavBar />
 
-      :<ToggledNavBar />
-    }
-      {isLoaded && (
-        <Switch>
+          : <ToggledNavBar />
+        }
+        {isLoaded && (
+          <Switch>
 
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route exact path='/'>
-            <LandingPage />
-          </Route>
-        </Switch>
-      )}
+            <Route path="/login" >
+              <LoginFormPage />
+            </Route>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
+            <Route exact path='/'>
+              <LandingPage />
+            </Route>
+          </Switch>
+        )}
+      </div>
     </>
   );
 }

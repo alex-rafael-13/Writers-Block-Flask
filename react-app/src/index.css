@@ -5,6 +5,14 @@ body{
     width: 100%;
 }
 
+.page-body{
+    display: flex;
+    width: 100%;
+}
+.navbar{
+    width: 100%;
+}
+
 #root{
     width: 100%;
     display: flex;
