@@ -9,6 +9,11 @@
     width: 80%;
 }
 
+.story-list > a{
+    text-decoration: none;
+    color: black;
+}
+
 .story-card h3{
     margin: 10px 0px;
     padding: 3px;

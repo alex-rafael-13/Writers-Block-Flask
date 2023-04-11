@@ -13,6 +13,7 @@ export default function LandingPage(){
   
     useEffect(() => {
         dispatch(storyActions.retrieveStories())
+        dispatch(storyActions.refreshSingleStory())
     },[dispatch])
 
     console.log(allStories)

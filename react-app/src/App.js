@@ -9,6 +9,7 @@ import LandingPage from "./components/LandingPage";
 import SideNavBar from "./components/SideNavBar";
 import ToggledNavBar from "./components/SideNavBar/toggledOn";
 import NavBar from "./components/SideNavBar/navBar";
+import SingleStory from "./components/SingleStory";
 
 
 function App() {
@@ -51,6 +52,9 @@ function App() {
             </Route>
             <Route exact path='/'>
               <LandingPage />
+            </Route>
+            <Route exact path='/stories/:storyId'>
+              <SingleStory />
             </Route>
           </Switch>
         )}
