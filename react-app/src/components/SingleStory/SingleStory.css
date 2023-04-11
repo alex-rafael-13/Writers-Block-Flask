@@ -1,3 +1,20 @@
-/* .header-genres-cont{
+.single-story-cont{
     display: flex;
-} */
+    flex-direction:column;
+    width: 70%;
+    gap: 10px;
+}
+.title-genre-cont{
+    display: flex;
+    flex-direction: row;
+}
+
+.story-image{
+    object-fit: cover;
+}
+
+.author-like-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

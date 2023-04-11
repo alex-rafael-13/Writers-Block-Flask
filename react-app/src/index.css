@@ -8,11 +8,16 @@ body{
 
 .page-body{
     display: flex;
-    width: 100%;
+    width: 90%;
+    border: solid black;
 }
 .navbar{
     width: 100%;
 }
+.main-side-navbar{
+    border: solid black;
+}
+
 
 #root{
     width: 100%;

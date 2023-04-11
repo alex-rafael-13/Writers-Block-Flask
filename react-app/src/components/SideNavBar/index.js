@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom"
 import './index.css'
 
-function SideNavBar(){
+function SideNavBar() {
 
 
 
@@ -9,17 +9,17 @@ function SideNavBar(){
     return (
         <div className='main-side-navbar'>
 
-        <div className="side-bar-div-boxes">
+            <div className="side-bar-div-boxes">
 
-        <i className="fa-sharp fa-solid fa-house"></i>
-        <p>Home</p>
-        </div>
+                <i className="fa-sharp fa-solid fa-house"></i>
+                <p>Home</p>
+            </div>
 
-        <div className="side-bar-div-boxes">
+            <div className="side-bar-div-boxes">
 
-        <i className="fa-solid fa-user"></i>
-        <p>User</p>
-        </div>
+                <i className="fa-solid fa-user"></i>
+                <p>User</p>
+            </div>
 
         </div>
     )
