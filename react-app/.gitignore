@@ -7,7 +7,7 @@
 /instance
 # testing
 /coverage
-
+/instance
 # production
 /build
 
