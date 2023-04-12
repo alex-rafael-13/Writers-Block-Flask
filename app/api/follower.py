@@ -54,5 +54,26 @@ def user_following(user_id):
     return lst_of_following
     # return lst
 
+@follower_routes.route('/follow/<int:user_id>', method=['POST','DELETE'])
+@login_required
+def follow_unfollow(user_id):
+    if request.method == 'POST':
+        new_follow = Follower(
+            follower_id = current_user.id,
+            following_id = user_id
+        )
+        db.session.add(new_follow)
+        db.session.commit()
+        return new_follow.to_dict()
     
+    if request.method == 'DELETE':
+        follow = db.session.query(Follower).filter(Follower.follower_id == current_user.id, Follower.following_id == user_id)
+        if not follow:
+            return {
+                'message': f'Current user does not follow user with an id of {user_id}'
+            }, 400
+        db.session.delete(follow)
+        db.session.commit()
+        return{'message':'Unfollow Successful'}
+
 
