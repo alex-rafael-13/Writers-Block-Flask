@@ -56,7 +56,7 @@ export const currentUserComment = () => async dispatch => {
     return res 
 }
 
-const initialState = {comment: []}
+const initialState = {comment: [], current: []}
 const commentReducer = (state = initialState, action) => {
     switch (action.type) {
       case CREATE_COMMENT:
@@ -67,12 +67,12 @@ const commentReducer = (state = initialState, action) => {
       case DELETE_COMMENT:
         return {
           ...state,
-          comment: state.comment.filter(comment => comment.id !== action.payload)
+          comment: action.payload
         };
       case CURRENTUSER_COMMENT:
           return { 
             ...state,
-            comment: action.payload
+            current: action.payload
           }
       default:
         return state;

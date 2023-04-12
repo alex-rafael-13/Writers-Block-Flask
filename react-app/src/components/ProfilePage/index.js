@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from "react-redux"
 import './profile.css'
 import { useEffect, useState } from "react"
-import * as storyActions from '../../store/story'
 import { NavLink } from 'react-router-dom'
 import { currentUserComment } from "../../store/comment"
+import { getCurrentUseStory } from "../../store/story"
 
 
 function ProfilePage(){ 
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.session.user)    
-    const allStories = useSelector(state => state.stories.stories)
-    const allComments = useSelector(state => state.comments.comment)
+    const allStories = useSelector(state => state.stories.current)
+    const allComments = useSelector(state => state.comments.current)
     const [toggleStory, setToggleStory] = useState(true)
     const [toggleComment, setToggleComment] = useState(false)
     
@@ -27,14 +27,12 @@ function ProfilePage(){
     }
 
     useEffect(() => {
-        dispatch(storyActions.getCurrentUseStory())
+        dispatch(getCurrentUseStory())
         dispatch(currentUserComment())
     },[dispatch])
     
 
-    if(!currentUser){ 
-        return <h1>need login</h1>
-    }
+ 
     const replaceIconIfNull = () => { 
         if (!currentUser.icon){ 
             return <img className='user-icon-placeholder' src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"></img>
@@ -43,17 +41,30 @@ function ProfilePage(){
         }
     }
 
+    const nostory = () => {
+         if(toggleStory && !allStories.length){ 
+        return <h1>You dont have any story</h1>
+     }
+}
+    const noComment = () => {
+         if(toggleComment && !allComments.length){ 
+        return <h1>You dont have any comment</h1>
+     }
+}
 
     return (
         <div>
         <h1>Profile</h1>
         {replaceIconIfNull()}
+        <h3>{currentUser.firstname} {currentUser.lastname}</h3>
+        <h3>Email: {currentUser.email}</h3>
         <h3>Bio: {currentUser.bio}</h3>
         <div className='navbar-in-profile'>
 
         <button onClick={clickStory}>Story</button>
         <button onClick={clickComment}>Comments</button>
-
+        {nostory()}
+        {noComment()}
         {toggleStory? allStories?.map(story => (
                 <NavLink exact to={`/stories/${story.id}`}>
                   <div className="story-card" key={story.id}>
@@ -68,7 +79,7 @@ function ProfilePage(){
                   </div>
                 </NavLink>)):null}
 
-
+        
         {toggleComment? allComments?.map(comment => (
                 <div key={comment.username}className="comment-body">
                     <div className="user-comment">Story Name: {comment.story}</div>

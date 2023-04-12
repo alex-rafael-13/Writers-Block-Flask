@@ -61,12 +61,13 @@ function SideNavBar({ user }) {
                 <p>User</p>
                 </button>
            </div>
-
+          {user? 
            <div className="side-bar-div-boxes">
                 <button onClick={toProfilePage}>
                 <p>Profile</p>
                 </button>
            </div>
+          : null}
        <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>

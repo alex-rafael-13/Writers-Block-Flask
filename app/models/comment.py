@@ -1,5 +1,4 @@
-from .db import db, environment, SCHEMA
-
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 class Comment(db.Model):
@@ -10,8 +9,8 @@ class Comment(db.Model):
 
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    story_id = db.Column(db.Integer, db.ForeignKey('stories.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    story_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('stories.id')), nullable=False)
     comment = db.Column(db.String, nullable=False)
 
     user = db.relationship('User',back_populates='comments')

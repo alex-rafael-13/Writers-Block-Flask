@@ -249,7 +249,7 @@ def current_userStory():
     if not storys:
         return { 
             'message': 'You do not have any storys'
-        }, 400
+        }, 302
 
     story_dict = {}
 

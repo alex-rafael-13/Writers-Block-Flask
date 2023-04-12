@@ -17,7 +17,7 @@ def currentUser_comment():
     if not comments:
         return { 
             'message': 'You dont have any comments'
-        }, 400
+        }, 302
     
     comment_list = []
 
