@@ -107,7 +107,7 @@ export const getCurrentUseStory = () => async dispatch => {
     return res
 }
 
-const initialState = {stories:[], story:{}}
+const initialState = {stories:[], story:{}, current: []}
 export default function storyReducer(state = initialState, action){
     let newState = {}
     switch(action.type){
@@ -125,7 +125,7 @@ export default function storyReducer(state = initialState, action){
             return newState
         case GET_CURRENTUSER_STORY:
             newState = {...state}
-            newState.stories = action.story
+            newState.current = action.story
             return newState
         default:
             return state
