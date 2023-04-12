@@ -23,3 +23,9 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+@user_routes.route('/profile/<int:id>', methods=['GET'])
+def user_profile(id):
+    user = User.query.get(id)
+    return user.to_dict()
+
