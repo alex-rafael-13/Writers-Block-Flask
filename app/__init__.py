@@ -9,7 +9,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.story_routes import story_routes
 from .api.comment_routes import comment_routes
-from .api.follower import follower_routes 
+from .api.follower_routes import follower_routes 
 from .seeds import seed_commands
 from .config import Config
 from .api.genre_routes import genre_routes

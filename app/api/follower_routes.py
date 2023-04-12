@@ -54,7 +54,7 @@ def user_following(user_id):
     return lst_of_following
     # return lst
 
-@follower_routes.route('/follow/<int:user_id>', method=['POST','DELETE'])
+@follower_routes.route('/follow/<int:user_id>', methods=['POST','DELETE'])
 @login_required
 def follow_unfollow(user_id):
     if request.method == 'POST':
