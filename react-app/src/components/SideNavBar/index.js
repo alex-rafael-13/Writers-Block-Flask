@@ -11,6 +11,7 @@ function SideNavBar({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
+    const history = useHistory();
   
     const openMenu = () => {
       if (showMenu) return;
@@ -35,14 +36,22 @@ function SideNavBar({ user }) {
       e.preventDefault();
       dispatch(logout());
     };
+
+    const toHomePage = () => { 
+       history.push('/')
+    }
+
+    const toProfilePage = () => { 
+      history.push('/profile')
+    }
   
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
     const closeMenu = () => setShowMenu(false);
-    
+
     return (
         <div className='main-side-navbar'>
             <div className="side-bar-div-boxes">
-            <button><i className="fa-sharp fa-solid fa-house"></i>
+            <button onClick={toHomePage}><i className="fa-sharp fa-solid fa-house"></i>
                 <p>Home</p>
             </button>
 
@@ -51,7 +60,14 @@ function SideNavBar({ user }) {
                 <button  onClick={openMenu}><i className="fa-solid fa-user"></i>
                 <p>User</p>
                 </button>
-                <ul className={ulClassName} ref={ulRef}>
+           </div>
+
+           <div className="side-bar-div-boxes">
+                <button onClick={toProfilePage}>
+                <p>Profile</p>
+                </button>
+           </div>
+       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
             <li>{user.username}</li>
@@ -76,7 +92,6 @@ function SideNavBar({ user }) {
           </>
         )}
         </ul>
-            </div>
 
         </div>
     )

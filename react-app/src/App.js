@@ -10,6 +10,7 @@ import SideNavBar from "./components/SideNavBar";
 import ToggledNavBar from "./components/SideNavBar/toggledOn";
 import NavBar from "./components/SideNavBar/navBar";
 import SingleStory from "./components/SingleStory";
+import ProfilePage from "./components/ProfilePage";
 import StoryForm from "./components/StoryForm/storyForm";
 
 
@@ -36,12 +37,9 @@ function App() {
     <>
       <NavBar handleClicked={handleClicked} sideOpen={sideOpen} />
       <div className="page-body">
-
-        {!sideOpen ?
+      
           <SideNavBar/>
-
-          : <ToggledNavBar />
-        }
+    
         <div className="content-body">
 
         {isLoaded && (
@@ -59,6 +57,9 @@ function App() {
             <Route exact path='/stories/:storyId'>
               <SingleStory />
             </Route>
+            <Route path='/profile'>
+              <ProfilePage />
+              </Route>
             <Route path='/story-form'>
               <StoryForm />
             </Route>

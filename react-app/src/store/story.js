@@ -1,6 +1,7 @@
 const GET_ALL_STORIES = 'stories/GET_ALL'
 const GET_ONE_STORY = 'stories/GET_ONE'
 const REFRESH_SINGLE_STORY = 'stories/REFRESH_SINGLE_STORY'
+const GET_CURRENTUSER_STORY = 'stories/CURRENTUSERSTORY'
 const CREATE_STORY = 'stories/CREATE_STORY'
 
 
@@ -52,6 +53,13 @@ export const createSTory = (story) => async (dispatch) => {
 
 
 
+const currentUserStory = (story) => { 
+    return { 
+        type: GET_CURRENTUSER_STORY,
+        story
+    }
+}
+
 
 export const retrieveStories = () => async (dispatch) => {
     const response = await fetch('/api/stories/', {
@@ -89,6 +97,16 @@ export const retrieveOneStory = (id) => async (dispatch) => {
     return response
 }
 
+export const getCurrentUseStory = () => async dispatch => { 
+    const res = await fetch('/api/stories/current')
+
+    if(res.ok){ 
+        const data = await res.json()
+        dispatch(currentUserStory(data))
+    }
+    return res
+}
+
 const initialState = {stories:[], story:{}}
 export default function storyReducer(state = initialState, action){
     let newState = {}
@@ -104,6 +122,10 @@ export default function storyReducer(state = initialState, action){
         case REFRESH_SINGLE_STORY:
             newState = {...state}
             newState.story = {}
+            return newState
+        case GET_CURRENTUSER_STORY:
+            newState = {...state}
+            newState.stories = action.story
             return newState
         default:
             return state

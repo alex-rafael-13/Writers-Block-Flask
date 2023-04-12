@@ -2,11 +2,13 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
 import storyReducer from './story';
+import commentReducer from './comment';
 import genreReducer from './genre';
 
 const rootReducer = combineReducers({
   session,
   stories: storyReducer,
+  comments: commentReducer,
   genres: genreReducer
 });
 
