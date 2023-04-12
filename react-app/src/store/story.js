@@ -2,6 +2,8 @@ const GET_ALL_STORIES = 'stories/GET_ALL'
 const GET_ONE_STORY = 'stories/GET_ONE'
 const REFRESH_SINGLE_STORY = 'stories/REFRESH_SINGLE_STORY'
 const GET_CURRENTUSER_STORY = 'stories/CURRENTUSERSTORY'
+const CREATE_STORY = 'stories/CREATE_STORY'
+
 
 const setStories = (stories) => {
     return {
@@ -21,7 +23,35 @@ export const refreshSingleStory = () => {
     return {
         type: REFRESH_SINGLE_STORY,
     }
-} 
+}
+
+
+
+export const createSTory = (story) => async (dispatch) => {
+
+    const res = await fetch('/api/stories/',{
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+
+        },
+        body: story
+
+    })
+
+    if (res.ok) {
+
+        const newStory = await res.json()
+        return newStory
+
+    }
+
+    return res
+
+}
+
+
+
 
 const currentUserStory = (story) => { 
     return { 

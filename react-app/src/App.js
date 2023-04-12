@@ -11,6 +11,7 @@ import ToggledNavBar from "./components/SideNavBar/toggledOn";
 import NavBar from "./components/SideNavBar/navBar";
 import SingleStory from "./components/SingleStory";
 import ProfilePage from "./components/ProfilePage";
+import StoryForm from "./components/StoryForm/storyForm";
 
 
 function App() {
@@ -58,6 +59,9 @@ function App() {
             </Route>
             <Route path='/profile'>
               <ProfilePage />
+              </Route>
+            <Route path='/story-form'>
+              <StoryForm />
             </Route>
           </Switch>
         )}
