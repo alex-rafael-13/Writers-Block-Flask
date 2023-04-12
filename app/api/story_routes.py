@@ -235,3 +235,30 @@ def delete_story(storyId):
 
 
     return {'message': 'Successfully deleted'}
+
+
+@story_routes.route('/current')
+@login_required
+def current_userStory(): 
+    storys = db.session.query(Story, Genre.name)\
+        .select_from(Story)\
+        .join(StoryGenre)\
+        .join(Genre)\
+        .filter(Story.user_id == current_user.id).all()
+
+    if not storys:
+        return { 
+            'message': 'You do not have any storys'
+        }, 400
+
+    story_dict = {}
+
+    for story, genre,  in storys:
+        print(story)
+        if story.id not in story_dict:
+            story_dict[story.id] = story.to_dict()
+            story_dict[story.id]['genres'] = [genre]
+        else:
+            story_dict[story.id]['genres'].append(genre)
+
+    return list(story_dict.values())

@@ -9,15 +9,24 @@ comment_routes = Blueprint('comments', __name__)
 @comment_routes.route('/current')
 @login_required
 def currentUser_comment(): 
-    comments = db.session.query(Comment).filter(Comment.user_id == current_user.id).all()
+    comments = db.session.query(Comment, Story.title)\
+    .join(Story)\
+    .filter(Comment.user_id == current_user.id)\
+    .all()
 
     if not comments:
         return { 
             'message': 'You dont have any comments'
         }, 400
     
-    return [comment.to_dict() for comment in comments]
+    comment_list = []
 
+    for comment, story_title in comments:
+        comment_dict = comment.to_dict()
+        comment_dict['story'] = story_title
+        comment_list.append(comment_dict)
+    
+    return comment_list
 
 #current user posting a comment on a story
 @comment_routes.route('/<int:storyId>', methods=['GET', 'POST', 'DELETE', 'PUT'])
