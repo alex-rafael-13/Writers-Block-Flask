@@ -30,12 +30,11 @@ export const refreshSingleStory = () => {
 export const createSTory = (story) => async (dispatch) => {
 
     const res = await fetch('/api/stories/',{
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-
-        },
-        body: story
+        method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(story),
 
     })
 
@@ -53,8 +52,8 @@ export const createSTory = (story) => async (dispatch) => {
 
 
 
-const currentUserStory = (story) => { 
-    return { 
+const currentUserStory = (story) => {
+    return {
         type: GET_CURRENTUSER_STORY,
         story
     }
@@ -97,10 +96,10 @@ export const retrieveOneStory = (id) => async (dispatch) => {
     return response
 }
 
-export const getCurrentUseStory = () => async dispatch => { 
+export const getCurrentUseStory = () => async dispatch => {
     const res = await fetch('/api/stories/current')
 
-    if(res.ok){ 
+    if(res.ok){
         const data = await res.json()
         dispatch(currentUserStory(data))
     }

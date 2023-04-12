@@ -126,7 +126,11 @@ def create_story():
 
 
 
-    genres = ast.literal_eval(form.data['genres'])
+
+
+    genres = form.data['genres']
+
+    print(form.data,'11111111111111111',genres.values())
 
     if form.validate_on_submit():
 
@@ -140,7 +144,7 @@ def create_story():
         db.session.add(new_story)
         db.session.commit()
 
-        for genre in genres:
+        for genre in genres.values():
             genre_to_add = StoryGenre(
                 story_id = new_story.id,
                 genre_id = genre
@@ -239,7 +243,7 @@ def delete_story(storyId):
 
 @story_routes.route('/current')
 @login_required
-def current_userStory(): 
+def current_userStory():
     storys = db.session.query(Story, Genre.name)\
         .select_from(Story)\
         .join(StoryGenre)\
@@ -247,7 +251,7 @@ def current_userStory():
         .filter(Story.user_id == current_user.id).all()
 
     if not storys:
-        return { 
+        return {
             'message': 'You do not have any storys'
         }, 400
 
