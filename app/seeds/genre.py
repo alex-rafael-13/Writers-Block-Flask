@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 
 def seed_genre():
     science_fiction = Genre(
-        name = 'Science Fiction'
+        name = 'Sci-Fi'
     )
     fantasy = Genre(
         name = 'Fantasy'
@@ -12,29 +12,29 @@ def seed_genre():
     romance = Genre(
         name = 'Romance'
     )
-    mistery = Genre(
-        name = 'Mistery'
+    mystery = Genre(
+        name = 'Mystery'
     )
     crime = Genre(
         name = 'Crime'
     )
     horror = Genre(
-        name = 'Horror/ Thriller'
+        name = 'Horror'
+    )
+    thriller = Genre(
+        name = 'Thriller'
     )
     inspirational = Genre(
         name = 'Inspirational'
     )
     educational = Genre(
-        name = 'educational'
-    )
-    young_adult = Genre(
-        name = 'Young Adult'
+        name = 'Educational'
     )
     folklore = Genre(
         name = 'Folklore'
     )
 
-    genres = [science_fiction, fantasy, romance, mistery, crime, horror, inspirational, educational, young_adult, folklore]
+    genres = [science_fiction, fantasy, romance, mystery, crime, horror, thriller, inspirational, educational, folklore]
 
     for genre in genres:
         db.session.add(genre)
