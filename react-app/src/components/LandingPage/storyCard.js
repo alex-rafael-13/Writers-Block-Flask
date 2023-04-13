@@ -20,7 +20,7 @@ export default function StoryCard({story}){
                     <div className='author-name'>By {story.username}</div>
                     <div className='genres-cont'>
                         {story.genres.map(genre => (
-                            <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
+                            <div key={genre} className={`genre ${genre}`}>{genre}</div>
                         ))}
                     </div>
                 </div>
