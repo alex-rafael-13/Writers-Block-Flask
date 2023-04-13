@@ -96,11 +96,7 @@ def like_story(storyId):
     if request.method == 'DELETE':
         liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
 
-        if not liked:
-            return {
-                'message': 'You didnt like this story'
-            }, 400
-
+        
         db.session.delete(liked)
         db.session.commit()
         return {
@@ -110,11 +106,7 @@ def like_story(storyId):
 
     if request.method == 'POST':
         liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
-        if liked:
-            return {
-                'message': 'Your already liked this story'
-            }, 400
-
+      
         like = Like(user_id=current_user.id, story_id=storyId)
         db.session.add(like)
         db.session.commit()
