@@ -3,7 +3,7 @@ import Navigation from "../Navigation"
 import './index.css'
 import SideNavBar from "."
 import ProfileButton from "../Navigation/ProfileButton"
-
+import logo from '../images/logo.PNG'
 
 export default function NavBar({handleClicked}) {
 
@@ -20,7 +20,7 @@ export default function NavBar({handleClicked}) {
 
             <div className="menu-button-logo">
                 
-               <img onClick={toHome} alt='icon' className='icon-image' src='https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png'></img>
+               <img onClick={toHome} alt='icon' className='icon-image' src={logo}></img>
 
             </div>
 
