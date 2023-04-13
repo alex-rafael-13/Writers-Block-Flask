@@ -6,7 +6,7 @@
 
 
     /* border: solid black; */
-    width: 80%;
+    width: 90%;
 }
 
 .story-list > a{
@@ -52,20 +52,25 @@
 .genre{
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-right: 3px;
     margin-bottom: 3px;
-    width: 25%;
+    width: max-content;
+    height: 15px;
+    padding: 3px 5px;
     border-radius: 50px;
     color: white;
+    font-size: .8vw;
+    /* white-space: nowrap; */
 }
 
-.horror{
+.Fantasy{
     background-color: purple;
 }
-.funny{
+.Science {
     background-color: green;
 }
-.sad{
+.Mistery{
     background-color: blue;
 }
 
