@@ -3,20 +3,42 @@ from sqlalchemy.sql import text
 
 
 def seed_genre():
-    Genre1 = Genre(
-        name = 'horror'
+    science_fiction = Genre(
+        name = 'Science Fiction'
     )
-    Genre2 = Genre(
-        name = 'funny'
+    fantasy = Genre(
+        name = 'Fantasy'
     )
-    Genre3 = Genre(
-        name = 'sad'
+    romance = Genre(
+        name = 'Romance'
+    )
+    mistery = Genre(
+        name = 'Mistery'
+    )
+    crime = Genre(
+        name = 'Crime'
+    )
+    horror = Genre(
+        name = 'Horror/ Thriller'
+    )
+    inspirational = Genre(
+        name = 'Inspirational'
+    )
+    educational = Genre(
+        name = 'educational'
+    )
+    young_adult = Genre(
+        name = 'Young Adult'
+    )
+    folklore = Genre(
+        name = 'Folklore'
     )
 
+    genres = [science_fiction, fantasy, mistery, crime, horror, inspirational, educational, young_adult, folklore]
 
-    db.session.add(Genre1)
-    db.session.add(Genre2)
-    db.session.add(Genre3)
+    for genre in genres:
+        db.session.add(genre)
+        
     db.session.commit()
 
 
