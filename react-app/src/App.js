@@ -12,6 +12,7 @@ import ProfilePage from "./components/ProfilePage";
 import StoryForm from "./components/StoryForm/storyForm";
 import UpdateStoryForm from "./components/UpdateStoryForm/updateStoryForm";
 import UsersProfile from "./components/ProfilePage/otherUser";
+import SideNavBar from "./components/SideNavBar";
 
 
 function App() {
