@@ -34,7 +34,7 @@ def seed_genre():
         name = 'Folklore'
     )
 
-    genres = [science_fiction, fantasy, mistery, crime, horror, inspirational, educational, young_adult, folklore]
+    genres = [science_fiction, fantasy, romance, mistery, crime, horror, inspirational, educational, young_adult, folklore]
 
     for genre in genres:
         db.session.add(genre)
