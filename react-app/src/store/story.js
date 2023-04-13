@@ -1,3 +1,6 @@
+import SingleStory from "../components/SingleStory"
+import { getSingleUser } from "./users"
+
 const GET_ALL_STORIES = 'stories/GET_ALL'
 const GET_ONE_STORY = 'stories/GET_ONE'
 const REFRESH_SINGLE_STORY = 'stories/REFRESH_SINGLE_STORY'
@@ -48,8 +51,6 @@ export const createSTory = (story) => async (dispatch) => {
     return res
 
 }
-
-
 
 
 const currentUserStory = (story) => {
@@ -129,6 +130,27 @@ export const getCurrentUseStory = () => async dispatch => {
     return res
 }
 
+const DELETE_STORY = 'stories/DELETE'
+const deleteAStory = (payload) => { 
+    return { 
+        type: DELETE_STORY,
+        payload
+    }
+}
+
+export const deleteStory = (userId, storyId) => async (dispatch) => { 
+    const res = await fetch(`/api/stories/${storyId}`, { 
+        method: 'DELETE',
+    })
+
+    if(res.ok){ 
+        const data = await res.json()
+        dispatch(getSingleUser(userId))
+        dispatch(getCurrentUseStory(userId))
+    }
+    return res 
+}
+
 const initialState = {stories:[], story:{}, current: []}
 export default function storyReducer(state = initialState, action){
     let newState = {}
@@ -149,6 +171,12 @@ export default function storyReducer(state = initialState, action){
             newState = {...state}
             newState.current = action.story
             return newState
+        case DELETE_STORY:
+            newState = { ...state };
+            newState.stories = newState.stories.filter((story) => story.id !== action.payload.id);
+            newState.story = {};
+            newState.current = newState.current.filter((story) => story.id !== action.payload.id);
+            return newState;
         default:
             return state
     }

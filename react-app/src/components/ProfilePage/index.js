@@ -9,6 +9,7 @@ import OpenModalButton from "../OpenModalButton"
 import GetFollower from "../FollowSection/getFollower"
 import GetFollowing from "../FollowSection/getFollowing"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
+import DeleteStory from "../StoryForm/deleteStory"
 
 
 function ProfilePage(){ 
@@ -56,7 +57,7 @@ function ProfilePage(){
             ></img>
           );
         } else if (currentUser && currentUser.icon) {
-          return <img src={currentUser.icon}></img>;
+          return <img className='user-icon-image'src={currentUser.icon}></img>;
         }
       };
     
@@ -86,10 +87,24 @@ function ProfilePage(){
         />
     }
 
+    const openDeleteModal = (storyId) => { 
+        let props = { 
+            storyId, 
+            userId: currentUser?.id
+        }
+        return <OpenModalButton
+                buttonText='Delete'
+                modalComponent={<DeleteStory props={props}/>}
+                />
+    }
+    
+
     const toUpdateStory = (e,id) => { 
         e.stopPropagation()
         history.push(`/stories/${id}/update-form`)
     }
+
+    
 
 
     return (
@@ -109,6 +124,7 @@ function ProfilePage(){
        
         {toggleStory? allStories?.map(story => (
            <><button onClick={(e)=>toUpdateStory(e,story.id)}>Update</button>
+            {openDeleteModal(story.id)}
             <NavLink exact to={`/stories/${story.id}`}>
                   <div className="story-card" key={story.id}>
                     <h3>{story.title}</h3>

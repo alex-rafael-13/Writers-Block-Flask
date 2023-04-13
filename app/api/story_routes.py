@@ -273,10 +273,6 @@ def current_userStory():
         .join(Genre)\
         .filter(Story.user_id == current_user.id).all()
 
-    if not storys:
-        return {
-            'message': 'You do not have any storys'
-        }, 400
 
     story_dict = {}
 
