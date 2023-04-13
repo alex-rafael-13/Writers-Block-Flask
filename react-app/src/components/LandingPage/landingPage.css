@@ -65,12 +65,35 @@
 }
 
 .Fantasy{
-    background-color: purple;
+    background-color: orchid;
 }
-.Science {
-    background-color: green;
+.Sci-Fi {
+    background-color: rgb(77, 4, 173);
 }
-.Mistery{
-    background-color: blue;
+.Romance{
+    background-color: rgb(200, 49, 100);
 }
+.Mystery{
+    background-color: rgb(128, 0, 32);
+}
+.Crime{
+    background-color: rgb(0, 0, 92);
+}
+.Horror{
+    background-color: black;
+}
+.Thriller{
+    background-color: rgb(109, 1, 109);
+}
+.Inspirational{
+    background-color: rgb(189, 148, 236);
+}
+.Educational{
+    background-color: rgb(239, 168, 0);
+}
+.Folklore{
+    background-color: rgb(2, 149, 17);
+}
+
+
 
