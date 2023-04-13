@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 
@@ -9,7 +9,7 @@ class Story(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
     image = db.Column(db.String, nullable=True)
@@ -70,8 +70,8 @@ class StoryGenre(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    story_id = db.Column(db.Integer, db.ForeignKey('stories.id',ondelete='CASCADE') ,nullable=False)
-    genre_id = db.Column(db.Integer, db.ForeignKey('genres.id'), nullable=False)
+    story_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('stories.id'),ondelete='CASCADE') ,nullable=False)
+    genre_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('genres.id')), nullable=False)
 
     story = db.relationship('Story', foreign_keys=[story_id], back_populates='genres')
     genres = db.relationship('Genre', foreign_keys=[genre_id], back_populates='stories')
