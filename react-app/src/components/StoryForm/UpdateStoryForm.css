@@ -1,0 +1,136 @@
+
+
+
+.story-form {
+    display: flex;
+    flex-direction: column;
+    background-color:rgb(214, 214, 214);
+    border: none;
+    align-content: flex-start;
+    max-width: 60%;
+
+    margin: 5% auto;
+    padding: 2%;
+    border-radius: 5px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border: 2px solid rgb(161, 161, 161);
+    border-left: none;
+
+}
+
+.story-form input {
+    margin-bottom: 3%;
+    width: 40%;
+    border: none;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 10px;
+
+}
+
+.story-form-upper {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+
+
+}
+.story-form-upper label {
+
+    font-size: 19px;
+    margin-top: 4px;
+    margin-right: 10px;
+    width: 60px;
+    display: flex;
+    justify-content: flex-end;
+
+
+}
+.story-form-upper input {
+    display: flex;
+
+    align-items: center;
+
+
+
+}
+
+
+.story-form textarea {
+    margin-bottom: 2%;
+    border: none;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 10px;
+    height: 200px;
+    resize: none;
+    margin-top: 6%;
+}
+
+
+.genre-lists {
+    display: flex;
+
+
+
+    /* margin: 0 auto; */
+
+}
+
+.genre-lists select{
+    display: flex;
+    background-color: rgb(252, 248, 255);
+    border-radius: 10px;
+    height: 22px;
+    width: 60px;
+    margin: 0 3px;
+    border: none;
+
+
+
+    /* margin: 0 auto; */
+
+}
+.genre-lists select option{
+    background-color: rgb(186, 187, 187);
+    border-radius: 40px;
+    padding: 10px;
+
+
+
+    /* margin: 0 auto; */
+
+}
+
+#genre-label {
+    margin: 1px 10px;
+    font-size: 19px;
+}
+
+
+
+
+
+.form-button {
+    width: 12%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 1000;
+
+    margin: 5% 0 0 2%;
+}
+
+
+
+
+
+
+
+
+.option {
+    margin: 10px 0;
+
+    size: 167px;
+}
