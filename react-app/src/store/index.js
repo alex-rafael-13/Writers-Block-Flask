@@ -4,12 +4,16 @@ import session from './session'
 import storyReducer from './story';
 import commentReducer from './comment';
 import genreReducer from './genre';
+import userReducer from './users';
+import likeReducer from './like';
 
 const rootReducer = combineReducers({
   session,
   stories: storyReducer,
   comments: commentReducer,
-  genres: genreReducer
+  genres: genreReducer,
+  users: userReducer,
+  likes: likeReducer
 });
 
 

@@ -3,19 +3,19 @@
     flex-direction: column;
     gap: 25px;
     height: 100%;
-    width: 150px;
+    margin-left: 0%;
     /* position: absolute; */
     background-color: white;
-    /* transform: translateX(-150px); */
-    transition: .2s ease;
+    /* transition: .2s ease; */
+    
 }
 
-/* button: ~ .main-side-navbar{
-    transform: translateX(150px);
-} */
+.navbar-button {
+    border-radius: 25px;
+}
 
 .icon-image {
-    width:35% 
+    width:30% 
 }
 
 .fa-solid {
@@ -25,27 +25,18 @@
 .side-bar-div-boxes { 
     display: flex;
     flex-direction: column;
+    width: 100px;
 }
 
 .navbar {
     display: flex;
     align-items: center;
     margin-top: 0;
-   justify-content: space-between;
-}
-
-.menu-button-logo { 
-    display: flex;
-    gap: 20px;
-    align-items: center;
+    justify-content: space-between;
 }
 
 .search-input { 
     width: 450px;
     height: 35px;
     border-radius: 15px;
-}
-
-.menu-button { 
-    border-radius: 8px;
 }

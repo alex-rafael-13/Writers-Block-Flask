@@ -66,15 +66,15 @@ function ProfilePage(){
         {nostory()}
         {noComment()}
         {toggleStory? allStories?.map(story => (
-                <NavLink exact to={`/stories/${story.id}`}>
+            <NavLink exact to={`/stories/${story.id}`}>
                   <div className="story-card" key={story.id}>
                     <h3>{story.title}</h3>
                     <img className='preview-image' src={!story.image?'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg' : story.image } alt='image.txt'></img>
                     <div className='author-name'>By {story.username}</div>
                     <div className='genres-cont'>
                       {story.genres.map(genre => (
-                        <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
-                        ))}
+                          <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
+                          ))}
                     </div>
                   </div>
                 </NavLink>)):null}

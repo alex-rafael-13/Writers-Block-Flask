@@ -51,30 +51,22 @@ function SideNavBar({ user }) {
     return (
         <div className='main-side-navbar'>
             <div className="side-bar-div-boxes">
-            <button onClick={toHomePage}><i className="fa-sharp fa-solid fa-house"></i>
+            <button className='navbar-button'onClick={toHomePage}><i className="fa-sharp fa-solid fa-house"></i>
                 <p>Home</p>
             </button>
 
             </div>
-            <div className="side-bar-div-boxes">
-                <button  onClick={openMenu}><i className="fa-solid fa-user"></i>
-                <p>User</p>
-                </button>
-           </div>
-
+            {user?
            <div className="side-bar-div-boxes">
-                <button onClick={toProfilePage}>
+                <button className='navbar-button' onClick={toProfilePage}>
                 <p>Profile</p>
                 </button>
            </div>
+          :null}
        <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.email}</li>
-            <li>
               <button onClick={handleLogout}>Log Out</button>
-            </li>
           </>
         ) : (
           <>
@@ -92,7 +84,11 @@ function SideNavBar({ user }) {
           </>
         )}
         </ul>
-
+            <div className="side-bar-div-boxes">
+                <button className='navbar-button' onClick={openMenu}><i className="fa-solid fa-user"></i>
+                <p>User</p>
+                </button>
+           </div>
         </div>
     )
 }
