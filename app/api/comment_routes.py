@@ -13,11 +13,6 @@ def currentUser_comment():
     .join(Story)\
     .filter(Comment.user_id == current_user.id)\
     .all()
-
-    if not comments:
-        return { 
-            'message': 'You dont have any comments'
-        }, 400
     
     comment_list = []
 
@@ -41,14 +36,22 @@ def post_comment(storyId):
 
 
     if request.method == 'GET':
-        story_comment = db.session.query(Comment).filter(Comment.story_id == storyId)
+        story_comment = db.session.query(Comment, User.username)\
+            .join(User)\
+            .filter(Comment.story_id == storyId)
+        
         if not [comment for comment in story_comment]:
             return { 
                 'message': 'Story does not have any comments'
             }, 404
         
-        return [comment.to_dict() for comment in story_comment]
-
+        lst = [] 
+        for comment, user in story_comment:
+            comment = comment.to_dict()
+            comment['username'] = user
+            lst.append(comment)
+        
+        return lst
 
     if request.method == 'POST':
         form = CommentForm()
@@ -82,16 +85,12 @@ def post_comment(storyId):
             .filter(Comment.story_id == storyId, Comment.user_id == current_user.id)\
             .first()
         
-        if not commented:
+        if commented:
+            db.session.delete(commented)
+            db.session.commit()
             return { 
-                'message': 'You did not comment this story yet'
-            }, 400
-
-        db.session.delete(commented)
-        db.session.commit()
-        return { 
-            'message': 'Delete Sucessful'
-        }
+                'message': 'success deleted'
+            }
 
 
     if request.method == 'PUT':

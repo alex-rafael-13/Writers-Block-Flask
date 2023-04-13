@@ -76,7 +76,7 @@ def get_story(storyId):
 
 
 #allow user to like a story
-@story_routes.route('/<int:storyId>/like', methods=['POST', 'DELETE'])
+@story_routes.route('/<int:storyId>/like', methods=['GET', 'POST', 'DELETE'])
 @login_required
 def like_story(storyId):
     story = db.session.query(Story).filter(Story.id == storyId).first()
@@ -86,6 +86,12 @@ def like_story(storyId):
             'message': 'Story not found'
         }, 404
 
+    if request.method == 'GET':
+        likes = db.session.query(Like)\
+            .filter(Like.story_id == storyId)\
+            .all()
+
+        return [like.to_dict() for like in likes]
 
     if request.method == 'DELETE':
         liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
