@@ -10,13 +10,17 @@ function SignupFormModal() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [firstname, setfirstname] = useState("");
+	const [lastname, setlastname] = useState("");
+	const [bio, setBio] = useState("");
+	const [icon, setIcon] = useState("");
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password));
+			const data = await dispatch(signUp(username, email, password, firstname, lastname, bio, icon));
 			if (data) {
 				setErrors(data);
 			} else {
@@ -54,6 +58,41 @@ function SignupFormModal() {
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
 						required
+					/>
+				</label>
+				<label>
+					firstname
+					<input
+						type="text"
+						value={firstname}
+						onChange={(e) => setfirstname(e.target.value)}
+						required
+					/>
+				</label>
+				<label>
+					lastname
+					<input
+						type="text"
+						value={lastname}
+						onChange={(e) => setlastname(e.target.value)}
+						required
+					/>
+				</label>
+				<label>
+					bio
+					<input
+						type="text"
+						value={bio}
+						onChange={(e) => setBio(e.target.value)}
+						required
+					/>
+				</label>
+				<label>
+					icon
+					<input
+						type="text"
+						value={icon}
+						onChange={(e) => setIcon(e.target.value)}
 					/>
 				</label>
 				<label>

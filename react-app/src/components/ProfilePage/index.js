@@ -4,17 +4,26 @@ import { useEffect, useState } from "react"
 import { NavLink } from 'react-router-dom'
 import { currentUserComment } from "../../store/comment"
 import { getCurrentUseStory } from "../../store/story"
+import { getAllFollower, getAllFollowing } from "../../store/follower"
+import OpenModalButton from "../OpenModalButton"
+import GetFollower from "../FollowSection/getFollower"
+import GetFollowing from "../FollowSection/getFollowing"
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 
 
 function ProfilePage(){ 
+    const history = useHistory()
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.session.user)    
     const allStories = useSelector(state => state.stories.current)
     const allComments = useSelector(state => state.comments.comment)
     const [toggleStory, setToggleStory] = useState(true)
     const [toggleComment, setToggleComment] = useState(false)
-    
-    console.log(allComments)
+    const allFollwers = useSelector(state => state.follows.followers)
+    const allFollowing = useSelector(state => state.follows.following)
+
+
+    console.log(allFollwers)
     
     const clickComment = () => { 
         setToggleComment(true)
@@ -29,6 +38,8 @@ function ProfilePage(){
     useEffect(() => {
         dispatch(getCurrentUseStory())
         dispatch(currentUserComment())
+        dispatch(getAllFollower(currentUser.id))
+        dispatch(getAllFollowing(currentUser.id))
     },[dispatch])
     
 
@@ -52,6 +63,25 @@ function ProfilePage(){
      }
 }
 
+    const openFollowerModal = () => { 
+        return <OpenModalButton 
+        buttonText='follower'
+        modalComponent={<GetFollower userId={currentUser.id}/>}
+        />
+    }
+
+    const openFolloingModal = () => { 
+        return <OpenModalButton 
+        buttonText='following'
+        modalComponent={<GetFollowing userId={currentUser.id}/>}
+        />
+    }
+
+    const toUpdateStory = (e,id) => { 
+        e.stopPropagation()
+        history.push(`/stories/${id}/update-form`)
+    }
+
     return (
         <div>
         <h1>Profile</h1>
@@ -59,13 +89,15 @@ function ProfilePage(){
         <h3>{currentUser.firstname} {currentUser.lastname}</h3>
         <h3>Email: {currentUser.email}</h3>
         <h3>Bio: {currentUser.bio}</h3>
+        <h4>{openFollowerModal()}:{allFollwers.length} {openFolloingModal()}: {allFollowing.length}</h4>
         <div className='navbar-in-profile'>
-
         <button onClick={clickStory}>Story</button>
         <button onClick={clickComment}>Comments</button>
         {nostory()}
         {noComment()}
+       
         {toggleStory? allStories?.map(story => (
+           <><button onClick={(e)=>toUpdateStory(e,story.id)}>Update</button>
             <NavLink exact to={`/stories/${story.id}`}>
                   <div className="story-card" key={story.id}>
                     <h3>{story.title}</h3>
@@ -77,8 +109,9 @@ function ProfilePage(){
                           ))}
                     </div>
                   </div>
-                </NavLink>)):null}
-
+                </NavLink></>)):null}
+                                
+               
         
         {toggleComment? allComments?.map(comment => (
                 <div key={comment.username}className="comment-body">

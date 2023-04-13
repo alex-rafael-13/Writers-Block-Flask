@@ -45,6 +45,10 @@ function SideNavBar({ user }) {
       history.push('/profile')
     }
   
+    const toCreateStory = () => { 
+      history.push('/stories/story-form')
+    }
+  
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
     const closeMenu = () => setShowMenu(false);
 
@@ -61,6 +65,9 @@ function SideNavBar({ user }) {
                 <button className='navbar-button' onClick={toProfilePage}>
                 <p>Profile</p>
                 </button>
+                <button  className='navbar-button'onClick={toCreateStory}>
+                  <p>Create Story</p>
+                  </button>
            </div>
           :null}
        <ul className={ulClassName} ref={ulRef}>
