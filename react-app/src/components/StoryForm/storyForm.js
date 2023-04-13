@@ -129,7 +129,7 @@ export default function UpdateStoryForm() {
             <div className="story-form-upper">
 
             <label>Title   </label>
-            <input required value={title} placeholder="test" onChange={(e) => setTitle(e.target.value)} />
+            <input required value={title} placeholder="" onChange={(e) => setTitle(e.target.value)} />
 
             <div id="genres-list2">
             <div className="genre-lists">
@@ -175,7 +175,7 @@ export default function UpdateStoryForm() {
 
             <div className="story-form-upper">
             <label>Image</label>
-            <input required value={image} onChange={(e) => setImage(e.target.value)} />
+            <input  value={image} onChange={(e) => setImage(e.target.value)} />
             </div>
 
 
