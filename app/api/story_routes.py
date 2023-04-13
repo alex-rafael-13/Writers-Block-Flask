@@ -172,17 +172,25 @@ def update_story(storyId):
         return {
             'message': 'Story not found'
         }, 404
+
     data = request.get_json()
     genres = data['genres']
     form = StoryForm()
+
+
+
+
 
 
     form['csrf_token'].data = request.cookies['csrf_token']
 
 
 
-    story_to_edit
+
     if form.validate_on_submit():
+
+
+
 
 
 
