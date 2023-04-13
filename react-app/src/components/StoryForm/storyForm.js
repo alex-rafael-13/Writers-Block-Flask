@@ -124,13 +124,13 @@ export default function UpdateStoryForm() {
             <div className="story-form-upper">
 
             <label>Title   </label>
-            <input value={title} placeholder="test" onChange={(e) => setTitle(e.target.value)} />
+            <input required value={title} placeholder="test" onChange={(e) => setTitle(e.target.value)} />
 
             <div id="genres-list2">
             <div className="genre-lists">
                 <div id="genre-label">Genres</div>
 
-<select className="genre-list"  value={optionOne} onChange={(e) => addOptionOne(e)}>
+<select className="genre-list" value={optionOne} onChange={(e) => addOptionOne(e)}>
 <option className="option">none</option>
     {Object.values(genresList).map(genre => (
         <option className="option" value={genre.id}>{genre.name}</option>
@@ -170,11 +170,11 @@ export default function UpdateStoryForm() {
 
             <div className="story-form-upper">
             <label>Image</label>
-            <input value={image} onChange={(e) => setImage(e.target.value)} />
+            <input required value={image} onChange={(e) => setImage(e.target.value)} />
             </div>
 
 
-            <textarea value={content} onChange={(e) => setContent(e.target.value)} />
+            <textarea required value={content} onChange={(e) => setContent(e.target.value)} />
 
 
 

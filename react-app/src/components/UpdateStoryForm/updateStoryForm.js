@@ -40,6 +40,8 @@ export default function UpdateStoryForm() {
         dispatch(getAllGenres())
         dispatch(retrieveOneStory(storyId))
 
+
+
         return () => dispatch(refreshSingleStory())
     },[storyId])
 
@@ -49,6 +51,28 @@ export default function UpdateStoryForm() {
             setTitle(story.story.title)
             setContent(story.story.content)
             setImage(story.story.image)
+            const genres = story.genre
+
+
+
+
+            if (genres[0]) {
+                setOptionOne(Object.values(genresList).find(genre => genre.name === genres[0]).id)
+                setListTwo(true)
+
+            }
+            if (genres[1]) {
+                setOptionTwo(Object.values(genresList).find(genre => genre.name === genres[1]).id)
+                setListThree(true)
+
+            }
+            if (genres[2]) {
+                setOptionThree(Object.values(genresList).find(genre => genre.name === genres[2]).id)
+
+            }
+
+
+
         }
 
     },[story])
@@ -121,6 +145,8 @@ export default function UpdateStoryForm() {
     if (!Object.values(genresList).length || !Object.values(story).length) return null
 
 
+
+
     return (
 
 
@@ -132,7 +158,7 @@ export default function UpdateStoryForm() {
             <div className="story-form-upper">
 
             <label>Title   </label>
-            <input value={title} placeholder="test" onChange={(e) => setTitle(e.target.value)} />
+            <input required value={title} placeholder="test" onChange={(e) => setTitle(e.target.value)} />
 
             <div id="genres-list2">
             <div className="genre-lists">
@@ -178,11 +204,11 @@ export default function UpdateStoryForm() {
 
             <div className="story-form-upper">
             <label>Image</label>
-            <input value={image} onChange={(e) => setImage(e.target.value)} />
+            <input required value={image} onChange={(e) => setImage(e.target.value)} />
             </div>
 
 
-            <textarea value={content} onChange={(e) => setContent(e.target.value)} />
+            <textarea required value={content} onChange={(e) => setContent(e.target.value)} />
 
 
 
