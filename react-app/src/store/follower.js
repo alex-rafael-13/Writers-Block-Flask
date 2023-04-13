@@ -1,5 +1,10 @@
+import SingleStory from "../components/SingleStory"
+import { getSingleUser } from "./users"
+
 const GET_ALL_FOLLOWERS = 'followers/ALL'
 const GET_ALL_FOLLOWING = 'followings/ALL'
+const CREATE_FOLLOW = 'following/CREATEFOLLOW' 
+const DELTE_FOLLOW = 'foolowing/DELETEFOLLOW'
 
 
 const getFollower = (payload) => { 
@@ -16,7 +21,19 @@ const getFollowing = (payload) => {
     }
 }
 
+const createFollower = (payload) => { 
+    return { 
+        type: CREATE_FOLLOW,
+        payload
+    }
+}
 
+const deleteFollower = (payload) => { 
+    return { 
+        type: DELTE_FOLLOW,
+        payload
+    }
+}
 export const getAllFollower = (userId) => async dispatch => {
     const res = await fetch(`/api/follows/${userId}/followers`)
 
@@ -38,6 +55,35 @@ export const getAllFollowing = (userId) => async dispatch => {
     return res
 }
 
+
+export const createFollow = (payload ,userId) => async dispatch => { 
+    const res = await fetch(`/api/follows/follow/${userId}`, { 
+        method: 'POST', 
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    })
+
+    if(res.ok){ 
+        const data = await res.json()
+        dispatch(createFollower(data))
+        dispatch(getAllFollower(userId))
+    }
+    return res
+} 
+
+export const deleteFollow = (userId) => async dispatch => { 
+    const res = await fetch(`/api/follows/follow/${userId}`, { 
+        method: 'DELETE',
+    })
+
+    if(res.ok){ 
+        const data = await res.json()
+        dispatch(getAllFollower(userId))
+    }
+    return res
+}
+
+
 const initialState = { followers: [], following: []}
 const followsReducer = (state = initialState, action) => { 
     switch(action.type){ 
@@ -50,6 +96,16 @@ const followsReducer = (state = initialState, action) => {
             return { 
                 ...state, 
                 following: action.payload
+            }
+        case CREATE_FOLLOW:
+            return { 
+                ...state,
+                followers: [...state.followers, action.payload]
+            }
+        case DELTE_FOLLOW:
+            return { 
+                ...state, 
+                followers: state.followers.filter(follower => follower.id !== action.payload.id)
             }
         default:
             return state

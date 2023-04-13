@@ -67,13 +67,15 @@ def follow_unfollow(user_id):
         return new_follow.to_dict()
     
     if request.method == 'DELETE':
-        follow = db.session.query(Follower).filter(Follower.follower_id == current_user.id, Follower.following_id == user_id)
+        follow = db.session.query(Follower)\
+        .filter(Follower.follower_id == current_user.id, Follower.following_id == user_id)\
+        .first()
         if not follow:
             return {
                 'message': f'Current user does not follow user with an id of {user_id}'
             }, 400
+        print(follow, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         db.session.delete(follow)
         db.session.commit()
-        return{'message':'Unfollow Successful'}
-
-
+        return{'message':'Unfollow Successful',
+               'id': follow.id}
