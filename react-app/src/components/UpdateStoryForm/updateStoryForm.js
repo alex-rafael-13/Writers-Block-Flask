@@ -21,6 +21,8 @@ export default function UpdateStoryForm() {
     const [optionTwo,setOptionTwo] = useState('')
     const [optionThree,setOptionThree] = useState('')
 
+    const [showList,setShowList] = useState(false)
+
     const genresList = useSelector(state => state.genres.genres)
     const story = useSelector(state => state.stories.story)
     const dispatch = useDispatch()
@@ -79,22 +81,27 @@ export default function UpdateStoryForm() {
 
     const addOptionOne = (e) => {
         e.preventDefault()
-        setOptionOne(e.target.value)
-        setListTwo(true)
+        const id = e.target.value
+
+
+        if (optionTwo === id || optionThree === id) {
+            setOptionOne('')
+        } else {
+
+            setOptionOne(id)
+            setListTwo(true)
+        }
     }
 
     const addOptionTwo = (e) => {
         e.preventDefault()
-        setOptionTwo(e.target.value)
         const id = e.target.value
 
-        if (optionOne === id) {
+        if (optionOne === id || optionThree === id) {
             setOptionTwo('')
         } else {
-
             setOptionTwo(id)
             setListThree(true)
-
         }
 
     }
@@ -103,17 +110,12 @@ export default function UpdateStoryForm() {
         e.preventDefault()
         const id = e.target.value
 
-
-
-        if ([optionOne,optionTwo].includes(id)) {
-            setOptionThree('none')
+        if (optionOne === id || optionTwo === id) {
+            setOptionThree('')
         } else {
             setOptionThree(id)
 
         }
-
-
-
     }
 
     if (!Object.values(genresList).length || !Object.values(story).length) return null
@@ -126,48 +128,64 @@ export default function UpdateStoryForm() {
 
         <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
 
-            <label>Title</label>
+
+            <div className="story-form-upper">
+
+            <label>Title   </label>
             <input value={title} placeholder="test" onChange={(e) => setTitle(e.target.value)} />
 
-            <label>Content</label>
-            <textarea value={content} onChange={(e) => setContent(e.target.value)} />
-
-            <label>Image</label>
-            <input value={image} onChange={(e) => setImage(e.target.value)} />
-
-
-
+            <div id="genres-list2">
             <div className="genre-lists">
+                <div id="genre-label">Genres</div>
 
-                <select className="genre-list"  value={optionOne} onChange={(e) => addOptionOne(e)}>
-                <option className="option">none</option>
-                    {Object.values(genresList).map(genre => (
-                        <option className="option" value={genre.id}>{genre.name}</option>
-                    ))}
-                </select>
+<select className="genre-list"  value={optionOne} onChange={(e) => addOptionOne(e)}>
+<option className="option">none</option>
+    {Object.values(genresList).map(genre => (
+        <option className="option" value={genre.id}>{genre.name}</option>
+    ))}
+</select>
 
-                {listTwo &&
-                <select className="genre-list" value={optionTwo} onChange={(e) => addOptionTwo(e)}>
-                    <option className="option">none</option>
-                      {Object.values(genresList).map(genre => (
-                         <option className="option" value={genre.id}>{genre.name}</option>
-                     ))}
-              </select>
+{listTwo &&
+<select className="genre-list" value={optionTwo} onChange={(e) => addOptionTwo(e)}>
+    <option className="option">none</option>
+      {Object.values(genresList).map(genre => (
+         <option className="option" value={genre.id}>{genre.name}</option>
+     ))}
+</select>
 
-                }
-                {listThree &&
-                <select className="genre-list" value={optionThree} onChange={(e) => addOptionThree(e)}>
-                    <option className="option">none</option>
-                {Object.values(genresList).map(genre => (
-                   <option className="option" value={genre.id}>{genre.name}</option>
-               ))}
-                </select>
+}
+{listThree &&
+<select className="genre-list" value={optionThree} onChange={(e) => addOptionThree(e)}>
+    <option className="option">none</option>
+{Object.values(genresList).map(genre => (
+   <option className="option" value={genre.id}>{genre.name}</option>
+))}
+</select>
 
-                }
+}
+
+
+
+</div>
+
 
 
 
             </div>
+
+
+            </div>
+
+            <div className="story-form-upper">
+            <label>Image</label>
+            <input value={image} onChange={(e) => setImage(e.target.value)} />
+            </div>
+
+
+            <textarea value={content} onChange={(e) => setContent(e.target.value)} />
+
+
+
 
                 <button className="form-button">Update Story</button>
 
