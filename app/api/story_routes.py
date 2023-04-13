@@ -20,6 +20,8 @@ def all_stories():
 
     story_dict = {}
 
+    print(stories,'-------------------')
+
     for story, genre, username in stories:
         print(story)
         if story.id not in story_dict:
@@ -170,25 +172,20 @@ def update_story(storyId):
         return {
             'message': 'Story not found'
         }, 404
-
+    data = request.get_json()
+    genres = data['genres']
     form = StoryForm()
 
 
-
-
-
-
-
-
-
     form['csrf_token'].data = request.cookies['csrf_token']
+
 
 
     story_to_edit
     if form.validate_on_submit():
 
 
-        story_to_edit.user_id = current_user.id
+
         story_to_edit.title = form.data['title']
         story_to_edit.content = form.data['content']
         story_to_edit.image = form.data['image']
@@ -196,21 +193,45 @@ def update_story(storyId):
 
         db.session.commit()
 
-        genres = json.loads(form.data['genres'])
 
 
-        for genreId, action in genres.items():
+        # for genreId, action in genres.items():
 
-            if action == 'delete':
-                entry = StoryGenre.query.filter(StoryGenre.genre_id == genreId, StoryGenre.story_id == storyId).first()
-                db.session.delete(entry)
-                db.session.commit()
-            else:
-                entry = StoryGenre(
-                    story_id = storyId,
-                    genre_id = genreId
+        #     if action == 'delete':
+        #         entry = StoryGenre.query.filter(StoryGenre.genre_id == genreId, StoryGenre.story_id == storyId).first()
+        #         db.session.delete(entry)
+        #         db.session.commit()
+        #     else:
+        #         entry = StoryGenre(
+        #             story_id = storyId,
+        #             genre_id = genreId
 
-                )
+        #         )
+
+
+        story_genre_entries = db.session.query(StoryGenre).filter(StoryGenre.story_id == story_to_edit.id)
+
+        for entry in story_genre_entries:
+            db.session.delete(entry)
+            db.session.commit()
+
+
+
+        for genreId in genres:
+
+            if genreId == '':
+                continue
+
+            entry = StoryGenre(
+                story_id = storyId,
+                genre_id = genreId
+            )
+            db.session.add(entry)
+            db.session.commit()
+
+
+
+
         return story_to_edit.to_dict()
 
 

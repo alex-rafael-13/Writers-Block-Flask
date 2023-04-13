@@ -1,0 +1,46 @@
+
+
+
+.story-form {
+    display: flex;
+    flex-direction: column;
+    background-color:gray;
+    border: none;
+    align-content: center;
+    max-width: 60%;
+
+    margin: 5% auto;
+    padding: 2%;
+    border-radius: 18px;
+
+}
+
+.genre-lists {
+    display: flex;
+
+
+    background-color: rebeccapurple;
+    /* margin: 0 auto; */
+
+}
+
+.genre-list {
+    /* margin: 0 4%; */
+}
+
+.option {
+    margin: 10px 0;
+    background-color: red;
+    size: 100px;
+}
+
+
+.form-button {
+    width: 13%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 800;
+
+    margin: 5% 0 0 2%;
+}

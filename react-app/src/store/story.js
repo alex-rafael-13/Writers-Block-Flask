@@ -96,6 +96,29 @@ export const retrieveOneStory = (id) => async (dispatch) => {
     return response
 }
 
+export const editStory = (story) => async (dispatch) => {
+
+    console.log(story,'sending')
+
+    const res = await fetch(`/api/stories/${story.id}`,{
+        method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(story),
+
+    })
+
+    if (res.ok) {
+
+        const newStory = await res.json()
+        return newStory
+
+    }
+
+    return res
+}
+
 export const getCurrentUseStory = () => async dispatch => {
     const res = await fetch('/api/stories/current')
 

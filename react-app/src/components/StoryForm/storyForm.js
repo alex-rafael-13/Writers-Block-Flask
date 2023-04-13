@@ -4,6 +4,7 @@ import { getAllGenres } from "../../store/genre"
 import { createSTory } from "../../store/story"
 
 
+
 export default function StoryForm() {
 
     const [title,setTitle] = useState('')
@@ -12,13 +13,16 @@ export default function StoryForm() {
     const [genres,setGenres] = useState({})
 
     const genresList = useSelector(state => state.genres.genres)
+
     const dispatch = useDispatch()
+
+
+
 
 
     useEffect(() => {
 
         dispatch(getAllGenres())
-
 
 
     },[dispatch])

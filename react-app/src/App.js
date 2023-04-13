@@ -12,6 +12,7 @@ import NavBar from "./components/SideNavBar/navBar";
 import SingleStory from "./components/SingleStory";
 import ProfilePage from "./components/ProfilePage";
 import StoryForm from "./components/StoryForm/storyForm";
+import UpdateStoryForm from "./components/UpdateStoryForm/updateStoryForm";
 
 
 function App() {
@@ -37,9 +38,9 @@ function App() {
     <>
       <NavBar handleClicked={handleClicked} sideOpen={sideOpen} />
       <div className="page-body">
-      
+
           <SideNavBar/>
-    
+
         <div className="content-body">
 
         {isLoaded && (
@@ -54,14 +55,17 @@ function App() {
             <Route exact path='/'>
               <LandingPage />
             </Route>
+            <Route exact path='/stories/story-form'>
+              <StoryForm />
+            </Route>
             <Route exact path='/stories/:storyId'>
               <SingleStory />
             </Route>
             <Route path='/profile'>
               <ProfilePage />
               </Route>
-            <Route path='/story-form'>
-              <StoryForm />
+            <Route path='/stories/:storyId/update-form'>
+              <UpdateStoryForm />
             </Route>
           </Switch>
         )}
