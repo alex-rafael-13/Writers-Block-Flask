@@ -12,6 +12,7 @@ import NavBar from "./components/SideNavBar/navBar";
 import SingleStory from "./components/SingleStory";
 import ProfilePage from "./components/ProfilePage";
 import StoryForm from "./components/StoryForm/storyForm";
+import OthersProfilePage from "./components/OthersProfile";
 
 
 function App() {
@@ -29,9 +30,6 @@ function App() {
     setSideOpen(!sideOpen)
     console.log('!!!!!')
   }
-
-
-
 
   return (
     <>
@@ -57,9 +55,12 @@ function App() {
             <Route exact path='/stories/:storyId'>
               <SingleStory />
             </Route>
-            <Route path='/profile'>
+            <Route exact path='/profile'>
               <ProfilePage />
-              </Route>
+            </Route>
+            <Route>
+              <OthersProfilePage exact path='/profile/:userId'/>
+            </Route>
             <Route path='/story-form'>
               <StoryForm />
             </Route>
