@@ -124,7 +124,7 @@ export default function UpdateStoryForm() {
 
         <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
 
-        <h1>Create a story</h1>
+        <h1 class='form-title'>Create a story</h1>
 
             <div className="story-form-upper">
 
