@@ -37,6 +37,6 @@ def seed_story_genres():
 
 def undo_story_genre():
         if environment == "production":
-            db.session.execute(f"TRUNCATE table {SCHEMA}.story_genre RESTART IDENTITY CASCADE")
+            db.session.execute(f"TRUNCATE table {SCHEMA}.story_genres RESTART IDENTITY CASCADE")
         else:
             db.session.execute(text("DELETE FROM story_genre"))

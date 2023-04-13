@@ -25,7 +25,7 @@ def seed_like():
 
 def undo_like():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.Like RESTART IDENTITY CASCADE")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.likes RESTART IDENTITY CASCADE")
     else:
         db.session.execute(text("DELETE FROM Like"))
 
