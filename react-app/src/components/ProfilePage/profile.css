@@ -1,3 +1,14 @@
 .user-icon-placeholder { 
     width: 200px;
 }
+
+.user-icon-image { 
+    width: 250px;
+}
+
+.profile-container { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+}

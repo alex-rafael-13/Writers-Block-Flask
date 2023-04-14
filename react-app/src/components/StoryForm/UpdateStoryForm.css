@@ -1,9 +1,20 @@
 
+.form-title {
+    text-align: center;
+    margin: 1%;
+    margin-bottom: 3%;
+    color: white;
+    text-shadow: 0 0 1.5px #000;
+    font-size: 42px;
 
+
+
+}
 
 .story-form {
     display: flex;
     flex-direction: column;
+
     background-color:rgb(214, 214, 214);
     border: none;
     align-content: flex-start;

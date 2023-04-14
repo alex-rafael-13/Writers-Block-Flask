@@ -16,8 +16,8 @@ class Story(db.Model):
 
      #relationships
     user = db.relationship('User',back_populates='stories')
-    likes = db.relationship('Like',back_populates='stories')
-    comments = db.relationship('Comment',back_populates='story')
+    likes = db.relationship('Like',back_populates='stories', cascade='all, delete-orphan')
+    comments = db.relationship('Comment',back_populates='story', cascade='all, delete-orphan')
     genres = db.relationship('StoryGenre', back_populates='story',cascade='all, delete-orphan')
 
     def to_dict(self):

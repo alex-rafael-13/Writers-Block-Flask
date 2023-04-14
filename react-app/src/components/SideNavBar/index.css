@@ -15,7 +15,8 @@
 }
 
 .icon-image {
-    width:30% 
+    width: 180px;
+    border-radius: 50px;
 }
 
 .fa-solid {

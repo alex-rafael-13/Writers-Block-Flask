@@ -2,19 +2,34 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllGenres } from "../../store/genre"
 import { createSTory } from "../../store/story"
+import { retrieveOneStory } from "../../store/story"
+import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min"
+import { editStory } from "../../store/story"
+import { refreshSingleStory } from "../../store/story"
+import './UpdateStoryForm.css'
 
-
-
-export default function StoryForm() {
+export default function UpdateStoryForm() {
 
     const [title,setTitle] = useState('')
     const [content,setContent] = useState('')
     const [image,setImage] = useState('')
-    const [genres,setGenres] = useState({})
+    const [genres,setGenres] = useState([])
+    const [listTwo,setListTwo] = useState(false)
+    const [listThree,setListThree] = useState(false)
+
+    const [optionOne,setOptionOne] = useState('')
+    const [optionTwo,setOptionTwo] = useState('')
+    const [optionThree,setOptionThree] = useState('')
+
+
 
     const genresList = useSelector(state => state.genres.genres)
 
     const dispatch = useDispatch()
+
+    const history = useHistory()
+
+
 
 
 
@@ -25,41 +40,30 @@ export default function StoryForm() {
         dispatch(getAllGenres())
 
 
+        return () => dispatch(refreshSingleStory())
     },[dispatch])
 
-    const addOrRemoveGenre = (e) => {
-
-        e.preventDefault()
-
-        if (!genres[e.target.innerText]) {
-            setGenres(prev => ({...prev, [e.target.innerText]: genresList[e.target.innerText].id }))
-        } else {
-           let keyToRemove =  e.target.innerText
-           let newState = {...genres}
-           delete newState[keyToRemove]
-
-           setGenres(newState)
-        }
 
 
 
 
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-
-
-
         const story = {
+
             title,
             content,
             image,
-            genres
+            genres: [optionOne,optionTwo,optionThree]
 
         }
-        dispatch(createSTory(story))
+
+        dispatch(createSTory(story)).then(story => {
+            history.push(`/stories/${story.id}`)
+
+        })
 
     }
 
@@ -67,44 +71,131 @@ export default function StoryForm() {
 
 
 
+    const addOptionOne = (e) => {
+        e.preventDefault()
+        const id = e.target.value
 
-    if (!Object.values(genresList)) return null
 
+        if (optionTwo === id || optionThree === id) {
+            setOptionOne('')
+        } else {
 
+            setOptionOne(id)
+            setListTwo(true)
+        }
+    }
+
+    const addOptionTwo = (e) => {
+        e.preventDefault()
+        const id = e.target.value
+
+        if (optionOne === id || optionThree === id) {
+            setOptionTwo('')
+        } else {
+            setOptionTwo(id)
+            setListThree(true)
+        }
+
+    }
+
+    const addOptionThree = (e) => {
+        e.preventDefault()
+        const id = e.target.value
+
+        if (optionOne === id || optionTwo === id) {
+            setOptionThree('')
+        } else {
+            setOptionThree(id)
+
+        }
+    }
+
+    if (!Object.values(genresList).length ) return null
 
 
     return (
 
 
-        <form onSubmit={(e) => handleSubmit(e)}>
 
-            <label>Title</label>
-            <input value={title} onChange={(e) => setTitle(e.target.value)} />
 
-            <label>Content</label>
-            <textarea value={content} onChange={(e) => setContent(e.target.value)} />
+        <>
 
-            <label>Image</label>
-            <input value={image} onChange={(e) => setImage(e.target.value)} />
 
-            <button>Create Story</button>
 
-            <div>
+        <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
 
-                {Object.values(genresList).map(genre => (
-                    <button onClick={(e) => addOrRemoveGenre(e)}>{genre.name}</button>
-                ))}
+        <h1 class='form-title'>Create a story</h1>
+
+            <div className="story-form-upper">
+
+            <label>Title   </label>
+            <input required value={title} placeholder="" onChange={(e) => setTitle(e.target.value)} />
+
+            <div id="genres-list2">
+            <div className="genre-lists">
+                <div id="genre-label">Genres</div>
+
+<select className="genre-list" value={optionOne} onChange={(e) => addOptionOne(e)}>
+<option className="option">none</option>
+    {Object.values(genresList).map(genre => (
+        <option className="option" value={genre.id}>{genre.name}</option>
+    ))}
+</select>
+
+{listTwo &&
+<select className="genre-list" value={optionTwo} onChange={(e) => addOptionTwo(e)}>
+    <option className="option">none</option>
+      {Object.values(genresList).map(genre => (
+         <option className="option" value={genre.id}>{genre.name}</option>
+     ))}
+</select>
+
+}
+{listThree &&
+<select className="genre-list" value={optionThree} onChange={(e) => addOptionThree(e)}>
+    <option className="option">none</option>
+{Object.values(genresList).map(genre => (
+   <option className="option" value={genre.id}>{genre.name}</option>
+))}
+</select>
+
+}
+
+
+
+</div>
+
 
 
 
             </div>
 
 
+            </div>
+
+            <div className="story-form-upper">
+            <label>Image</label>
+            <input  value={image} onChange={(e) => setImage(e.target.value)} />
+            </div>
+
+
+            <textarea required value={content} onChange={(e) => setContent(e.target.value)} />
+
+
+
+
+                <button className="form-button">Post Story</button>
+
 
 
 
 
         </form>
+        </>
+
+
+
+
 
     )
 

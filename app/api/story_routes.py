@@ -96,10 +96,6 @@ def like_story(storyId):
     if request.method == 'DELETE':
         liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
 
-        if not liked:
-            return {
-                'message': 'You didnt like this story'
-            }, 400
 
         db.session.delete(liked)
         db.session.commit()
@@ -110,10 +106,6 @@ def like_story(storyId):
 
     if request.method == 'POST':
         liked = db.session.query(Like).filter(Like.story_id == storyId, Like.user_id == current_user.id).first()
-        if liked:
-            return {
-                'message': 'Your already liked this story'
-            }, 400
 
         like = Like(user_id=current_user.id, story_id=storyId)
         db.session.add(like)
@@ -131,14 +123,9 @@ def create_story():
 
     form = StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    data = request.get_json()
+    genres = data['genres']
 
-
-
-
-
-    genres = form.data['genres']
-
-    print(form.data,'11111111111111111',genres.values())
 
     if form.validate_on_submit():
 
@@ -152,7 +139,7 @@ def create_story():
         db.session.add(new_story)
         db.session.commit()
 
-        for genre in genres.values():
+        for genre in genres:
             genre_to_add = StoryGenre(
                 story_id = new_story.id,
                 genre_id = genre
@@ -160,7 +147,7 @@ def create_story():
             db.session.add(genre_to_add)
             db.session.commit()
 
-        return new_story.to_dict()
+    return new_story.to_dict()
 
 
     if form.errors:
@@ -179,9 +166,9 @@ def update_story(storyId):
             'message': 'Story not found'
         }, 404
 
+    form = StoryForm()
     data = request.get_json()
     genres = data['genres']
-    form = StoryForm()
 
 
 
@@ -258,6 +245,7 @@ def update_story(storyId):
 
 
 
+
 @story_routes.route('/<int:storyId>',methods=['DELETE'])
 @login_required
 def delete_story(storyId):
@@ -285,10 +273,6 @@ def current_userStory():
         .join(Genre)\
         .filter(Story.user_id == current_user.id).all()
 
-    if not storys:
-        return {
-            'message': 'You do not have any storys'
-        }, 400
 
     story_dict = {}
 

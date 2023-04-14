@@ -21,6 +21,8 @@ export default function UpdateStoryForm() {
     const [optionTwo,setOptionTwo] = useState('')
     const [optionThree,setOptionThree] = useState('')
 
+    const [showList,setShowList] = useState(false)
+
     const genresList = useSelector(state => state.genres.genres)
     const story = useSelector(state => state.stories.story)
     const dispatch = useDispatch()
@@ -38,6 +40,8 @@ export default function UpdateStoryForm() {
         dispatch(getAllGenres())
         dispatch(retrieveOneStory(storyId))
 
+
+
         return () => dispatch(refreshSingleStory())
     },[storyId])
 
@@ -47,6 +51,28 @@ export default function UpdateStoryForm() {
             setTitle(story.story.title)
             setContent(story.story.content)
             setImage(story.story.image)
+            const genres = story.genre
+
+
+
+
+            if (genres[0]) {
+                setOptionOne(Object.values(genresList).find(genre => genre.name === genres[0]).id)
+                setListTwo(true)
+
+            }
+            if (genres[1]) {
+                setOptionTwo(Object.values(genresList).find(genre => genre.name === genres[1]).id)
+                setListThree(true)
+
+            }
+            if (genres[2]) {
+                setOptionThree(Object.values(genresList).find(genre => genre.name === genres[2]).id)
+
+            }
+
+
+
         }
 
     },[story])
@@ -79,22 +105,27 @@ export default function UpdateStoryForm() {
 
     const addOptionOne = (e) => {
         e.preventDefault()
-        setOptionOne(e.target.value)
-        setListTwo(true)
+        const id = e.target.value
+
+
+        if (optionTwo === id || optionThree === id) {
+            setOptionOne('')
+        } else {
+
+            setOptionOne(id)
+            setListTwo(true)
+        }
     }
 
     const addOptionTwo = (e) => {
         e.preventDefault()
-        setOptionTwo(e.target.value)
         const id = e.target.value
 
-        if (optionOne === id) {
+        if (optionOne === id || optionThree === id) {
             setOptionTwo('')
         } else {
-
             setOptionTwo(id)
             setListThree(true)
-
         }
 
     }
@@ -103,20 +134,17 @@ export default function UpdateStoryForm() {
         e.preventDefault()
         const id = e.target.value
 
-
-
-        if ([optionOne,optionTwo].includes(id)) {
-            setOptionThree('none')
+        if (optionOne === id || optionTwo === id) {
+            setOptionThree('')
         } else {
             setOptionThree(id)
 
         }
-
-
-
     }
 
     if (!Object.values(genresList).length || !Object.values(story).length) return null
+
+
 
 
     return (
@@ -126,48 +154,64 @@ export default function UpdateStoryForm() {
 
         <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
 
-            <label>Title</label>
-            <input value={title} placeholder="test" onChange={(e) => setTitle(e.target.value)} />
 
-            <label>Content</label>
-            <textarea value={content} onChange={(e) => setContent(e.target.value)} />
+            <div className="story-form-upper">
 
-            <label>Image</label>
-            <input value={image} onChange={(e) => setImage(e.target.value)} />
+            <label>Title   </label>
+            <input required value={title} placeholder="" onChange={(e) => setTitle(e.target.value)} />
 
-
-
+            <div id="genres-list2">
             <div className="genre-lists">
+                <div id="genre-label">Genres</div>
 
-                <select className="genre-list"  value={optionOne} onChange={(e) => addOptionOne(e)}>
-                <option className="option">none</option>
-                    {Object.values(genresList).map(genre => (
-                        <option className="option" value={genre.id}>{genre.name}</option>
-                    ))}
-                </select>
+<select className="genre-list"  value={optionOne} onChange={(e) => addOptionOne(e)}>
+<option className="option">none</option>
+    {Object.values(genresList).map(genre => (
+        <option className="option" value={genre.id}>{genre.name}</option>
+    ))}
+</select>
 
-                {listTwo &&
-                <select className="genre-list" value={optionTwo} onChange={(e) => addOptionTwo(e)}>
-                    <option className="option">none</option>
-                      {Object.values(genresList).map(genre => (
-                         <option className="option" value={genre.id}>{genre.name}</option>
-                     ))}
-              </select>
+{listTwo &&
+<select className="genre-list" value={optionTwo} onChange={(e) => addOptionTwo(e)}>
+    <option className="option">none</option>
+      {Object.values(genresList).map(genre => (
+         <option className="option" value={genre.id}>{genre.name}</option>
+     ))}
+</select>
 
-                }
-                {listThree &&
-                <select className="genre-list" value={optionThree} onChange={(e) => addOptionThree(e)}>
-                    <option className="option">none</option>
-                {Object.values(genresList).map(genre => (
-                   <option className="option" value={genre.id}>{genre.name}</option>
-               ))}
-                </select>
+}
+{listThree &&
+<select className="genre-list" value={optionThree} onChange={(e) => addOptionThree(e)}>
+    <option className="option">none</option>
+{Object.values(genresList).map(genre => (
+   <option className="option" value={genre.id}>{genre.name}</option>
+))}
+</select>
 
-                }
+}
+
+
+
+</div>
+
 
 
 
             </div>
+
+
+            </div>
+
+            <div className="story-form-upper">
+            <label>Image</label>
+            <input value={image} onChange={(e) => setImage(e.target.value)} />
+            </div>
+
+
+            <textarea required value={content} onChange={(e) => setContent(e.target.value)} />
+
+
+
 
                 <button className="form-button">Update Story</button>
 
