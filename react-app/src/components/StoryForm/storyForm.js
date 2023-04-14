@@ -92,8 +92,8 @@ export default function UpdateStoryForm() {
         }
 
         dispatch(createSTory(story)).then(story => {
-            history.push(`/stories/${story.id}`)
-
+            // history.push(`/stories/${story.id}`)
+            history.push('/')
         })
 
     }
