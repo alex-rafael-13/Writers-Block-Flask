@@ -11,7 +11,7 @@ function LoginFormPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-  const {closeModal} = useModal() 
+  const { closeModal } = useModal()
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -28,7 +28,7 @@ function LoginFormPage() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal()
     }
   }
 
@@ -60,9 +60,8 @@ function LoginFormPage() {
           />
         </label>
         <button type="submit">Log In</button>
-        <button onClick={demoSignIn}>Demo User</button>
       </form>
-        <button onClick={demoSignIn}>Demo</button>
+      <button onClick={demoSignIn}>Demo User</button>
     </>
   );
 }

@@ -35,6 +35,7 @@ function SideNavBar({ user }) {
     const handleLogout = (e) => {
       e.preventDefault();
       dispatch(logout());
+      history.push('/')
     };
 
     const toHomePage = () => { 
