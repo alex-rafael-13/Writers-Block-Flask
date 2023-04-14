@@ -5,22 +5,33 @@ body{
     /* justify-content: center; */
     width: 100%;
     font-family: “Helvetica Neue”,Helvetica,Arial,sans-serif;
+    color:white
 }
 
 .page-body{
     display: flex;
     width: 100%;
+    height: 100%;
     gap: 5px;
+    /* background-color: #6e6c6c; */
     /* justify-content: center; */
 
     /* border: solid black; */
 }
 .navbar{
     width: 100%;
+    background-color:rgba(103,212,177,255);
+}
+.side-bar-cont{
+    height: 100%;
+    width: 10%;
+    background-color: rgb(37,47,54);;
 }
 .main-side-navbar{
     /* border: solid black; */
-    width: 10%;
+    /* width: 10%; */
+    background-color: rgb(37,47,54);
+    height: 100%;
 }
 .content-body{
     width: 90%;

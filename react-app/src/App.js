@@ -27,44 +27,41 @@ function App() {
 
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <div className="page-body">
-
-
-
-      
-    
-      <Navigation isLoaded={isLoaded}/>
+        <div className="side-bar-cont">
+          <Navigation isLoaded={isLoaded} />
+        </div>
         <div className="content-body">
-        {isLoaded && (
-          <Switch>
+          {isLoaded && (
+            <Switch>
 
-            <Route path="/login" >
-              <LoginFormPage />
-            </Route>
-            <Route path="/signup">
-              <SignupFormPage />
-            </Route>
-            <Route exact path='/'>
-              <LandingPage />
-            </Route>
-            <Route exact path='/stories/story-form'>
-              <StoryForm />
-            </Route>
-            <Route exact path='/stories/:storyId'>
-              <SingleStory />
-            </Route>
-            <Route path='/profile'>
-              <ProfilePage />
+              <Route path="/login" >
+                <LoginFormPage />
               </Route>
-            <Route path='/stories/:storyId/update-form'>
-              <UpdateStoryForm />
-            </Route>
-            <Route exact path='/:userId/profile'>
-              <UsersProfile />
-            </Route>
-          </Switch>
-        )}
+              <Route path="/signup">
+                <SignupFormPage />
+              </Route>
+              <Route exact path='/'>
+                <LandingPage />
+              </Route>
+              <Route exact path='/stories/story-form'>
+                <StoryForm />
+              </Route>
+              <Route exact path='/stories/:storyId'>
+                <SingleStory />
+              </Route>
+              <Route path='/profile'>
+                <ProfilePage />
+              </Route>
+              <Route path='/stories/:storyId/update-form'>
+                <UpdateStoryForm />
+              </Route>
+              <Route exact path='/:userId/profile'>
+                <UsersProfile />
+              </Route>
+            </Switch>
+          )}
         </div>
       </div>
     </>
