@@ -1,0 +1,100 @@
+.story-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+
+    /* border: solid black; */
+    width: 90%;
+}
+
+.story-list > a{
+    text-decoration: none;
+    color: black;
+}
+
+.story-card h3{
+    margin: 10px 0px;
+    padding: 3px;
+}
+
+.story-card{
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 10px;
+    margin: 5px;
+    /* color: white; */
+    /* border: solid black; */
+}
+.story-card:hover{
+    box-shadow: 0px 0px 11px rgba(33,33,33,.2);
+}
+
+.preview-image{
+    width: 270px;
+    height: 250px;
+    object-fit: cover;
+}
+
+.author-name{
+    display: flex;
+    justify-content: flex-end;
+    padding: 3px;
+}
+
+.genres-cont{
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+}
+
+.genre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    margin-bottom: 3px;
+    width: max-content;
+    height: 15px;
+    padding: 3px 5px;
+    border-radius: 50px;
+    color: white;
+    font-size: .8vw;
+    /* white-space: nowrap; */
+}
+
+.Fantasy{
+    background-color: orchid;
+}
+.Sci-Fi {
+    background-color: rgb(77, 4, 173);
+}
+.Romance{
+    background-color: rgb(200, 49, 100);
+}
+.Mystery{
+    background-color: rgb(128, 0, 32);
+}
+.Crime{
+    background-color: rgb(0, 0, 92);
+}
+.Horror{
+    background-color: black;
+}
+.Thriller{
+    background-color: rgb(109, 1, 109);
+}
+.Inspirational{
+    background-color: rgb(189, 148, 236);
+}
+.Educational{
+    background-color: rgb(239, 168, 0);
+}
+.Folklore{
+    background-color: rgb(2, 149, 17);
+}
+
+
+

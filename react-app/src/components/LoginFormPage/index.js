@@ -3,6 +3,7 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
+import { useModal } from "../../context/Modal";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ function LoginFormPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const { closeModal } = useModal()
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -20,6 +22,15 @@ function LoginFormPage() {
       setErrors(data);
     }
   };
+
+  const demoSignIn = async () => {
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    } else {
+      closeModal()
+    }
+  }
 
   return (
     <>
@@ -50,6 +61,7 @@ function LoginFormPage() {
         </label>
         <button type="submit">Log In</button>
       </form>
+      <button onClick={demoSignIn}>Demo User</button>
     </>
   );
 }

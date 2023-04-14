@@ -5,27 +5,65 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import LandingPage from "./components/LandingPage";
+import NavBar from "./components/SideNavBar/navBar";
+import SingleStory from "./components/SingleStory";
+import ProfilePage from "./components/ProfilePage";
+import StoryForm from "./components/StoryForm/storyForm";
+import UpdateStoryForm from "./components/UpdateStoryForm/updateStoryForm";
+import UsersProfile from "./components/ProfilePage/otherUser";
+
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+
+
+
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-        </Switch>
-      )}
+      <NavBar />
+      <div className="page-body">
+        <div className="side-bar-cont">
+          <Navigation isLoaded={isLoaded} />
+        </div>
+        <div className="content-body">
+          {isLoaded && (
+            <Switch>
+
+              <Route path="/login" >
+                <LoginFormPage />
+              </Route>
+              <Route path="/signup">
+                <SignupFormPage />
+              </Route>
+              <Route exact path='/'>
+                <LandingPage />
+              </Route>
+              <Route exact path='/stories/story-form'>
+                <StoryForm />
+              </Route>
+              <Route exact path='/stories/:storyId'>
+                <SingleStory />
+              </Route>
+              <Route path='/profile'>
+                <ProfilePage />
+              </Route>
+              <Route path='/stories/:storyId/update-form'>
+                <UpdateStoryForm />
+              </Route>
+              <Route exact path='/:userId/profile'>
+                <UsersProfile />
+              </Route>
+            </Switch>
+          )}
+        </div>
+      </div>
     </>
   );
 }
