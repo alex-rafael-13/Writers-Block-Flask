@@ -5,18 +5,15 @@ import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import SideNavBar from '../SideNavBar';
 
-function Navigation({ isLoaded }){
+function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 
 	return (
-		<ul>
-
+		<>
 			{isLoaded && (
-				<li>
-					<SideNavBar user={sessionUser} />
-				</li>
+				<SideNavBar user={sessionUser} />
 			)}
-		</ul>
+		</>
 	);
 }
 
