@@ -3,6 +3,8 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
+import OpenModalButton from "../OpenModalButton";
+import SignupFormModal from "../SignupFormModal";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -20,7 +22,9 @@ function LoginFormPage() {
       setErrors(data);
     }
   };
-
+  const demoSignIn =  () => {
+    return dispatch(login('demo@aa.io', 'password'));
+  }
   return (
     <>
       <h1>Log In</h1>
@@ -50,6 +54,7 @@ function LoginFormPage() {
         </label>
         <button type="submit">Log In</button>
       </form>
+        <button onClick={demoSignIn}>Demo</button>
     </>
   );
 }

@@ -20,7 +20,6 @@ export default function SingleStory() {
     const likes = useSelector(state => state.likes.like)
     const [liked, setLiked] = useState(false)
 
-    console.log(likes)
 
     useEffect(() => {
         dispatch(retrieveOneStory(parseInt(storyId)))

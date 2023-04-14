@@ -108,7 +108,7 @@ function ProfilePage(){
 
 
     return (
-        <div>
+        <div className="profile-container">
         <h1>Profile</h1>
         {replaceIconIfNull()}
         <h3>{currentUser?.firstname} {currentUser?.lastname}</h3>
@@ -119,6 +119,8 @@ function ProfilePage(){
         <div className='navbar-in-profile'>
         <button onClick={clickStory}>Story</button>
         <button onClick={clickComment}>Comments</button>
+        </div>
+        <div className="profile-content-cards">
         {nostory()}
         {noComment()}
        
@@ -146,8 +148,7 @@ function ProfilePage(){
                     <div className="comment-contents">Comment: {comment.comment}</div>
                 </div>
             )):null}
-            
-        </div>
+            </div>
         </div>
     )
 }
