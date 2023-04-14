@@ -20,6 +20,7 @@ export default function UpdateStoryForm() {
     const [optionOne,setOptionOne] = useState('')
     const [optionTwo,setOptionTwo] = useState('')
     const [optionThree,setOptionThree] = useState('')
+    const [errors,setErrors] = useState({})
 
 
 
@@ -49,7 +50,37 @@ export default function UpdateStoryForm() {
 
 
     const handleSubmit = (e) => {
+
         e.preventDefault()
+
+
+        const errors = {}
+
+        if (title.length < 5) {
+            errors.length = 'Title must be five or more characters'
+        }
+
+        if (content.split(' ').length < 50) {
+
+            errors.content = 'Story must contain at least fifty words'
+
+        }
+
+        console.log(errors)
+
+
+
+
+
+        setErrors(errors)
+
+        if (Object.values(errors).length) {
+            return
+        }
+
+
+
+
 
         const story = {
 
@@ -182,9 +213,13 @@ export default function UpdateStoryForm() {
             <textarea required value={content} onChange={(e) => setContent(e.target.value)} />
 
 
-
-
+                <div className="story-form-bottom">
                 <button className="form-button">Post Story</button>
+                {errors.length && <p className="error">{errors.length}</p>}
+                {errors.content && <p className="error">{errors.content}</p>}
+
+                </div>
+
 
 
 

@@ -11,4 +11,3 @@ class StoryForm(FlaskForm):
     title = StringField('title', validators=[DataRequired()])
     content = StringField('content', validators=[DataRequired()])
     image = StringField('image')
-    # genres = StringField('genres',validators=[DataRequired()])
