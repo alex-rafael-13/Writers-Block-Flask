@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import './LoginForm.css';
 import OpenModalButton from "../OpenModalButton";
 import SignupFormModal from "../SignupFormModal";
+import { useModal } from "../../context/Modal";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ function LoginFormPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const {closeModal} = useModal() 
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -22,9 +24,15 @@ function LoginFormPage() {
       setErrors(data);
     }
   };
-  const demoSignIn =  () => {
-    return dispatch(login('demo@aa.io', 'password'));
+  const demoSignIn = async () => {
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    } else {
+        closeModal()
+    }
   }
+
   return (
     <>
       <h1>Log In</h1>
@@ -53,6 +61,7 @@ function LoginFormPage() {
           />
         </label>
         <button type="submit">Log In</button>
+        <button onClick={demoSignIn}>Demo User</button>
       </form>
         <button onClick={demoSignIn}>Demo</button>
     </>
