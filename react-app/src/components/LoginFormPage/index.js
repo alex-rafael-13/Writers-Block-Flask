@@ -3,9 +3,6 @@ import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
-import OpenModalButton from "../OpenModalButton";
-import SignupFormModal from "../SignupFormModal";
-import { useModal } from "../../context/Modal";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -24,14 +21,6 @@ function LoginFormPage() {
       setErrors(data);
     }
   };
-  const demoSignIn = async () => {
-    const data = await dispatch(login('demo@aa.io', 'password'));
-    if (data) {
-      setErrors(data);
-    } else {
-        closeModal()
-    }
-  }
 
   return (
     <>
