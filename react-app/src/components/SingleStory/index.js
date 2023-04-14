@@ -26,12 +26,14 @@ export default function SingleStory() {
         dispatch(allLikesInStory(parseInt(storyId)))
     }, [dispatch])
 
-    let imgUrl
-    if (!story.image) {
-        imgUrl = 'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg'
-    } else {
-        imgUrl = story.image
-    }
+    // let imgUrl
+    // if (story.story && story.story.image && story.story.image === null) {
+    //     imgUrl = 'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg'
+    // } else {
+    //     imgUrl = story.image
+    // }
+    // console.log(imgUrl)
+    // console.log(story.image)
 
     
     const storyContent = story?.story
@@ -93,7 +95,7 @@ const clickToLike = async () => {
 
                 </div>
             </div>
-            <img className="story-image" src={imgUrl} alt='story-img' />
+            <img className="story-image" src={!story?.story?.image? 'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg': story?.story?.image} alt='story-img' />
             <div className="author-like-button">
                <div className="author-cont"><Link to={`/${story?.story?.user_id}/profile`} className="author-cont">By {story?.user}</Link></div>
                 <div className="likes-cont">
