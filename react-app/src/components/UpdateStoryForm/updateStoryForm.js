@@ -128,7 +128,7 @@ export default function UpdateStoryForm() {
 
     const addOptionOne = (e) => {
         e.preventDefault()
-        const id = e.target.value
+        const id = +e.target.value
 
 
         if (optionTwo === id || optionThree === id) {
@@ -142,7 +142,7 @@ export default function UpdateStoryForm() {
 
     const addOptionTwo = (e) => {
         e.preventDefault()
-        const id = e.target.value
+        const id = +e.target.value
 
         if (optionOne === id || optionThree === id) {
             setOptionTwo('')
@@ -155,7 +155,7 @@ export default function UpdateStoryForm() {
 
     const addOptionThree = (e) => {
         e.preventDefault()
-        const id = e.target.value
+        const id = +e.target.value
 
         if (optionOne === id || optionTwo === id) {
             setOptionThree('')
