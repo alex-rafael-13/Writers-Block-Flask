@@ -10,7 +10,7 @@ class Story(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    title = db.Column(db.String,unique=True, nullable=False)
+    title = db.Column(db.String, nullable=False)
     content = db.Column(db.String, nullable=False)
     image = db.Column(db.String, nullable=True)
 
