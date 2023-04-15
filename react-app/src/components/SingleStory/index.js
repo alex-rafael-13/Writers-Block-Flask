@@ -101,7 +101,11 @@ const clickToLike = async () => {
                 <div className="likes-cont">
                     <div className="like-button">
                         {currentUser?
-                        <button onClick={clickToLike}>Like: {story.likes}</button>
+                        <button className='like-button-1' onClick={clickToLike}>
+                        {!liked?
+                         <i class="fa-solid fa-heart" style={{ color: '#070707' }}>{story.likes}</i>
+                         :<i class="fa-solid fa-heart" style={{ color: '#ed0202' }}>{story.likes}</i>}
+                         </button>
                         :<div>Likes: {story.likes}</div>}
                         </div>
                 </div>

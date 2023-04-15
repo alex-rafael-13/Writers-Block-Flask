@@ -128,7 +128,7 @@ function SignupFormModal() {
 						placeholder="Confirm password"
 					/>
 				</label>
-				<button type="submit" className="signup-button">Sign Up</button>
+				<button type="submit" className='button-55'>Sign Up</button>
 			</form>
 		</div>
 	);

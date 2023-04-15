@@ -7,15 +7,20 @@ import { retrieveOneStory } from "../../store/story";
 function UpdateComment(storyId){ 
     const dispatch = useDispatch();
     const { closeModal } = useModal()
-    const commented = useSelector(state => state.comments.comment) 
+    const storyComment = useSelector(state => state.stories.story.comments) 
     const currentUser = useSelector(state => state.session.user)
-    const [comment, setComment] = useState('');
+    let userComment
+    storyComment.forEach(comment => { 
+        if(comment.username === currentUser.username){ 
+            userComment = comment.comment
+        }
+    })
+    
+    const [comment, setComment] = useState(userComment);
     
     
-    console.log(comment)
     useEffect(() => { 
         dispatch(retrieveOneStory(storyId))
-        dispatch(setAllComment(storyId.storyId))
     },[dispatch])
     
 
@@ -35,8 +40,10 @@ function UpdateComment(storyId){
             <h1>Comment</h1>
             <form onSubmit={handleSubmit}>
                 <label>
-                    Comment
+
                     <input
+                    className="comment-input"
+                    placeholder="comment"
                     type='text'
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
@@ -44,7 +51,7 @@ function UpdateComment(storyId){
                     >
                     </input>
                 </label>
-                <button type="submit">Comment</button>
+                <button   className='button-55' type="submit">Comment</button>
             </form>
         </>
     )

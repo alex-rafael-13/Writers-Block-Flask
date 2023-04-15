@@ -9,3 +9,16 @@
     font-weight: 600;
 }
 
+.comment-input { 
+    border-radius: 15px;
+    padding: 15px;
+}
+
+ul { 
+    list-style-type: none;
+}
+
+.follower-name { 
+    font-size: 20px;
+    font-weight: bold;
+}

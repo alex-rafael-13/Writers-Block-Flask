@@ -44,6 +44,8 @@
     margin-right: 3px;
 }
 
-.like-button{
-    border: solid black;
+.like-button-1 { 
+    padding: 10px;
+    border-radius: 15px;
+    background-color: rgb(179, 223, 236);
 }

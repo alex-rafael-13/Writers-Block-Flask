@@ -71,18 +71,19 @@ function ProfilePage(){
             return <h1>You dont have any comment</h1>
         }
     }
-    
+    let followerButtonText = `follower:${allFollwers.length}`
+    let followingButtonText = `follower:${allFollowing.length}`
     
     const openFollowerModal = () => { 
         return <OpenModalButton 
-        buttonText='follower'
+        buttonText={followerButtonText}
         modalComponent={<GetFollower userId={currentUser?.id}/>}
         />
     }
         
         const openFolloingModal = () => { 
             return <OpenModalButton 
-            buttonText='following'
+            buttonText={followingButtonText}
         modalComponent={<GetFollowing userId={currentUser?.id}/>}
         />
     }
@@ -104,7 +105,6 @@ function ProfilePage(){
         history.push(`/stories/${id}/update-form`)
     }
 
-    
 
 
     return (
@@ -115,17 +115,17 @@ function ProfilePage(){
         <h3>Email: {currentUser?.email}</h3>
         <h3>Bio: {currentUser?.bio}</h3>
         
-        <h4>{openFollowerModal()}:{allFollwers.length} {openFolloingModal()}: {allFollowing.length}</h4>
+        <h4>{openFollowerModal()} {openFolloingModal()}</h4>
         <div className='navbar-in-profile'>
-        <button onClick={clickStory}>Story</button>
-        <button onClick={clickComment}>Comments</button>
+        <button className={toggleStory ? 'button-56 active' : 'button-56'} onClick={clickStory}>Story</button>
+      <button className={toggleComment ? 'button-56 active' : 'button-56'} onClick={clickComment}>Comments</button>
         </div>
         <div className="profile-content-cards">
         {nostory()}
         {noComment()}
        
         {toggleStory? allStories?.map(story => (
-           <><button onClick={(e)=>toUpdateStory(e,story.id)}>Update</button>
+           <><button  className='button-55' onClick={(e)=>toUpdateStory(e,story.id)}>Update</button>
             {openDeleteModal(story.id)}
             <NavLink exact to={`/stories/${story.id}`}>
                   <div className="story-card" key={story.id}>
@@ -134,11 +134,11 @@ function ProfilePage(){
                     <div className='author-name'>By {story.username}</div>
                     <div className='genres-cont'>
                       {story.genres.map(genre => (
-                          <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
+                        <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
                           ))}
                     </div>
                   </div>
-                </NavLink></>)):null}
+                      </NavLink></>)):null}
                                 
                
         

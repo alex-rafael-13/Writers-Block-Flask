@@ -33,8 +33,9 @@ function CreateComment(storyId){
             <h1>Comment</h1>
             <form onSubmit={handleSubmit}>
                 <label>
-                    Comment
                     <input
+                    className="comment-input"
+                    placeholder="Comment"
                     type='text'
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
@@ -42,7 +43,7 @@ function CreateComment(storyId){
                     >
                     </input>
                 </label>
-                <button type="submit">Comment</button>
+                <button  className='button-55' type="submit">Comment</button>
             </form>
         </>
     )
