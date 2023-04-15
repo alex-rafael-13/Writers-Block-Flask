@@ -8,7 +8,9 @@ from flask_login import login_required
 chatgpt_routes = Blueprint('chatgpt', __name__)
 
 
-openai.api_key = os.environ.get('CHATGPT_KEY')
+openai.api_key = os.environ.get('GPT_KEY')
+
+
 
 
 
@@ -16,6 +18,8 @@ openai.api_key = os.environ.get('CHATGPT_KEY')
 @chatgpt_routes.route('', methods=['POST'])
 @login_required
 def send_message():
+
+    print(openai.api_key,'-------===++++++')
 
     data = request.get_json()
 
