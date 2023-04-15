@@ -26,7 +26,7 @@ def seed_story():
         user_id = 2,
         title = 'Animatronics and Ghosts',
         content = ANIMATRONICS,
-        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7ovy2_QKjLqBOrNMzaxMMhVnn1jEta8hu1A&usqp=CAU'
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIwC6zQc51CaXL4kgiX0tc54yDxKqK7pXoZQ&usqp=CAU'
     )
     matt2 = Story(
         user_id = 2,
@@ -50,7 +50,7 @@ def seed_story():
         user_id = 3,
         title = 'The Tale of the Dragons',
         content = DRAGONS,
-        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSitZECsQmXN4GJRAfkGwrf9JABL2t3U8O72LXaMs42n8UIGkPPmZhVfBwSv-4now7dwPw&usqp=CAU'
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRR28YUDKKngiDua3_T511Yxj3DGHYNcddNtA&usqp=CAU'
     )
     jon3 = Story(
         user_id = 3,
@@ -100,22 +100,22 @@ def seed_story():
         content = SERENA,
         image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkKM_X_i4dlWdtdRyvmg6KhR0WHQu5013ohA&usqp=CAU'
     )
-    db.session.add(luke1)
-    db.session.add(luke2)
     db.session.add(luke3)
-    db.session.add(matt3)
-    db.session.add(matt1)
-    db.session.add(matt2)
-    db.session.add(jon1)
-    db.session.add(jon2)
-    db.session.add(jon3)
-    db.session.add(adam1)
     db.session.add(adam2)
+    db.session.add(lewis3)
+    db.session.add(jon2)
+    db.session.add(matt1)
+    db.session.add(jon1)
+    db.session.add(lewis4)
+    db.session.add(matt3)
+    db.session.add(adam1)
+    db.session.add(lewis2)
+    db.session.add(luke2)
     db.session.add(adam3)
     db.session.add(lewis1)
-    db.session.add(lewis2)
-    db.session.add(lewis3)
-    db.session.add(lewis4)
+    db.session.add(jon3)
+    db.session.add(matt2)
+    db.session.add(luke1)
     db.session.commit()
 
 
