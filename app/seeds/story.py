@@ -40,14 +40,33 @@ def seed_story():
         content = MATT_PATT,
         image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa37I8he8dce_RF-TbX37CDp9B2NjcsWqGXw&usqp=CAU'
     )
-
-
+    jon1 = Story(
+        user_id = 3,
+        title = 'The King of The North',
+        content = THE_KING_OF_THE_NORTH,
+        image='https://bbts1.azureedge.net/images/p/full/2021/08/7eec1afa-e039-485e-919e-798a72fd3f56.jpg'
+    )
+    jon2 = Story(
+        user_id = 3,
+        title = 'The Tale of the Dragons',
+        content = DRAGONS,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSitZECsQmXN4GJRAfkGwrf9JABL2t3U8O72LXaMs42n8UIGkPPmZhVfBwSv-4now7dwPw&usqp=CAU'
+    )
+    jon3 = Story(
+        user_id = 3,
+        title = 'Dragon\'s Passion',
+        content = DRAGONS,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxkEPxvoxPVs2bPvUY3wZ0azT-PpRSRjVENg&usqp=CAU'
+    )
     db.session.add(luke1)
     db.session.add(luke2)
     db.session.add(luke3)
     db.session.add(matt3)
     db.session.add(matt1)
     db.session.add(matt2)
+    db.session.add(jon1)
+    db.session.add(jon2)
+    db.session.add(jon3)
     db.session.commit()
 
 
