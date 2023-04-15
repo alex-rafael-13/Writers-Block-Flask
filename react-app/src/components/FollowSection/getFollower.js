@@ -11,7 +11,7 @@ function GetFollower(userId){
     useEffect(() => { 
         dispatch(getAllFollower(userId.userId))
     }, [dispatch])
-
+ 
    
     return (
         <div>

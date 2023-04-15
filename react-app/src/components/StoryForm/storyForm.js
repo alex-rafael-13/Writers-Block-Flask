@@ -260,6 +260,7 @@ export default function UpdateStoryForm() {
         <div  className="chat-box">
 
         <div className="chat-display">
+            Stucked? Ask me anything! (Write me a short funny story.)
             {Object.values(chatDisplay.slice(1)).map(msg => (
                 <p className={msg.role}>{msg.content}</p>
             ))}

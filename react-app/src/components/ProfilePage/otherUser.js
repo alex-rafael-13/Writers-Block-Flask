@@ -33,11 +33,11 @@ function UsersProfile(){
             ></img>
           );
         } else if (currentUser && currentUser.icon) {
-          return <img src={currentUser.icon}></img>;
+          return <img className='user-icon-image' src={currentUser.icon}></img>;
         }
       };
       let followerButtonText = `follower:${allFollwers.length}`
-      let followingButtonText = `follower:${allFollowing.length}`
+      let followingButtonText = `following:${allFollowing.length}`
       
       
       const openFollowerModal = () => { 

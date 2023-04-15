@@ -3,7 +3,9 @@
 }
 
 .user-icon-image { 
-    width: 250px;
+    width: 280px;
+    height: 260px;
+    border-radius: 50%;
 }
 
 .profile-container { 

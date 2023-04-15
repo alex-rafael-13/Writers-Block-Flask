@@ -72,7 +72,7 @@ function ProfilePage(){
         }
     }
     let followerButtonText = `follower:${allFollwers.length}`
-    let followingButtonText = `follower:${allFollowing.length}`
+    let followingButtonText = `following:${allFollowing.length}`
     
     const openFollowerModal = () => { 
         return <OpenModalButton 

@@ -57,7 +57,7 @@ function App() {
               <Route path='/stories/:storyId/update-form'>
                 <UpdateStoryForm />
               </Route>
-              <Route exact path='/:userId/profile'>
+              <Route  path='/:userId/profile'>
                 <UsersProfile />
               </Route>
             </Switch>

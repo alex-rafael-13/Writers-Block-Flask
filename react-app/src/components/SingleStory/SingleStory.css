@@ -23,6 +23,8 @@
 
 .story-image{
     object-fit: cover;
+    max-width: 100%;
+    max-height: 800px;
 }
 
 .author-like-button{

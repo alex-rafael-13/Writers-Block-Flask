@@ -15,21 +15,17 @@ import { createFollow, deleteFollow, getAllFollower } from "../../store/follower
 
 
 export default function SingleStory() {
-    const history = useHistory()
     const { storyId } = useParams()
     const story = useSelector(state => state.stories.story)
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.session.user)
-    const likes = useSelector(state => state.likes.like)
     const [liked, setLiked] = useState(false)
-    const allFollwers = useSelector(state => state.follows.followers)
 
     
 
     useEffect(() => {
         dispatch(retrieveOneStory(parseInt(storyId)))
         dispatch(allLikesInStory(parseInt(storyId)))
-        dispatch(getAllFollower(story?.story?.user_id))
     }, [dispatch])
 
     // let imgUrl
@@ -91,39 +87,6 @@ const clickToLike = async () => {
 }
 
 
-const followUser = async () =>  { 
-    if(!currentUser){ 
-        history.push('/login')
-}else{
-    const payload = { 
-        follower_id: currentUser.id,
-        following_id: story.story.user_id
-    }
-    await dispatch(createFollow(payload, currentUser.id))
-}
-}
-
- const deleteUser = async () => { 
-     if(!currentUser){ 
-    history.push('/login')
-}else{
-    await dispatch(deleteFollow(currentUser.id))
-}
-}
-
-const followedOrNot = () => { 
-    if(!currentUser){ 
-        history.push('/login')
-    }
-    let followed = allFollwers?.filter(follower => currentUser && follower.id === currentUser.id)
-    
-    if(followed.length){ 
-        return <button  className='button-55' onClick={deleteUser}>Unfollow</button>
-    }else { 
-        return <button  className='button-55' onClick={followUser}>Follow</button>
-    }
-}
-
 
     return (
         <div className="single-story-cont">
@@ -139,7 +102,7 @@ const followedOrNot = () => {
             <img className="story-image" src={!story?.story?.image? 'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg': story?.story?.image} alt='story-img' />
             <div className="author-like-button">
             
-               <div className="author-cont"><Link to={`/${story?.story?.user_id}/profile`} className="author-cont">By {story?.user}</Link>{followedOrNot()}</div>
+               <div className="author-cont">{currentUser.id === story?.story?.user_id ? <Link to={'/profile'}>By {story?.user}</Link>:<Link to={`/${story?.story?.user_id}/profile`} className="author-cont">By {story?.user}</Link>}</div>
                 <div className="likes-cont">
                     <div className="like-button">
                         {currentUser?
