@@ -22,7 +22,7 @@ function LoginFormModal() {
   };
 
   const demoSignIn = async () => {
-    const data = await dispatch(login('demo@aa.io', 'password'));
+    const data = await dispatch(login('luke@aa.io', 'password'));
     if (data) {
       setErrors(data);
     } else {
