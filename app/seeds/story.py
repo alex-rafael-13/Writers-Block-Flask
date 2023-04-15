@@ -22,23 +22,32 @@ def seed_story():
         content = THE_JEDIS_APPRENTINCE,
         image='https://i.redd.it/7p3elhmwqrs61.png'
     )
-    story4 = Story(
+    matt1 = Story(
         user_id = 2,
-        title = 'demostory4',
-        content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        title = 'Animatronics and Ghosts',
+        content = ANIMATRONICS,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7ovy2_QKjLqBOrNMzaxMMhVnn1jEta8hu1A&usqp=CAU'
     )
-    story5 = Story(
-        user_id = 3,
-        title = 'demostory5',
-        content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    matt2 = Story(
+        user_id = 2,
+        title = 'The End',
+        content = THE_END,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQuDmgx3kWG47b3-HeML3Sn1-Yyzn9Zzqmww&usqp=CAU'
+    )
+    matt3 = Story(
+        user_id = 2,
+        title = 'The Rise of Matt Patt',
+        content = MATT_PATT,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa37I8he8dce_RF-TbX37CDp9B2NjcsWqGXw&usqp=CAU'
     )
 
 
     db.session.add(luke1)
     db.session.add(luke2)
     db.session.add(luke3)
-    db.session.add(story4)
-    db.session.add(story5)
+    db.session.add(matt3)
+    db.session.add(matt1)
+    db.session.add(matt2)
     db.session.commit()
 
 

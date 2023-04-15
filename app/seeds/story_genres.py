@@ -26,6 +26,10 @@ def seed_story_genres():
         story_id = 5,
         genre_id = 2
     )
+    story_genre7 = StoryGenre(
+        story_id = 6,
+        genre_id = 8
+    )
 
     db.session.add(story_genre1)
     db.session.add(story_genre2)
@@ -33,6 +37,7 @@ def seed_story_genres():
     db.session.add(story_genre4)
     db.session.add(story_genre5)
     db.session.add(story_genre6)
+    db.session.add(story_genre7)
     db.session.commit()
 
 def undo_story_genre():
