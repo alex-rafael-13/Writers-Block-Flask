@@ -1,15 +1,31 @@
 import openai
 import os
 
+from flask import Blueprint, request, jsonify
+from flask_login import login_required
 
 
-openai.api_key = API_KEY
+chatgpt_routes = Blueprint('chatgpt', __name__)
 
-response = openai.ChatCompletion.create(
-    model='gpt-3.5-turbo',
-    messages=[{"role": "system", "content": "You are an English teacher"},
-            {"role": "user", "content": "what is your job?"}]
 
-)
+openai.api_key = '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'
 
-print(response['choices'][0]['message'])
+
+
+
+@chatgpt_routes.route('', methods=['POST'])
+@login_required
+def send_message():
+
+    data = request.get_json()
+
+    print(data,'====================')
+
+    response = openai.ChatCompletion.create(
+        model='gpt-3.5-turbo',
+        messages=data
+
+    )
+
+
+    return jsonify(response['choices'][0]['message'])

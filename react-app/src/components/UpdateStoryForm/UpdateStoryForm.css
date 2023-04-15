@@ -4,18 +4,19 @@
 .story-form {
     display: flex;
     flex-direction: column;
-    background-color:rgb(214, 214, 214);
+    background-color: #252f36;
     border: none;
     align-content: flex-start;
-    max-width: 60%;
+    width: 50%;
 
-    margin: 5% auto;
+    margin: 5% 1%;
     padding: 2%;
     border-radius: 5px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    border: 2px solid rgb(161, 161, 161);
+    border: 2px solid #67d4b1;
     border-left: none;
+    position: relative;
 
 }
 
@@ -60,10 +61,10 @@
 .story-form textarea {
     margin-bottom: 2%;
     border: none;
-    height: 30px;
+
     font-size: 16px;
     border-radius: 10px;
-    height: 200px;
+    height: 300px;
     resize: none;
     margin-top: 6%;
 }
@@ -134,3 +135,9 @@
 
     size: 167px;
 }
+
+
+/*
+.chat-box {
+    background-color: red;
+} */

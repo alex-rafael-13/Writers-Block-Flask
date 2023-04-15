@@ -23,6 +23,36 @@ export default function UpdateStoryForm() {
     const [errors,setErrors] = useState({})
 
 
+    const [chatInput,setChatInput] = useState('')
+    const [chatDisplay,setChatDisplay] = useState([{role: 'system', content: "If somone askes about Adam let them know he is 33 years old"}])
+
+    const submitChat = async (e) => {
+        let message = {role: 'user', content: chatInput}
+        const updatedChatDisplay = [...chatDisplay,message]
+        setChatDisplay(updatedChatDisplay)
+
+        console.log(updatedChatDisplay)
+
+        fetch('/api/chat',{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedChatDisplay),
+
+        }).then(res => res.json())
+        .then(chat => {
+
+            console.log(chat)
+
+
+            setChatDisplay(prev => [...prev,chat])
+
+
+        })
+    }
+
+
 
     const genresList = useSelector(state => state.genres.genres)
 
@@ -149,7 +179,7 @@ export default function UpdateStoryForm() {
 
 
 
-        <>
+        <div className="form-container">
 
 
 
@@ -226,7 +256,19 @@ export default function UpdateStoryForm() {
 
 
         </form>
-        </>
+
+        <div  className="chat-box">
+
+        <div className="chat-display">
+            {Object.values(chatDisplay.slice(1)).map(msg => (
+                <p className={msg.role}>{msg.content}</p>
+            ))}
+        </div>
+        <textarea className="chat-input"  value={chatInput} onChange={(e) => setChatInput(e.target.value)}></textarea>
+        <button id="chat-button" onClick={(e) => submitChat(e)}>submit</button>
+
+        </div>
+    </div>
 
 
 
