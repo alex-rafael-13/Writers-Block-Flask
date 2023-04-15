@@ -44,7 +44,7 @@ def seed_story():
         user_id = 3,
         title = 'The King of The North',
         content = THE_KING_OF_THE_NORTH,
-        image='https://bbts1.azureedge.net/images/p/full/2021/08/7eec1afa-e039-485e-919e-798a72fd3f56.jpg'
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGF33IWwPuu2eNDbMAG70D_6y2282JgBpopQ&usqp=CAU'
     )
     jon2 = Story(
         user_id = 3,
@@ -76,6 +76,30 @@ def seed_story():
         content = LIFE_IN_NEW_ORLEANS,
         image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgIPalxvQuGCGx3ZgX5a9Sudyto3uD0ZFrDA&usqp=CAU'
     )
+    lewis1 = Story(
+        user_id = 5,
+        title = 'Path of a Champion',
+        content = PATH_OF_CHAMPS,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUgrWvKUIOz0VCDWUPt54JpBErmV825-WeHg&usqp=CAU'
+    )
+    lewis2 = Story(
+        user_id = 5,
+        title = 'Breaking Barries',
+        content = BREAKING_BARRIES,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlUe9fIlvOQ_WwSlfcl5tmBClp8MeyGy-o6Q&usqp=CAU'
+    )
+    lewis3 = Story(
+        user_id = 5,
+        title = 'Brazil, My Love',
+        content = BRAZIL,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpw2VkGetdddvE42AIWbOmHYOY3hCbtvItvg&usqp=CAU'
+    )
+    lewis4 = Story(
+        user_id = 5,
+        title = 'Serena, The Ultimate Champion',
+        content = SERENA,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkKM_X_i4dlWdtdRyvmg6KhR0WHQu5013ohA&usqp=CAU'
+    )
     db.session.add(luke1)
     db.session.add(luke2)
     db.session.add(luke3)
@@ -88,6 +112,10 @@ def seed_story():
     db.session.add(adam1)
     db.session.add(adam2)
     db.session.add(adam3)
+    db.session.add(lewis1)
+    db.session.add(lewis2)
+    db.session.add(lewis3)
+    db.session.add(lewis4)
     db.session.commit()
 
 
