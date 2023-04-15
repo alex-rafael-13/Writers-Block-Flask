@@ -85,6 +85,7 @@ def post_comment(storyId):
             .filter(Comment.story_id == storyId, Comment.user_id == current_user.id)\
             .first()
         
+        print(commented.to_dict())
         if commented:
             db.session.delete(commented)
             db.session.commit()

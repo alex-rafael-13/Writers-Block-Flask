@@ -55,7 +55,7 @@ export const createNewComment = (payload,storyId) => async dispatch => {
     if(res.ok){ 
         const newComment = await res.json()
         dispatch(createComment(newComment))
-        dispatch(retrieveOneStory(storyId))
+        dispatch(setAllComment(storyId))
     }
     return res
 }
@@ -67,7 +67,9 @@ export const deleteAComment = (storyId) => async dispatch => {
     })
 
     if(res.ok){ 
-      dispatch(retrieveOneStory(storyId))
+      const data = await res.json()
+      dispatch(deleteAComment(data))
+      dispatch(setAllComment(storyId))
     }
     return res 
 }
@@ -91,7 +93,7 @@ export const updateUserComment = (payload,storyId) => async dispatch => {
 
   if(res.ok){ 
     const data = await res.json()
-    dispatch(retrieveOneStory(storyId))
+    dispatch(setAllComment(storyId))
     return data
   }
 }

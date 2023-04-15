@@ -9,10 +9,10 @@ function UpdateComment(storyId){
     const { closeModal } = useModal()
     const commented = useSelector(state => state.comments.comment) 
     const currentUser = useSelector(state => state.session.user)
-    const [comment, setComment] = useState('');
     
-    
-    console.log(comment)
+    const currentUserComment = commented?.filter(comm => comm.user_id === currentUser.id) 
+    const [comment, setComment] = useState(currentUserComment[0]?.comment);
+    console.log(currentUserComment)
     useEffect(() => { 
         dispatch(retrieveOneStory(storyId))
         dispatch(setAllComment(storyId.storyId))

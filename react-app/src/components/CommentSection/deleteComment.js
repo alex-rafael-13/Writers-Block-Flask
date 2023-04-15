@@ -6,11 +6,11 @@ function DelelteAComment(storyId){
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
-    const submit = e => { 
+    const submit = async e => { 
         e.preventDefault();
 
-        dispatch(deleteAComment(storyId.storyId))
-        closeModal();
+    return dispatch(deleteAComment(storyId.storyId))
+    .then(closeModal());
     }
     return (
         <div>

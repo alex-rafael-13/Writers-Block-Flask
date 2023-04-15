@@ -19,11 +19,12 @@ export default function SingleStory() {
     const currentUser = useSelector(state => state.session.user)
     const likes = useSelector(state => state.likes.like)
     const [liked, setLiked] = useState(false)
-
+    const comments = useSelector(state => state.comments.comment)
 
     useEffect(() => {
         dispatch(retrieveOneStory(parseInt(storyId)))
         dispatch(allLikesInStory(parseInt(storyId)))
+        dispatch(setAllComment(storyId))
     }, [dispatch])
 
     // let imgUrl
@@ -40,8 +41,8 @@ export default function SingleStory() {
 
 
     let commented = false;
-    if(story.comments && currentUser){ 
-        story.comments.forEach(comment => { 
+    if(comments && currentUser){ 
+        comments.forEach(comment => { 
             if(comment.username === currentUser.username){ 
                 commented = true
             }
@@ -113,8 +114,8 @@ const clickToLike = async () => {
             {/* <CommentSection comments={story?.comments} /> */}
             <div className="comments-section">
             <h3>Comments</h3>
-            {!commented&& currentUser?createCommentModal():null}
-            {story?.comments?.map(comment => (
+            {!commented && currentUser?createCommentModal():null}
+            {comments?.map(comment => (
                 <div key={comment.username}className="comment-body">
                     <div className="user-comment">{comment.username}</div>
                     <div className="comment-contents">{comment.comment}</div>
