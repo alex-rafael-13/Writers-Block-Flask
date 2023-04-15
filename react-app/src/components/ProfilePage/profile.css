@@ -98,3 +98,10 @@
 .button-56.active { 
   background-color: aquamarine;
 }
+
+
+.profile-comment{ 
+  display: flex;
+  flex-direction: column;
+  
+}
