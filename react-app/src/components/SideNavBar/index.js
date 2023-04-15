@@ -97,22 +97,18 @@ function SideNavBar({ user }) {
               </>
               ):(
               <>
-              <li className="row">
                 <OpenModalMenuItem
-                  className='nav-row'
+                  className='row'
                   itemText={<><div id="icon"><i className="fa-solid fa-user" /></div><div id="text">Login</div></>}
                   onItemClick={closeMenu}
                   modalComponent={<LoginFormModal />} 
                   />
-              </li>
-              <li className='row'>
                   <OpenModalMenuItem
-                  className='nav-row'
+                  className='row'
                   itemText={<><div id="icon"><i className="fa-solid fa-user-plus" /></div><div id="text">Sign Up</div></>}
                   onItemClick={closeMenu}
                   modalComponent={<SignupFormModal />} 
                 />
-              </li>
               </>
             )}
           </ul>
