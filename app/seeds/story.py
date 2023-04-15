@@ -58,6 +58,24 @@ def seed_story():
         content = DRAGONS,
         image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxkEPxvoxPVs2bPvUY3wZ0azT-PpRSRjVENg&usqp=CAU'
     )
+    adam1 = Story(
+        user_id = 4,
+        title = 'Journey of a Struggling Chef',
+        content = JENNA,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy50lFPCa-KC2J-8dNAWJFtPvnLDvUi4tHPw&usqp=CAU'
+    )
+    adam2 = Story(
+        user_id = 4,
+        title = 'A Night in Paris',
+        content = NIGHT_IN_PARIS,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyqs5U7FztNvg-nuZTf0HZROtyuCNf_xF7SQ&usqp=CAU'
+    )
+    adam3 = Story(
+        user_id = 4,
+        title = 'My Life in New Orleans',
+        content = LIFE_IN_NEW_ORLEANS,
+        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgIPalxvQuGCGx3ZgX5a9Sudyto3uD0ZFrDA&usqp=CAU'
+    )
     db.session.add(luke1)
     db.session.add(luke2)
     db.session.add(luke3)
@@ -67,6 +85,9 @@ def seed_story():
     db.session.add(jon1)
     db.session.add(jon2)
     db.session.add(jon3)
+    db.session.add(adam1)
+    db.session.add(adam2)
+    db.session.add(adam3)
     db.session.commit()
 
 
