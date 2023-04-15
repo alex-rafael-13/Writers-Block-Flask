@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User, db, Story
+from app.models import User, db, Story, Genre, StoryGenre
 
 user_routes = Blueprint('users', __name__)
 
@@ -20,22 +20,29 @@ def user(id):
     """
     Query for a user by id and returns that user in a dictionary
     """
-    user_story = db.session.query(User, Story)\
+    user_story = db.session.query(User, Story, Genre)\
         .join(Story)\
+        .join(StoryGenre)\
+        .join(Genre)\
         .filter(User.id == id)\
         .all()
     print(user_story)
 
-    lst = []
     user_dict = {}
+    for user, story, genre in user_story:
+        if user.id not in user_dict:
+            user_dict[user.id] = user.to_dict()
+            user_dict[user.id]['stories'] = []
+        story_dict = None
+        for story_d in user_dict[user.id]['stories']:
+            if story_d['id'] == story.id:
+                story_dict = story_d
+                break
+        if story_dict is None:
+            story_dict = story.to_dict()
+            story_dict['genres'] = []
+            user_dict[user.id]['stories'].append(story_dict)
+        story_dict['genres'].append(genre.name)
 
-# loop over all user_story tuples and create a dictionary for each user
-    for user, story in user_story:
-         if user.id not in user_dict:
-             user_dict[user.id] = user.to_dict()
-             user_dict[user.id]['stories'] = []
-         user_dict[user.id]['stories'].append(story.to_dict())
-
-# convert user dictionary to list and return
     lst = list(user_dict.values())
     return lst
