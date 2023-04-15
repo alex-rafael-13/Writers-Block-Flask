@@ -19,7 +19,7 @@ openai.api_key = os.environ.get('GPT_KEY')
 @login_required
 def send_message():
 
-    print(openai.api_key,'-------===++++++')
+
 
     data = request.get_json()
 
