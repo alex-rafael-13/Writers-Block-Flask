@@ -22,8 +22,7 @@ function ProfilePage(){
     const [toggleComment, setToggleComment] = useState(false)
     const allFollwers = useSelector(state => state.follows.followers)
     const allFollowing = useSelector(state => state.follows.following)
-    
-   
+
     useEffect(() => {
         if (currentUser) {
           dispatch(getCurrentUseStory())
@@ -109,11 +108,10 @@ function ProfilePage(){
     return (
         <div className="profile-container">
         <h1>Your Profile</h1>
-        {replaceIconIfNull()}
+        {replaceIconIfNull()}  
         <h3>{currentUser?.firstname} {currentUser?.lastname}</h3>
         <h3>Email: {currentUser?.email}</h3>
         <h3>Bio: {currentUser?.bio}</h3>
-        
         <h4>{openFollowerModal()} {openFolloingModal()}</h4>
         <div className='navbar-in-profile'>
         <button className={toggleStory ? 'button-56 active' : 'button-56'} onClick={clickStory}>Story</button>
@@ -129,7 +127,6 @@ function ProfilePage(){
                   <div className="story-card" key={story.id}>
                     <h3>Story: {story.title}</h3>
                     <img className='preview-image' src={!story.image?'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg' : story.image } alt='image.txt'></img>
-                    <div className='author-name'>By {story.username}</div>
                       {story.genres.map(genre => (
                         <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
                         ))}
@@ -141,7 +138,6 @@ function ProfilePage(){
                       )):null}
                                 
                
-                        
         {toggleComment? allComments?.map(comment => (
           <div key={comment.username}className="profile-comment">
                   ________________________________________

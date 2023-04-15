@@ -12,6 +12,7 @@ import ProfilePage from "./components/ProfilePage";
 import StoryForm from "./components/StoryForm/storyForm";
 import UpdateStoryForm from "./components/UpdateStoryForm/updateStoryForm";
 import UsersProfile from "./components/ProfilePage/otherUser";
+import ScrollToTopButton from "./components/ScrollUp/scrolltoTop";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Navigation isLoaded={isLoaded} />
         </div>
         <div className="content-body">
+          <ScrollToTopButton />
           {isLoaded && (
             <Switch>
 
