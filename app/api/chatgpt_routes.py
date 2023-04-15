@@ -8,7 +8,7 @@ from flask_login import login_required
 chatgpt_routes = Blueprint('chatgpt', __name__)
 
 
-openai.api_key = ''
+openai.api_key = os.environ.get('CHATGPT_KEY')
 
 
 

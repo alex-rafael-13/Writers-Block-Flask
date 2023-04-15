@@ -24,7 +24,7 @@ export default function UpdateStoryForm() {
 
 
     const [chatInput,setChatInput] = useState('')
-    const [chatDisplay,setChatDisplay] = useState([{role: 'system', content: "If somone askes about Adam let them know he is 33 years old"}])
+    const [chatDisplay,setChatDisplay] = useState([{role: 'system', content: "Your assistiing others with writing stories"}])
 
     const submitChat = async (e) => {
         let message = {role: 'user', content: chatInput}

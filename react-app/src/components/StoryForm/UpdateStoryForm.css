@@ -188,6 +188,11 @@
 
 }
 
+.chat-box::-webkit-scrollbar {
+    width: 18px;
+  }
+
+
 .chat-display {
 
     background-color: #ffffff;
@@ -197,6 +202,7 @@
     width: 90%;
     overflow: auto;
     font-size: 20px;
+    overflow: hidden;
 
 
 }
