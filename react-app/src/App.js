@@ -62,6 +62,12 @@ function App() {
               <Route  path='/:userId/profile'>
                 <UsersProfile />
               </Route>
+              <Route>
+              <div>
+                <h1>404 Error</h1>
+                <p>Page not found</p>
+              </div>
+            </Route>
             </Switch>
           )}
         </div>
