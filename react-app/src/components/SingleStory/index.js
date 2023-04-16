@@ -3,15 +3,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { retrieveOneStory } from "../../store/story"
 import { NavLink, useParams, Link } from "react-router-dom"
 import './SingleStory.css'
-import CommentSection from "../CommentSection"
 import OpenModalButton from "../OpenModalButton"
 import CreateComment from "../CommentSection/createComment"
 import DelelteAComment from "../CommentSection/deleteComment"
-import { setAllComment } from "../../store/comment"
 import UpdateComment from "../CommentSection/updateComment"
 import { allLikesInStory, createALike, deleteALike } from "../../store/like"
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
-import { createFollow, deleteFollow, getAllFollower } from "../../store/follower"
+
 
 
 export default function SingleStory() {
@@ -20,9 +17,10 @@ export default function SingleStory() {
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.session.user)
     const [liked, setLiked] = useState(false)
-
+    const likes = useSelector(state => state.likes.like)
     
-
+    // let userAlreadyLiked = likes?.find(like => like.user_id === currentUser?.id)
+    // console.log(userAlreadyLiked)
     useEffect(() => {
         dispatch(retrieveOneStory(parseInt(storyId)))
         dispatch(allLikesInStory(parseInt(storyId)))
@@ -79,13 +77,22 @@ const clickToLike = async () => {
         }
         await dispatch(createALike(payload,storyId))
         .then(setLiked(true))
+        localStorage.setItem(`liked_${storyId}`, true)
     }
     if(liked){ 
         await dispatch(deleteALike(storyId))
         .then(setLiked(false))
+        localStorage.removeItem(`liked_${storyId}`)
     }
 }
 
+useEffect(() => {
+    
+    const likedFromStorage = localStorage.getItem(`liked_${storyId}`)
+    if (likedFromStorage) {
+        setLiked(true)
+    }
+}, [storyId])
 
 
     return (
