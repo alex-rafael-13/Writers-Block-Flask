@@ -25,7 +25,7 @@
     border-radius: 5px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    border: 8px solid #67d4b1;
+
     border-left: none;
     position: relative;
 
@@ -179,6 +179,7 @@
     align-content: center;
     justify-content: center;
     margin: 5% 0;
+    height: 700px;
 
     width: 39%;
     padding: 2%;
@@ -199,23 +200,42 @@
     margin: .5% auto;
     margin-right: 5%;
     height: 50%;
+    max-height: 50%;
     width: 90%;
     overflow: auto;
     font-size: 20px;
-    overflow: hidden;
+    overflow: scroll;
+    box-sizing: border-box;
+    border-radius: 10px;
 
 
 }
+
+
+.chat-display::-webkit-scrollbar {
+    width: 18px;
+
+}
+
+.chat-display::-webkit-scrollbar-thumb {
+    background-color: rgb(63, 63, 63);
+    border-radius: 20px;
+}
+
+
+
 .chat-input {
     width: 90%;
     height: 15%;
     background-color: rgb(255, 255, 255);
     margin: 1% auto;
+    margin-top: 3.5%;
     font-size: 20px;
+    border-radius: 10px;
 
 }
 
-#chat-button {
+/* #chat-button {
     width: 10%;
     height: 5%;
     border-radius: 90px;
@@ -224,13 +244,16 @@
     font-size: 16px;
     font-weight: bold;
     margin-left: 5%;
-}
+} */
 
 
 .user {
     background-color: rgb(247, 255, 247);
     margin: 0;
     padding: 12px;
+    border-radius: 10px;
+    width: 95%;
+    margin: auto;
 
 }
 
@@ -238,5 +261,53 @@
     background-color: #eaeefd;
     margin: 0;
     padding:12px;
+    border-radius: 10px;
+    width: 95%;
+    margin: auto;
 
 }
+
+
+.button-56 {
+    align-self: center;
+    background-color: #fff;
+    background-image: none;
+    background-position: 0 90%;
+    background-repeat: repeat no-repeat;
+    background-size: 4px 3px;
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+    box-sizing: border-box;
+    color: #41403e;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Neucha, sans-serif;
+    font-size: 2rem;
+    line-height: 23px;
+    outline: none;
+    padding: .80rem;
+    text-decoration: none;
+    transition: all 235ms ease-in-out;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  #chat-button {
+
+    align-self: flex-start;
+    margin-left: 5%;
+    margin-top: 1%;
+  }
+
+  #place-holder {
+    color: #adadad;
+    padding: 12px;
+    margin: 0;
+  }

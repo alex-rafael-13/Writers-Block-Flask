@@ -21,6 +21,7 @@ export default function UpdateStoryForm() {
     const [optionTwo,setOptionTwo] = useState('')
     const [optionThree,setOptionThree] = useState('')
     const [errors,setErrors] = useState({})
+    const [msgCount,setMsgCount] = useState(0)
 
 
     const [chatInput,setChatInput] = useState('')
@@ -30,8 +31,13 @@ export default function UpdateStoryForm() {
         let message = {role: 'user', content: chatInput}
         const updatedChatDisplay = [...chatDisplay,message]
         setChatDisplay(updatedChatDisplay)
+        setChatInput('')
 
-        console.log(updatedChatDisplay)
+
+
+
+
+
 
         fetch('/api/chat',{
             method: "POST",
@@ -244,7 +250,7 @@ export default function UpdateStoryForm() {
 
 
                 <div className="story-form-bottom">
-                <button className="form-button">Post Story</button>
+                <button className="button-56">Post Story</button>
                 {errors.length && <p className="error">{errors.length}</p>}
                 {errors.content && <p className="error">{errors.content}</p>}
 
@@ -260,13 +266,13 @@ export default function UpdateStoryForm() {
         <div  className="chat-box">
 
         <div className="chat-display">
-            Stucked? Ask me anything! (Write me a short funny story.)
+            <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>
             {Object.values(chatDisplay.slice(1)).map(msg => (
                 <p className={msg.role}>{msg.content}</p>
             ))}
         </div>
         <textarea className="chat-input"  value={chatInput} onChange={(e) => setChatInput(e.target.value)}></textarea>
-        <button id="chat-button" onClick={(e) => submitChat(e)}>submit</button>
+        <button id="chat-button" className="button-56" onClick={(e) => submitChat(e)}>Send</button>
 
         </div>
     </div>

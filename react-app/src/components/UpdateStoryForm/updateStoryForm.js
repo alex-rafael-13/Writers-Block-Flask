@@ -237,7 +237,7 @@ export default function UpdateStoryForm() {
 
 
             <div className="story-form-bottom">
-                <button className="form-button">Update Story</button>
+                <button className="button-56">Update Story</button>
                 {errors.length && <p className="error">{errors.length}</p>}
                 {errors.content && <p className="error">{errors.content}</p>}
 
