@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { createNewComment } from "../../store/comment";
-
+import './CommentSection.css'
 
 function CreateComment(storyId){ 
     const dispatch = useDispatch();

@@ -3,6 +3,8 @@ import './landingPage.css'
 
 export default function StoryCard({story}){
 
+
+    console.log(story)
     let imgUrl
     if(!story.image){
         imgUrl = 'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg' 
