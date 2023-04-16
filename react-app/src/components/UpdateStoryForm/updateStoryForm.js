@@ -14,13 +14,11 @@ export default function UpdateStoryForm() {
     const [content,setContent] = useState('')
     const [image,setImage] = useState('')
     const [genres,setGenres] = useState([])
-    const [listTwo,setListTwo] = useState(false)
-    const [listThree,setListThree] = useState(false)
 
-    const [optionOne,setOptionOne] = useState('')
-    const [optionTwo,setOptionTwo] = useState('')
-    const [optionThree,setOptionThree] = useState('')
     const [errors,setErrors] = useState({})
+
+    const [chatInput,setChatInput] = useState('')
+    const [chatDisplay,setChatDisplay] = useState([{role: 'system', content: "Your assistiing others with writing stories"}])
 
 
     const genresList = useSelector(state => state.genres.genres)
@@ -51,31 +49,59 @@ export default function UpdateStoryForm() {
             setTitle(story.story.title)
             setContent(story.story.content)
             setImage(story.story.image)
-            const genres = story.genre
+            const storyGenres = story.genre
+            console.log(storyGenres,'++++')
+
+            let currentGenres = []
+            for (let gen of storyGenres) {
+
+
+                const genreToAdd = Object.values(genresList).find(genre => genre.name === gen)
 
 
 
-
-            if (genres[0]) {
-                setOptionOne(Object.values(genresList).find(genre => genre.name === genres[0]).id)
-                setListTwo(true)
-
-            }
-            if (genres[1]) {
-                setOptionTwo(Object.values(genresList).find(genre => genre.name === genres[1]).id)
-                setListThree(true)
-
-            }
-            if (genres[2]) {
-                setOptionThree(Object.values(genresList).find(genre => genre.name === genres[2]).id)
+                currentGenres = [...currentGenres,genreToAdd.id]
 
             }
+            setGenres(currentGenres)
+
+
+
+
+
 
 
 
         }
 
     },[story])
+
+
+    const submitChat = async (e) => {
+        let message = {role: 'user', content: chatInput}
+        const updatedChatDisplay = [...chatDisplay,message]
+        setChatDisplay(updatedChatDisplay)
+        setChatInput('')
+
+
+        fetch('/api/chat',{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedChatDisplay),
+
+        }).then(res => res.json())
+        .then(chat => {
+
+            console.log(chat)
+
+
+            setChatDisplay(prev => [...prev,chat])
+
+
+        })
+    }
 
 
 
@@ -94,12 +120,12 @@ export default function UpdateStoryForm() {
             errors.content = 'Story must contain at least fifty words'
 
         }
+        if (genres.length < 1) {
 
-
-
+            errors.genres = 'Please select one or more genres'
+        }
 
         setErrors(errors)
-
         if (Object.values(errors).length) {
             return
         }
@@ -110,7 +136,7 @@ export default function UpdateStoryForm() {
             title,
             content,
             image,
-            genres: [optionOne,optionTwo,optionThree]
+            genres: genres
 
         }
 
@@ -122,50 +148,32 @@ export default function UpdateStoryForm() {
 
     }
 
+    const addGenre = (e) => {
 
-
-
-
-    const addOptionOne = (e) => {
         e.preventDefault()
-        const id = +e.target.value
+        console.log('clicked')
+        const id = +e.target.id
 
+        if (!genres.includes(id) && genres.length < 3) {
+            const updateGenres =  [...genres,id]
+            setGenres(updateGenres)
+            e.target.classList.add('greenDisplay')
 
-        if (optionTwo === id || optionThree === id) {
-            setOptionOne('')
-        } else {
+        }   else if (genres.includes(id)) {
+            const currentGenres = [...genres]
+            const idx = currentGenres.indexOf(id)
+            currentGenres.splice(idx,1)
+            setGenres(currentGenres)
+            e.target.classList.remove('greenDisplay')
 
-            setOptionOne(id)
-            setListTwo(true)
         }
-    }
 
-    const addOptionTwo = (e) => {
-        e.preventDefault()
-        const id = +e.target.value
-
-        if (optionOne === id || optionThree === id) {
-            setOptionTwo('')
-        } else {
-            setOptionTwo(id)
-            setListThree(true)
-        }
 
     }
 
-    const addOptionThree = (e) => {
-        e.preventDefault()
-        const id = +e.target.value
 
-        if (optionOne === id || optionTwo === id) {
-            setOptionThree('')
-        } else {
-            setOptionThree(id)
+    if (!Object.values(genresList).length || !Object.values(story).length || !genres.length) return null
 
-        }
-    }
-
-    if (!Object.values(genresList).length || !Object.values(story).length) return null
 
 
 
@@ -173,7 +181,7 @@ export default function UpdateStoryForm() {
     return (
 
 
-
+        <div className="form-container">
 
         <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
 
@@ -186,36 +194,22 @@ export default function UpdateStoryForm() {
             <div id="genres-list2">
             <div className="genre-lists">
                 <div id="genre-label">Genres</div>
+                <div id="genre-list">
 
-<select className="genre-list"  value={optionOne} onChange={(e) => addOptionOne(e)}>
-<option className="option">none</option>
-    {Object.values(genresList).map(genre => (
-        <option className="option" value={genre.id}>{genre.name}</option>
-    ))}
-</select>
+                        {Object.values(genresList).map(genre => (
+                            <>
 
-{listTwo &&
-<select className="genre-list" value={optionTwo} onChange={(e) => addOptionTwo(e)}>
-    <option className="option">none</option>
-      {Object.values(genresList).map(genre => (
-         <option className="option" value={genre.id}>{genre.name}</option>
-     ))}
-</select>
 
-}
-{listThree &&
-<select className="genre-list" value={optionThree} onChange={(e) => addOptionThree(e)}>
-    <option className="option">none</option>
-{Object.values(genresList).map(genre => (
-   <option className="option" value={genre.id}>{genre.name}</option>
-))}
-</select>
+                            {genres.includes(genre.id) ? <p onClick={(e) => addGenre(e)} className="genre-list-option2 greenDisplay"  id={genre.id} value={genre.id}>{genre.name}</p> :
+                            <p onClick={(e) => addGenre(e)} className="genre-list-option2"  id={genre.id} value={genre.id}>{genre.name}</p>}
+                            </>
+                        ))}
 
-}
+                        </div>
 
 
 
-</div>
+            </div>
 
 
 
@@ -248,6 +242,20 @@ export default function UpdateStoryForm() {
 
 
         </form>
+        <div  className="chat-box">
+
+<div className="chat-display">
+    <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>
+    {Object.values(chatDisplay.slice(1)).map(msg => (
+        <p className={msg.role}>{msg.content}</p>
+    ))}
+</div>
+<textarea className="chat-input"  value={chatInput} onChange={(e) => setChatInput(e.target.value)}></textarea>
+<button id="chat-button" className="button-56" onClick={(e) => submitChat(e)}>Send</button>
+
+</div>
+
+        </div>
 
 
 

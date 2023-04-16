@@ -18,9 +18,9 @@
     background-color: #252f36;
     border: none;
     align-content: flex-start;
-    max-width: 60%;
+    max-width: 55%;
 
-    margin: 5% 0;
+    margin: 5% 1%;
     padding: 2%;
     border-radius: 5px;
     border-top-right-radius: 25px;
@@ -120,6 +120,7 @@
     margin: 1px 10px;
     font-size: 19px;
     color: #67d4b1;
+    margin-left: 10%;
 }
 
 
@@ -181,7 +182,7 @@
     margin: 5% 0;
     height: 700px;
 
-    width: 39%;
+    width: 34%;
     padding: 2%;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
@@ -311,3 +312,44 @@
     padding: 12px;
     margin: 0;
   }
+
+
+#genre-list {
+
+    display: flex;
+    flex-wrap: wrap;
+    width: 20%;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    margin-left: 1%;
+    border-radius: 10px;
+    height: 75px;
+    overflow-y: scroll;
+
+
+}
+
+#genre-list::-webkit-scrollbar {
+    width: 18px;
+
+}
+
+#genre-list::-webkit-scrollbar-thumb {
+    background-color: rgb(63, 63, 63);
+    border-radius: 20px;
+}
+
+
+
+.genre-list-option2{
+
+    color: black;
+    margin: 4px;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+.greenDisplay {
+    color: #67d4b1;
+}
