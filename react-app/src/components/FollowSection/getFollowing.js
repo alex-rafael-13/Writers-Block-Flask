@@ -11,11 +11,12 @@ function GetFollowing(userId){
         dispatch(getAllFollowing(userId.userId))
     }, [dispatch])
 
+    
     return (
         <div>
             <ul>
             {allFollowing?.map(follower => (
-                <li>{follower.username}</li>
+                <li className="follower-name">~{follower.username}~</li>
             ))}
             </ul>
         </div>

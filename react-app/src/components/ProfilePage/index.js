@@ -22,8 +22,7 @@ function ProfilePage(){
     const [toggleComment, setToggleComment] = useState(false)
     const allFollwers = useSelector(state => state.follows.followers)
     const allFollowing = useSelector(state => state.follows.following)
-    
-    
+
     useEffect(() => {
         if (currentUser) {
           dispatch(getCurrentUseStory())
@@ -71,18 +70,19 @@ function ProfilePage(){
             return <h1>You dont have any comment</h1>
         }
     }
-    
+    let followerButtonText = `follower:${allFollwers.length}`
+    let followingButtonText = `following:${allFollowing.length}`
     
     const openFollowerModal = () => { 
         return <OpenModalButton 
-        buttonText='follower'
+        buttonText={followerButtonText}
         modalComponent={<GetFollower userId={currentUser?.id}/>}
         />
     }
         
         const openFolloingModal = () => { 
             return <OpenModalButton 
-            buttonText='following'
+            buttonText={followingButtonText}
         modalComponent={<GetFollowing userId={currentUser?.id}/>}
         />
     }
@@ -104,47 +104,47 @@ function ProfilePage(){
         history.push(`/stories/${id}/update-form`)
     }
 
-    
-
 
     return (
         <div className="profile-container">
-        <h1>Profile</h1>
-        {replaceIconIfNull()}
+        <h1>Your Profile</h1>
+        {replaceIconIfNull()}  
         <h3>{currentUser?.firstname} {currentUser?.lastname}</h3>
         <h3>Email: {currentUser?.email}</h3>
         <h3>Bio: {currentUser?.bio}</h3>
-        
-        <h4>{openFollowerModal()}:{allFollwers.length} {openFolloingModal()}: {allFollowing.length}</h4>
+        <h4>{openFollowerModal()} {openFolloingModal()}</h4>
         <div className='navbar-in-profile'>
-        <button onClick={clickStory}>Story</button>
-        <button onClick={clickComment}>Comments</button>
+        <button className={toggleStory ? 'button-56 active' : 'button-56'} onClick={clickStory}>Story</button>
+      <button className={toggleComment ? 'button-56 active' : 'button-56'} onClick={clickComment}>Comments</button>
         </div>
         <div className="profile-content-cards">
         {nostory()}
         {noComment()}
        
         {toggleStory? allStories?.map(story => (
-           <><button onClick={(e)=>toUpdateStory(e,story.id)}>Update</button>
-            {openDeleteModal(story.id)}
+           <>
             <NavLink exact to={`/stories/${story.id}`}>
                   <div className="story-card" key={story.id}>
-                    <h3>{story.title}</h3>
+                    <h3>Story: {story.title}</h3>
                     <img className='preview-image' src={!story.image?'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg' : story.image } alt='image.txt'></img>
-                    <div className='author-name'>By {story.username}</div>
-                    <div className='genres-cont'>
                       {story.genres.map(genre => (
-                          <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
-                          ))}
-                    </div>
+                        <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
+                        ))}
                   </div>
-                </NavLink></>)):null}
+                  </NavLink>
+                        <button  className='button-55' onClick={(e)=>toUpdateStory(e,story.id)}>Update</button>
+                        {openDeleteModal(story.id)}
+                        </>
+                      )):null}
                                 
                
-        
         {toggleComment? allComments?.map(comment => (
-                <div key={comment.username}className="comment-body">
-                    <div className="user-comment">Story Name: {comment.story}</div>
+          <div key={comment.username}className="profile-comment">
+                  ________________________________________
+
+                <NavLink exact to={`/stories/${comment.story_id}`}>
+                    <div className="user-comment">Story: {comment.story}</div>
+                    </NavLink>
                     <div className="comment-contents">Comment: {comment.comment}</div>
                 </div>
             )):null}

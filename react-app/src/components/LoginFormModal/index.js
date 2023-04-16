@@ -22,7 +22,7 @@ function LoginFormModal() {
   };
 
   const demoSignIn = async () => {
-    const data = await dispatch(login('demo@aa.io', 'password'));
+    const data = await dispatch(login('luke@aa.io', 'password'));
     if (data) {
       setErrors(data);
     } else {
@@ -31,36 +31,38 @@ function LoginFormModal() {
   }
 
   return (
-    <>
+    <div className="login-container">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="login-form">
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
         <label>
-          Email
           <input
+          className="input-email"
             type="text"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
         <label>
-          Password
           <input
+           className="input-email"
+          placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button type="submit" className='button-55'>Log In</button>
       </form>
-        <button onClick={demoSignIn}>Demo User</button>
-    </>
+        <button className='button-55' onClick={demoSignIn}>Demo User</button>
+    </div>
   );
 }
 

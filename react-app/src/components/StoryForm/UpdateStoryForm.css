@@ -3,7 +3,7 @@
     text-align: center;
     margin: 1%;
     margin-bottom: 3%;
-    color: white;
+    color: #67d4b1;
     text-shadow: 0 0 1.5px #000;
     font-size: 42px;
 
@@ -15,18 +15,19 @@
     display: flex;
     flex-direction: column;
 
-    background-color:rgb(214, 214, 214);
+    background-color: #252f36;
     border: none;
     align-content: flex-start;
-    max-width: 60%;
+    max-width: 55%;
 
-    margin: 5% auto;
+    margin: 5% 1%;
     padding: 2%;
     border-radius: 5px;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
-    border: 2px solid rgb(161, 161, 161);
+
     border-left: none;
+    position: relative;
 
 }
 
@@ -55,6 +56,7 @@
     width: 60px;
     display: flex;
     justify-content: flex-end;
+    color: #67d4b1;
 
 
 }
@@ -117,6 +119,8 @@
 #genre-label {
     margin: 1px 10px;
     font-size: 19px;
+    color: #67d4b1;
+    margin-left: 10%;
 }
 
 
@@ -129,6 +133,7 @@
     border: none;
     border-radius: 8px;
     font-weight: 1000;
+    background-color: #67d4b1;;
 
     margin: 5% 0 0 2%;
 }
@@ -159,4 +164,192 @@
 .story-form-bottom {
     display: flex;
     align-items: center;
+}
+
+
+
+.form-container {
+    display: flex;
+
+}
+
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    background-color: #252f36;
+    align-content: center;
+    justify-content: center;
+    margin: 5% 0;
+    height: 700px;
+
+    width: 34%;
+    padding: 2%;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+
+
+}
+
+.chat-box::-webkit-scrollbar {
+    width: 18px;
+  }
+
+
+.chat-display {
+
+    background-color: #ffffff;
+    margin: .5% auto;
+    margin-right: 5%;
+    height: 50%;
+    max-height: 50%;
+    width: 90%;
+    overflow: auto;
+    font-size: 20px;
+    overflow: scroll;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+
+}
+
+
+.chat-display::-webkit-scrollbar {
+    width: 18px;
+
+}
+
+.chat-display::-webkit-scrollbar-thumb {
+    background-color: rgb(63, 63, 63);
+    border-radius: 20px;
+}
+
+
+
+.chat-input {
+    width: 90%;
+    height: 15%;
+    background-color: rgb(255, 255, 255);
+    margin: 1% auto;
+    margin-top: 3.5%;
+    font-size: 20px;
+    border-radius: 10px;
+
+}
+
+/* #chat-button {
+    width: 10%;
+    height: 5%;
+    border-radius: 90px;
+    background-color: #67d4b1;
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 5%;
+} */
+
+
+.user {
+    background-color: rgb(247, 255, 247);
+    margin: 0;
+    padding: 12px;
+    border-radius: 10px;
+    width: 95%;
+    margin: auto;
+
+}
+
+.assistant {
+    background-color: #eaeefd;
+    margin: 0;
+    padding:12px;
+    border-radius: 10px;
+    width: 95%;
+    margin: auto;
+
+}
+
+
+.button-56 {
+    align-self: center;
+    background-color: #fff;
+    background-image: none;
+    background-position: 0 90%;
+    background-repeat: repeat no-repeat;
+    background-size: 4px 3px;
+    border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+    box-sizing: border-box;
+    color: #41403e;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Neucha, sans-serif;
+    font-size: 2rem;
+    line-height: 23px;
+    outline: none;
+    padding: .80rem;
+    text-decoration: none;
+    transition: all 235ms ease-in-out;
+    border-bottom-left-radius: 15px 255px;
+    border-bottom-right-radius: 225px 15px;
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  #chat-button {
+
+    align-self: flex-start;
+    margin-left: 5%;
+    margin-top: 1%;
+  }
+
+  #place-holder {
+    color: #adadad;
+    padding: 12px;
+    margin: 0;
+  }
+
+
+#genre-list {
+
+    display: flex;
+    flex-wrap: wrap;
+    width: 20%;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    margin-left: 1%;
+    border-radius: 10px;
+    height: 75px;
+    overflow-y: scroll;
+
+
+}
+
+#genre-list::-webkit-scrollbar {
+    width: 18px;
+
+}
+
+#genre-list::-webkit-scrollbar-thumb {
+    background-color: rgb(63, 63, 63);
+    border-radius: 20px;
+}
+
+
+
+.genre-list-option2{
+
+    color: black;
+    margin: 4px;
+    font-size: 16px;
+    font-weight: bold;
+
+}
+
+.greenDisplay {
+    color: #67d4b1;
 }

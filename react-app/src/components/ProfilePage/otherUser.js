@@ -17,7 +17,7 @@ function UsersProfile(){
     let currentUser = allUser[0]
     const currentedUser = useSelector(state => state.session.user)
 
-
+    console.log(currentUser)
     useEffect(() => { 
         dispatch(getSingleUser(userId))
         dispatch(getAllFollower(userId))
@@ -33,21 +33,23 @@ function UsersProfile(){
             ></img>
           );
         } else if (currentUser && currentUser.icon) {
-          return <img src={currentUser.icon}></img>;
+          return <img className='user-icon-image' src={currentUser.icon}></img>;
         }
       };
-   
+      let followerButtonText = `follower:${allFollwers.length}`
+      let followingButtonText = `following:${allFollowing.length}`
+      
       
       const openFollowerModal = () => { 
           return <OpenModalButton 
-          buttonText='follower'
+          buttonText={followerButtonText}
           modalComponent={<GetFollower userId={userId}/>}
           />
         }
         
         const openFolloingModal = () => { 
             return <OpenModalButton 
-            buttonText='following'
+            buttonText={followingButtonText}
             modalComponent={<GetFollowing userId={userId}/>}
             />
         }
@@ -65,8 +67,8 @@ function UsersProfile(){
         }
     }
     
-    const deleteUser = async () => { 
-        if(!currentedUser){ 
+         const deleteUser = async () => { 
+             if(!currentedUser){ 
             history.push('/login')
         }else{
             await dispatch(deleteFollow(currentUser.id))
@@ -81,9 +83,9 @@ function UsersProfile(){
         let followed = allFollwers?.filter(follower => currentedUser && follower.id === currentedUser.id)
         
         if(followed.length){ 
-            return <button onClick={deleteUser}>Unfollow</button>
+            return <button  className='button-55' onClick={deleteUser}>Unfollow</button>
         }else { 
-            return <button onClick={followUser}>Follow</button>
+            return <button  className='button-55' onClick={followUser}>Follow</button>
         }
     }
     
@@ -97,16 +99,17 @@ function UsersProfile(){
         <h3>{currentUser.firstname} {currentUser?.lastname}</h3>
         <h3>Email: {currentUser.email}</h3>
         <h3>Bio: {currentUser.bio}</h3>
-        <h4>{openFollowerModal()}:{allFollwers.length} {openFolloingModal()}: {allFollowing.length}</h4>
+        <h4>{openFollowerModal()}{openFolloingModal()}</h4>
         <div className='navbar-in-profile'>
         {currentUser?.stories?.map(story => (
             <NavLink exact to={`/stories/${story.id}`}>
                   <div className="story-card" key={story.id}>
-                    <h3>{story.title}</h3>
+                    <h3>Story: {story.title}</h3>
                     <img className='preview-image' src={!story.image?'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg' : story.image } alt='image.txt'></img>
-                    <div className='author-name'>By {story.username}</div>
                     <div className='genres-cont'>
-                     
+                    {story.genres.map(genre => (
+                        <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
+                        ))}
                     </div>
                   </div>
                 </NavLink>))}

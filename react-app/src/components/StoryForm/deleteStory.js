@@ -21,8 +21,8 @@ function DeleteStory (prop){
     return (
         <div>
             <h3>Are you sure you want to delete this story?</h3>
-            <button onClick={submit}>Yes(Delete Story)</button>
-            <button onClick={closeModal}>No(Keep story)</button>
+            <button  className='button-55' onClick={submit}>Yes(Delete Story)</button>
+            <button  className='button-55' onClick={closeModal}>No(Keep story)</button>
         </div>
     )
 }

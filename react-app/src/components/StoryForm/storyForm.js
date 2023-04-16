@@ -14,21 +14,45 @@ export default function UpdateStoryForm() {
     const [content,setContent] = useState('')
     const [image,setImage] = useState('')
     const [genres,setGenres] = useState([])
-    const [listTwo,setListTwo] = useState(false)
-    const [listThree,setListThree] = useState(false)
 
-    const [optionOne,setOptionOne] = useState('')
-    const [optionTwo,setOptionTwo] = useState('')
-    const [optionThree,setOptionThree] = useState('')
     const [errors,setErrors] = useState({})
+    const [msgCount,setMsgCount] = useState(0)
 
 
-
+    const [chatInput,setChatInput] = useState('')
+    const [chatDisplay,setChatDisplay] = useState([{role: 'system', content: "Your assistiing others with writing stories"}])
     const genresList = useSelector(state => state.genres.genres)
-
     const dispatch = useDispatch()
-
     const history = useHistory()
+
+    const submitChat = async (e) => {
+        let message = {role: 'user', content: chatInput}
+        const updatedChatDisplay = [...chatDisplay,message]
+        setChatDisplay(updatedChatDisplay)
+        setChatInput('')
+
+
+        fetch('/api/chat',{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedChatDisplay),
+
+        }).then(res => res.json())
+        .then(chat => {
+
+            console.log(chat)
+
+
+            setChatDisplay(prev => [...prev,chat])
+
+
+        })
+    }
+
+
+
 
 
 
@@ -66,6 +90,11 @@ export default function UpdateStoryForm() {
 
         }
 
+        if (genres.length < 1) {
+
+            errors.genres = 'Please select one or more genres'
+        }
+
         console.log(errors)
 
 
@@ -87,7 +116,7 @@ export default function UpdateStoryForm() {
             title,
             content,
             image,
-            genres: [optionOne,optionTwo,optionThree]
+            genres: genres
 
         }
 
@@ -98,48 +127,30 @@ export default function UpdateStoryForm() {
 
     }
 
+    const addGenre = (e) => {
 
-
-
-
-    const addOptionOne = (e) => {
         e.preventDefault()
-        const id = e.target.value
 
+        if (!genres.includes(e.target.id) && genres.length < 3) {
+            const updateGenres =  [...genres,e.target.id]
+            setGenres(updateGenres)
+            e.target.classList.add('greenDisplay')
 
-        if (optionTwo === id || optionThree === id) {
-            setOptionOne('')
-        } else {
+        }   else if (genres.includes(e.target.id)) {
+            const currentGenres = [...genres]
+            const idx = currentGenres.indexOf(e.target.id)
+            currentGenres.splice(idx,1)
+            setGenres(currentGenres)
+            e.target.classList.remove('greenDisplay')
 
-            setOptionOne(id)
-            setListTwo(true)
         }
-    }
 
-    const addOptionTwo = (e) => {
-        e.preventDefault()
-        const id = e.target.value
-
-        if (optionOne === id || optionThree === id) {
-            setOptionTwo('')
-        } else {
-            setOptionTwo(id)
-            setListThree(true)
-        }
 
     }
 
-    const addOptionThree = (e) => {
-        e.preventDefault()
-        const id = e.target.value
 
-        if (optionOne === id || optionTwo === id) {
-            setOptionThree('')
-        } else {
-            setOptionThree(id)
 
-        }
-    }
+
 
     if (!Object.values(genresList).length ) return null
 
@@ -149,7 +160,7 @@ export default function UpdateStoryForm() {
 
 
 
-        <>
+        <div className="form-container">
 
 
 
@@ -166,35 +177,20 @@ export default function UpdateStoryForm() {
             <div className="genre-lists">
                 <div id="genre-label">Genres</div>
 
-<select className="genre-list" value={optionOne} onChange={(e) => addOptionOne(e)}>
-<option className="option">none</option>
-    {Object.values(genresList).map(genre => (
-        <option className="option" value={genre.id}>{genre.name}</option>
-    ))}
-</select>
 
-{listTwo &&
-<select className="genre-list" value={optionTwo} onChange={(e) => addOptionTwo(e)}>
-    <option className="option">none</option>
-      {Object.values(genresList).map(genre => (
-         <option className="option" value={genre.id}>{genre.name}</option>
-     ))}
-</select>
 
-}
-{listThree &&
-<select className="genre-list" value={optionThree} onChange={(e) => addOptionThree(e)}>
-    <option className="option">none</option>
-{Object.values(genresList).map(genre => (
-   <option className="option" value={genre.id}>{genre.name}</option>
-))}
-</select>
+                        <div id="genre-list">
 
-}
+                        {Object.values(genresList).map(genre => (
+                            <p onClick={(e) => addGenre(e)} className="genre-list-option2"  id={genre.id} value={genre.id}>{genre.name}</p>
+                        ))}
+
+                        </div>
 
 
 
-</div>
+
+        </div>
 
 
 
@@ -214,9 +210,10 @@ export default function UpdateStoryForm() {
 
 
                 <div className="story-form-bottom">
-                <button className="form-button">Post Story</button>
+                <button className="button-56">Post Story</button>
                 {errors.length && <p className="error">{errors.length}</p>}
                 {errors.content && <p className="error">{errors.content}</p>}
+                {errors.genres && <p className="error">{errors.genres}</p>}
 
                 </div>
 
@@ -226,7 +223,20 @@ export default function UpdateStoryForm() {
 
 
         </form>
-        </>
+
+        <div  className="chat-box">
+
+        <div className="chat-display">
+            <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>
+            {Object.values(chatDisplay.slice(1)).map(msg => (
+                <p className={msg.role}>{msg.content}</p>
+            ))}
+        </div>
+        <textarea className="chat-input"  value={chatInput} onChange={(e) => setChatInput(e.target.value)}></textarea>
+        <button id="chat-button" className="button-56" onClick={(e) => submitChat(e)}>Send</button>
+
+        </div>
+    </div>
 
 
 

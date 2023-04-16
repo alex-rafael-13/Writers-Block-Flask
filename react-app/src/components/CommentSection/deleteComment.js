@@ -16,10 +16,10 @@ function DelelteAComment(storyId){
         <div>
         <h1>Confirm Delete</h1>
         <h3>Are you sure you want to delete this Comment?</h3>
-        <button className="delete-button"
+        <button  className='button-55'
         onClick={submit}
         >Yes(Delete Comment)</button>
-        <button className="delete-button"
+        <button  className='button-55'
         onClick={closeModal}
         >No(Keep Comment)</button>
     </div>

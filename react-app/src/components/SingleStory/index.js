@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux"
 import { retrieveOneStory } from "../../store/story"
 import { NavLink, useParams, Link } from "react-router-dom"
 import './SingleStory.css'
-import CommentSection from "../CommentSection"
 import OpenModalButton from "../OpenModalButton"
 import CreateComment from "../CommentSection/createComment"
 import DelelteAComment from "../CommentSection/deleteComment"
-import { setAllComment } from "../../store/comment"
 import UpdateComment from "../CommentSection/updateComment"
 import { allLikesInStory, createALike, deleteALike } from "../../store/like"
+
 
 
 export default function SingleStory() {
@@ -17,10 +16,11 @@ export default function SingleStory() {
     const story = useSelector(state => state.stories.story)
     const dispatch = useDispatch()
     const currentUser = useSelector(state => state.session.user)
-    const likes = useSelector(state => state.likes.like)
     const [liked, setLiked] = useState(false)
-
-
+    const likes = useSelector(state => state.likes.like)
+    
+    // let userAlreadyLiked = likes?.find(like => like.user_id === currentUser?.id)
+    // console.log(userAlreadyLiked)
     useEffect(() => {
         dispatch(retrieveOneStory(parseInt(storyId)))
         dispatch(allLikesInStory(parseInt(storyId)))
@@ -77,12 +77,23 @@ const clickToLike = async () => {
         }
         await dispatch(createALike(payload,storyId))
         .then(setLiked(true))
+        localStorage.setItem(`liked_${storyId}`, true)
     }
     if(liked){ 
         await dispatch(deleteALike(storyId))
         .then(setLiked(false))
+        localStorage.removeItem(`liked_${storyId}`)
     }
 }
+
+useEffect(() => {
+    
+    const likedFromStorage = localStorage.getItem(`liked_${storyId}`)
+    if (likedFromStorage) {
+        setLiked(true)
+    }
+}, [storyId])
+
 
     return (
         <div className="single-story-cont">
@@ -97,11 +108,16 @@ const clickToLike = async () => {
             </div>
             <img className="story-image" src={!story?.story?.image? 'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg': story?.story?.image} alt='story-img' />
             <div className="author-like-button">
-               <div className="author-cont"><Link to={`/${story?.story?.user_id}/profile`} className="author-cont">By {story?.user}</Link></div>
+            
+               <div className="author-cont">{currentUser?.id === story?.story?.user_id ? <Link to={'/profile'}>By {story?.user}</Link>:<Link to={`/${story?.story?.user_id}/profile`} className="author-cont">By {story?.user}</Link>}</div>
                 <div className="likes-cont">
                     <div className="like-button">
                         {currentUser?
-                        <button onClick={clickToLike}>Like: {story.likes}</button>
+                        <button className='like-button-1' onClick={clickToLike}>
+                        {!liked?
+                         <i class="fa-solid fa-heart" style={{ color: '#070707' }}>{story.likes}</i>
+                         :<i class="fa-solid fa-heart" style={{ color: '#ed0202' }}>{story.likes}</i>}
+                         </button>
                         :<div>Likes: {story.likes}</div>}
                         </div>
                 </div>

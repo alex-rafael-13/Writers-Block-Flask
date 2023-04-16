@@ -11,12 +11,13 @@ function GetFollower(userId){
     useEffect(() => { 
         dispatch(getAllFollower(userId.userId))
     }, [dispatch])
-
+ 
+   
     return (
         <div>
             <ul>
             {allFollwer?.map(follower => (
-                <li>{follower.username}</li>
+                <li className="follower-name">~{follower.username}~</li>
             ))}
             </ul>
         </div>

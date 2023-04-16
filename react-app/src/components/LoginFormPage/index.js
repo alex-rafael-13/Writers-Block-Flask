@@ -24,7 +24,7 @@ function LoginFormPage() {
   };
 
   const demoSignIn = async () => {
-    const data = await dispatch(login('demo@aa.io', 'password'));
+    const data = await dispatch(login('luke@aa.io', 'password'));
     if (data) {
       setErrors(data);
     } else {
@@ -39,7 +39,7 @@ function LoginFormPage() {
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
-          ))}
+            ))}
         </ul>
         <label>
           Email
@@ -59,9 +59,9 @@ function LoginFormPage() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button className='button-55' type="submit">Log In</button>
+            <button className='button-55' onClick={demoSignIn}>Demo User</button>
       </form>
-      <button onClick={demoSignIn}>Demo User</button>
     </>
   );
 }
