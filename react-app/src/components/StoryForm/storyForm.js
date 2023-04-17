@@ -6,7 +6,7 @@ import { retrieveOneStory } from "../../store/story"
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min"
 import { editStory } from "../../store/story"
 import { refreshSingleStory } from "../../store/story"
-import './UpdateStoryForm.css'
+import './StoryForm.css'
 
 export default function UpdateStoryForm() {
 
