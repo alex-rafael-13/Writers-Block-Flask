@@ -20,7 +20,7 @@ def user_followers(user_id):
     lst_of_followers = []
     for follower2 in lst:
         user = db.session.query(User.id, User.username).filter(follower2['follower_id'] == User.id).all()
-        print(user)
+        # print(user)
         # lst_of_followers.append(user.to_dict())
         dict = {
             'id': user[0][0],
@@ -43,7 +43,7 @@ def user_following(user_id):
     lst_of_following = []
     for following2 in lst:
         user = db.session.query(User.id, User.username).filter(following2['following_id'] == User.id).all()
-        print(user)
+        # print(user)
         # lst_of_followers.append(user.to_dict())
         dict = {
             'id': user[0][0],
@@ -74,7 +74,7 @@ def follow_unfollow(user_id):
             return {
                 'message': f'Current user does not follow user with an id of {user_id}'
             }, 400
-        print(follow, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        # print(follow, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         db.session.delete(follow)
         db.session.commit()
         return{'message':'Unfollow Successful',

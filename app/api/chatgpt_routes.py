@@ -23,7 +23,7 @@ def send_message():
 
     data = request.get_json()
 
-    print(data,'====================')
+    # print(data,'====================')
 
     response = openai.ChatCompletion.create(
         model='gpt-3.5-turbo',

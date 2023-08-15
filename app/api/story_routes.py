@@ -20,10 +20,10 @@ def all_stories():
 
     story_dict = {}
 
-    print(stories,'-------------------')
+    # print(stories,'-------------------')
 
     for story, genre, username in stories:
-        print(story)
+        # print(story)
         if story.id not in story_dict:
             story_dict[story.id] = story.to_dict()
             story_dict[story.id]['genres'] = [genre]
@@ -277,7 +277,7 @@ def current_userStory():
     story_dict = {}
 
     for story, genre,  in storys:
-        print(story)
+        # print(story)
         if story.id not in story_dict:
             story_dict[story.id] = story.to_dict()
             story_dict[story.id]['genres'] = [genre]
