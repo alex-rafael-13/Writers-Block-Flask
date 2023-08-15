@@ -10,7 +10,7 @@ function CreateComment(storyId){
     const currentUser = useSelector(state => state.session.user)
     const { closeModal } = useModal()
 
-    console.log(currentUser)
+    // console.log(currentUser)
     const handleSubmit = async (e) => { 
         e.preventDefault();
 

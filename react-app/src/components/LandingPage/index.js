@@ -16,7 +16,7 @@ export default function LandingPage(){
         dispatch(storyActions.refreshSingleStory())
     },[dispatch])
 
-    console.log(allStories)
+    // console.log(allStories)
 
     return (
         <div className="story-list">

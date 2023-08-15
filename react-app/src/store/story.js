@@ -99,7 +99,7 @@ export const retrieveOneStory = (id) => async (dispatch) => {
 
 export const editStory = (story) => async (dispatch) => {
 
-    console.log(story,'sending')
+    // console.log(story,'sending')
 
     const res = await fetch(`/api/stories/${story.id}`,{
         method: "PUT",

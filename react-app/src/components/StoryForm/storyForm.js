@@ -45,7 +45,7 @@ export default function UpdateStoryForm() {
         }).then(res => res.json())
         .then(chat => {
 
-            console.log(chat)
+            // console.log(chat)
 
 
             setChatDisplay(prev => [...prev,chat])
@@ -98,7 +98,7 @@ export default function UpdateStoryForm() {
             errors.genres = 'Please select one or more genres'
         }
 
-        console.log(errors)
+        // console.log(errors)
 
 
 

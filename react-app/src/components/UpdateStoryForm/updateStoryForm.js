@@ -50,7 +50,7 @@ export default function UpdateStoryForm() {
             setContent(story.story.content)
             setImage(story.story.image)
             const storyGenres = story.genre
-            console.log(storyGenres,'++++')
+            // console.log(storyGenres,'++++')
 
             let currentGenres = []
             for (let gen of storyGenres) {
@@ -96,7 +96,7 @@ export default function UpdateStoryForm() {
         }).then(res => res.json())
         .then(chat => {
 
-            console.log(chat)
+            // console.log(chat)
 
 
             setChatDisplay(prev => [...prev,chat])
@@ -153,7 +153,7 @@ export default function UpdateStoryForm() {
     const addGenre = (e) => {
 
         e.preventDefault()
-        console.log('clicked')
+        // console.log('clicked')
         const id = +e.target.id
 
         if (!genres.includes(id) && genres.length < 3) {
