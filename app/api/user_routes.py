@@ -26,7 +26,7 @@ def user(id):
         .join(Genre)\
         .filter(User.id == id)\
         .all()
-    print(user_story)
+    # print(user_story)
 
     user_dict = {}
     for user, story, genre in user_story:

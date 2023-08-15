@@ -19,7 +19,7 @@ export default function UpdateStoryForm() {
 
     const [chatInput,setChatInput] = useState('')
     const [chatDisplay,setChatDisplay] = useState([{role: 'system', content: "Your assistiing others with writing stories"}])
-
+    const [initalDisplay,setInitalDisplay] = useState(true)
 
     const genresList = useSelector(state => state.genres.genres)
     const story = useSelector(state => state.stories.story)
@@ -50,7 +50,7 @@ export default function UpdateStoryForm() {
             setContent(story.story.content)
             setImage(story.story.image)
             const storyGenres = story.genre
-            console.log(storyGenres,'++++')
+            // console.log(storyGenres,'++++')
 
             let currentGenres = []
             for (let gen of storyGenres) {
@@ -82,6 +82,8 @@ export default function UpdateStoryForm() {
         const updatedChatDisplay = [...chatDisplay,message]
         setChatDisplay(updatedChatDisplay)
         setChatInput('')
+        setInitalDisplay(false)
+
 
 
         fetch('/api/chat',{
@@ -94,7 +96,7 @@ export default function UpdateStoryForm() {
         }).then(res => res.json())
         .then(chat => {
 
-            console.log(chat)
+            // console.log(chat)
 
 
             setChatDisplay(prev => [...prev,chat])
@@ -151,7 +153,7 @@ export default function UpdateStoryForm() {
     const addGenre = (e) => {
 
         e.preventDefault()
-        console.log('clicked')
+        // console.log('clicked')
         const id = +e.target.id
 
         if (!genres.includes(id) && genres.length < 3) {
@@ -245,7 +247,7 @@ export default function UpdateStoryForm() {
         <div  className="chat-box">
 
 <div className="chat-display">
-    <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>
+    {initalDisplay && <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>}
     {Object.values(chatDisplay.slice(1)).map(msg => (
         <p className={msg.role}>{msg.content}</p>
     ))}

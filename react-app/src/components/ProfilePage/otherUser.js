@@ -17,7 +17,7 @@ function UsersProfile(){
     let currentUser = allUser[0]
     const currentedUser = useSelector(state => state.session.user)
 
-    console.log(currentUser)
+    // console.log(currentUser)
     useEffect(() => { 
         dispatch(getSingleUser(userId))
         dispatch(getAllFollower(userId))

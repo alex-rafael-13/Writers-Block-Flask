@@ -6,7 +6,7 @@ import { retrieveOneStory } from "../../store/story"
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min"
 import { editStory } from "../../store/story"
 import { refreshSingleStory } from "../../store/story"
-import './UpdateStoryForm.css'
+import './StoryForm.css'
 
 export default function UpdateStoryForm() {
 
@@ -17,6 +17,8 @@ export default function UpdateStoryForm() {
 
     const [errors,setErrors] = useState({})
     const [msgCount,setMsgCount] = useState(0)
+
+    const [initalDisplay,setInitalDisplay] = useState(true)
 
 
     const [chatInput,setChatInput] = useState('')
@@ -30,6 +32,7 @@ export default function UpdateStoryForm() {
         const updatedChatDisplay = [...chatDisplay,message]
         setChatDisplay(updatedChatDisplay)
         setChatInput('')
+        setInitalDisplay(false)
 
 
         fetch('/api/chat',{
@@ -42,7 +45,7 @@ export default function UpdateStoryForm() {
         }).then(res => res.json())
         .then(chat => {
 
-            console.log(chat)
+            // console.log(chat)
 
 
             setChatDisplay(prev => [...prev,chat])
@@ -95,7 +98,7 @@ export default function UpdateStoryForm() {
             errors.genres = 'Please select one or more genres'
         }
 
-        console.log(errors)
+        // console.log(errors)
 
 
 
@@ -227,7 +230,7 @@ export default function UpdateStoryForm() {
         <div  className="chat-box">
 
         <div className="chat-display">
-            <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>
+            {initalDisplay && <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>}
             {Object.values(chatDisplay.slice(1)).map(msg => (
                 <p className={msg.role}>{msg.content}</p>
             ))}
