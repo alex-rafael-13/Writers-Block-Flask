@@ -24,7 +24,7 @@ export default function NavBar({handleClicked}) {
 
             </div>
 
-            <input className='search-input'placeholder="Search by Username, Genre, Storyname"></input>
+            {/* <input className='search-input'placeholder="Search by Username, Genre, Storyname"></input> */}
         
             <div>
             </div>
