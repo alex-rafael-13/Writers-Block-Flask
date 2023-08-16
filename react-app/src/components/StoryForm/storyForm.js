@@ -160,9 +160,6 @@ export default function UpdateStoryForm() {
 
     return (
 
-
-
-
         <div className="form-container">
 
 
@@ -189,14 +186,7 @@ export default function UpdateStoryForm() {
                         ))}
 
                         </div>
-
-
-
-
         </div>
-
-
-
 
             </div>
 
@@ -220,14 +210,9 @@ export default function UpdateStoryForm() {
 
                 </div>
 
-
-
-
-
-
         </form>
 
-        <div  className="chat-box">
+        {/* <div  className="chat-box">
 
         <div className="chat-display">
             {initalDisplay && <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>}
@@ -238,7 +223,7 @@ export default function UpdateStoryForm() {
         <textarea className="chat-input"  value={chatInput} onChange={(e) => setChatInput(e.target.value)}></textarea>
         <button id="chat-button" className="button-56" onClick={(e) => submitChat(e)}>Send</button>
 
-        </div>
+        </div> */}
     </div>
 
 
