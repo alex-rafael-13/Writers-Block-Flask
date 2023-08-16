@@ -18,9 +18,9 @@
     background-color: #252f36;
     border: none;
     align-content: flex-start;
-    max-width: 55%;
+    /* max-width: 55%; */
 
-    margin: 5% 1%;
+    margin: 4px;
     padding: 2%;
     border-radius: 5px;
     border-top-right-radius: 25px;
@@ -170,7 +170,7 @@
 
 .form-container {
     display: flex;
-
+    justify-content: center;
 }
 
 .chat-box {
