@@ -15,6 +15,33 @@
     padding: 0;
     color: white;
 }
+
+.separator{
+    border-color: white;
+}
+
+.dev-sep{
+    border: none;
+    border-top: .1px solid white;
+    width: 80%;
+}
+
+.contact-us{
+    margin: 0;
+    margin-left: 5px;
+    color: white;
+    font-size: 16px;
+}
+
+.options-list a{
+    text-decoration: none;
+    color: white;    
+}
+
+.dev-name{
+    margin-left: 5px;
+}
+
 .row{
     display: flex;
     flex-direction: row;
@@ -23,6 +50,10 @@
     height: 40px;
     justify-content: center;
     align-items: center;
+}
+
+hr{
+    width: 90%;
 }
 .row #icon{
     flex:30%;
