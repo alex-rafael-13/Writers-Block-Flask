@@ -7,6 +7,8 @@ import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom.min
 import { editStory } from "../../store/story"
 import { refreshSingleStory } from "../../store/story"
 import './UpdateStoryForm.css'
+import OpenModalButton from "../OpenModalButton"
+import UpdateStoryImage from "./UpdateStoryImage"
 
 export default function UpdateStoryForm() {
 
@@ -186,11 +188,11 @@ export default function UpdateStoryForm() {
         <div className="form-container">
 
             <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
-
+                <h1 class='form-title'>Update Story</h1>
 
                 <div className="story-form-upper">
 
-                    <label>Title   </label>
+                    <label>Title</label>
                     <input required value={title} placeholder="" onChange={(e) => setTitle(e.target.value)} />
 
                     <div id="genres-list2">
@@ -206,47 +208,26 @@ export default function UpdateStoryForm() {
                                             <p onClick={(e) => addGenre(e)} className="genre-list-option2" id={genre.id} value={genre.id}>{genre.name}</p>}
                                     </>
                                 ))}
-
                             </div>
-
-
-
                         </div>
-
-
-
-
                     </div>
-
-
                 </div>
 
                 <div className="story-form-upper">
-                    <label>Image</label>
-                    <input
-                        // type='file'
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
+                    {/* <label>Update Image?</label> */}
+                    {/* <button type="button" onClick={() => alert('Test') }className="button-56">Update Image</button> */}
+                    <OpenModalButton 
+                        buttonText="Update Image"
+                        modalComponent={<UpdateStoryImage />}
                     />
                 </div>
-
-
                 <textarea required value={content} onChange={(e) => setContent(e.target.value)} />
-
-
-
-
                 <div className="story-form-bottom">
                     <button className="button-56">Update Story</button>
                     {errors.length && <p className="error">{errors.length}</p>}
                     {errors.content && <p className="error">{errors.content}</p>}
 
                 </div>
-
-
-
-
-
             </form>
             {/* <div className="chat-box">
 
