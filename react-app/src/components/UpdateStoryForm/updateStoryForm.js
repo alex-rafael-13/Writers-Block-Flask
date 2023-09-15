@@ -10,21 +10,21 @@ import './UpdateStoryForm.css'
 
 export default function UpdateStoryForm() {
 
-    const [title,setTitle] = useState('123')
-    const [content,setContent] = useState('')
-    const [image,setImage] = useState('')
-    const [genres,setGenres] = useState([])
+    const [title, setTitle] = useState('123')
+    const [content, setContent] = useState('')
+    const [image, setImage] = useState('')
+    const [genres, setGenres] = useState([])
 
-    const [errors,setErrors] = useState({})
+    const [errors, setErrors] = useState({})
 
-    const [chatInput,setChatInput] = useState('')
-    const [chatDisplay,setChatDisplay] = useState([{role: 'system', content: "Your assistiing others with writing stories"}])
-    const [initalDisplay,setInitalDisplay] = useState(true)
+    const [chatInput, setChatInput] = useState('')
+    const [chatDisplay, setChatDisplay] = useState([{ role: 'system', content: "Your assistiing others with writing stories" }])
+    const [initalDisplay, setInitalDisplay] = useState(true)
 
     const genresList = useSelector(state => state.genres.genres)
     const story = useSelector(state => state.stories.story)
     const dispatch = useDispatch()
-    const {storyId} = useParams()
+    const { storyId } = useParams()
     const history = useHistory()
 
 
@@ -41,7 +41,7 @@ export default function UpdateStoryForm() {
 
 
         return () => dispatch(refreshSingleStory())
-    },[storyId])
+    }, [storyId])
 
     useEffect(() => {
 
@@ -60,7 +60,7 @@ export default function UpdateStoryForm() {
 
 
 
-                currentGenres = [...currentGenres,genreToAdd.id]
+                currentGenres = [...currentGenres, genreToAdd.id]
 
             }
             setGenres(currentGenres)
@@ -74,19 +74,19 @@ export default function UpdateStoryForm() {
 
         }
 
-    },[story])
+    }, [story])
 
 
     const submitChat = async (e) => {
-        let message = {role: 'user', content: chatInput}
-        const updatedChatDisplay = [...chatDisplay,message]
+        let message = { role: 'user', content: chatInput }
+        const updatedChatDisplay = [...chatDisplay, message]
         setChatDisplay(updatedChatDisplay)
         setChatInput('')
         setInitalDisplay(false)
 
 
 
-        fetch('/api/chat',{
+        fetch('/api/chat', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -94,15 +94,15 @@ export default function UpdateStoryForm() {
             body: JSON.stringify(updatedChatDisplay),
 
         }).then(res => res.json())
-        .then(chat => {
+            .then(chat => {
 
-            // console.log(chat)
-
-
-            setChatDisplay(prev => [...prev,chat])
+                // console.log(chat)
 
 
-        })
+                setChatDisplay(prev => [...prev, chat])
+
+
+            })
     }
 
 
@@ -157,14 +157,14 @@ export default function UpdateStoryForm() {
         const id = +e.target.id
 
         if (!genres.includes(id) && genres.length < 3) {
-            const updateGenres =  [...genres,id]
+            const updateGenres = [...genres, id]
             setGenres(updateGenres)
             e.target.classList.add('greenDisplay')
 
-        }   else if (genres.includes(id)) {
+        } else if (genres.includes(id)) {
             const currentGenres = [...genres]
             const idx = currentGenres.indexOf(id)
-            currentGenres.splice(idx,1)
+            currentGenres.splice(idx, 1)
             setGenres(currentGenres)
             e.target.classList.remove('greenDisplay')
 
@@ -185,57 +185,61 @@ export default function UpdateStoryForm() {
 
         <div className="form-container">
 
-        <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
+            <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
 
 
-            <div className="story-form-upper">
+                <div className="story-form-upper">
 
-            <label>Title   </label>
-            <input required value={title} placeholder="" onChange={(e) => setTitle(e.target.value)} />
+                    <label>Title   </label>
+                    <input required value={title} placeholder="" onChange={(e) => setTitle(e.target.value)} />
 
-            <div id="genres-list2">
-            <div className="genre-lists">
-                <div id="genre-label">Genres</div>
-                <div id="genre-list">
+                    <div id="genres-list2">
+                        <div className="genre-lists">
+                            <div id="genre-label">Genres</div>
+                            <div id="genre-list">
 
-                        {Object.values(genresList).map(genre => (
-                            <>
+                                {Object.values(genresList).map(genre => (
+                                    <>
 
 
-                            {genres.includes(genre.id) ? <p onClick={(e) => addGenre(e)} className="genre-list-option2 greenDisplay"  id={genre.id} value={genre.id}>{genre.name}</p> :
-                            <p onClick={(e) => addGenre(e)} className="genre-list-option2"  id={genre.id} value={genre.id}>{genre.name}</p>}
-                            </>
-                        ))}
+                                        {genres.includes(genre.id) ? <p onClick={(e) => addGenre(e)} className="genre-list-option2 greenDisplay" id={genre.id} value={genre.id}>{genre.name}</p> :
+                                            <p onClick={(e) => addGenre(e)} className="genre-list-option2" id={genre.id} value={genre.id}>{genre.name}</p>}
+                                    </>
+                                ))}
+
+                            </div>
+
+
 
                         </div>
 
 
 
-            </div>
+
+                    </div>
+
+
+                </div>
+
+                <div className="story-form-upper">
+                    <label>Image</label>
+                    <input
+                        // type='file'
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                    />
+                </div>
+
+
+                <textarea required value={content} onChange={(e) => setContent(e.target.value)} />
 
 
 
 
-            </div>
-
-
-            </div>
-
-            <div className="story-form-upper">
-            <label>Image</label>
-            <input value={image} onChange={(e) => setImage(e.target.value)} />
-            </div>
-
-
-            <textarea required value={content} onChange={(e) => setContent(e.target.value)} />
-
-
-
-
-            <div className="story-form-bottom">
-                <button className="button-56">Update Story</button>
-                {errors.length && <p className="error">{errors.length}</p>}
-                {errors.content && <p className="error">{errors.content}</p>}
+                <div className="story-form-bottom">
+                    <button className="button-56">Update Story</button>
+                    {errors.length && <p className="error">{errors.length}</p>}
+                    {errors.content && <p className="error">{errors.content}</p>}
 
                 </div>
 
@@ -243,19 +247,19 @@ export default function UpdateStoryForm() {
 
 
 
-        </form>
-        <div  className="chat-box">
+            </form>
+            {/* <div className="chat-box">
 
-<div className="chat-display">
-    {initalDisplay && <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>}
-    {Object.values(chatDisplay.slice(1)).map(msg => (
-        <p className={msg.role}>{msg.content}</p>
-    ))}
-</div>
-<textarea className="chat-input"  value={chatInput} onChange={(e) => setChatInput(e.target.value)}></textarea>
-<button id="chat-button" className="button-56" onClick={(e) => submitChat(e)}>Send</button>
+                <div className="chat-display">
+                    {initalDisplay && <p id="place-holder">Stuck? Ask me anything! (Write me a short funny story.)</p>}
+                    {Object.values(chatDisplay.slice(1)).map(msg => (
+                        <p className={msg.role}>{msg.content}</p>
+                    ))}
+                </div>
+                <textarea className="chat-input" value={chatInput} onChange={(e) => setChatInput(e.target.value)}></textarea>
+                <button id="chat-button" className="button-56" onClick={(e) => submitChat(e)}>Send</button>
 
-</div>
+            </div> */}
 
         </div>
 

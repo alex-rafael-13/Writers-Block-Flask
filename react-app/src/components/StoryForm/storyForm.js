@@ -195,7 +195,11 @@ export default function UpdateStoryForm() {
 
             <div className="story-form-upper">
             <label>Image</label>
-            <input  value={image} onChange={(e) => setImage(e.target.value)} />
+            <input
+                type="file" 
+                accept="image/*" 
+                onChange={(e) => setImage(e.target.files[0])} 
+            />
             </div>
 
 
