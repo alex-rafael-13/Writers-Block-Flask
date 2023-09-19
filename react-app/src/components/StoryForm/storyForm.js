@@ -134,7 +134,7 @@ export default function UpdateStoryForm() {
         dispatch(createSTory(formData))
             .then(story => {
             history.push(`/stories/${story.id}`)
-
+            })
     }
 
     const addGenre = (e) => {
