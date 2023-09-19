@@ -110,20 +110,29 @@ export default function UpdateStoryForm() {
             return
         }
 
+        const genresStr = genres.join()
+        console.log(genresStr)
 
-
-
+        const formData = new FormData()
+        formData.append('title', title)
+        formData.append('content', content)
+        formData.append('genres', genresStr)
+        
+        if(image){
+            formData.append('image', image)
+        }
 
         const story = {
 
             title,
             content,
             image,
-            genres: genres
+            genres: genres.join()
 
         }
 
-        dispatch(createSTory(story)).then(story => {
+        dispatch(createSTory(formData))
+            .then(story => {
             history.push(`/stories/${story.id}`)
 
         })
@@ -166,7 +175,7 @@ export default function UpdateStoryForm() {
 
         <form className="story-form" onSubmit={(e) => handleSubmit(e)}>
 
-        <h1 class='form-title'>Create a story</h1>
+        <h1 class='form-title'>Create Story</h1>
 
             <div className="story-form-upper">
 
@@ -195,7 +204,11 @@ export default function UpdateStoryForm() {
 
             <div className="story-form-upper">
             <label>Image</label>
-            <input  value={image} onChange={(e) => setImage(e.target.value)} />
+            <input
+                type="file" 
+                accept="image/*" 
+                onChange={(e) => setImage(e.target.files[0])} 
+            />
             </div>
 
 

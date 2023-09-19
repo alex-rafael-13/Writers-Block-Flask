@@ -106,7 +106,7 @@ useEffect(() => {
 
                 </div>
             </div>
-            <img className="story-image" src={!story?.story?.image? 'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg': story?.story?.image} alt='story-img' />
+            <img className="story-image" src={story?.story?.image} alt='story-img' />
             <div className="author-like-button">
             
                <div className="author-cont">{currentUser?.id === story?.story?.user_id ? <Link to={'/profile'}>By {story?.user}</Link>:<Link to={`/${story?.story?.user_id}/profile`} className="author-cont">By {story?.user}</Link>}</div>

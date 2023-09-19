@@ -125,8 +125,8 @@ function ProfilePage(){
            <>
             <NavLink exact to={`/stories/${story.id}`}>
                   <div className="story-card" key={story.id}>
-                    <h3>Story: {story.title}</h3>
-                    <img className='preview-image' src={!story.image?'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg' : story.image } alt='image.txt'></img>
+                    <h3>{story.title}</h3>
+                    <img className='preview-image' src={story.image } alt='image.txt'></img>
                       {story.genres.map(genre => (
                         <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
                         ))}

@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from app.forms import StoryForm
 import ast
 import json
-
+from .AWS_helpers import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 story_routes = Blueprint('stories', __name__)
 
 #get all story
@@ -123,32 +123,51 @@ def create_story():
 
     form = StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    data = request.get_json()
-    genres = data['genres']
+    print('\n\n\nIn here')
+    # data = request.get_json()
+    # print(data)
+    # genres = data['genres']
 
 
     if form.validate_on_submit():
+
+        story_image = form.data['image']
+
+        new_image = {}
+
+        if(story_image):
+            story_image.filename = get_unique_filename(story_image.filename)
+            print('\n\n\n\n', story_image)
+
+            new_image = upload_file_to_s3(story_image)
+            print('\n\n\n\n',new_image)
+
+            if 'url' not in new_image:
+                return jsonify({"error": "Error uploading file to AWS"}, 401)
+        else:
+            new_image['url'] = 'https://writers-block-1.s3.us-west-1.amazonaws.com/default-writers-block.jpeg'
 
         new_story = Story(
             user_id = current_user.id,
             title = form.data['title'],
             content = form.data['content'],
-            image = form.data['image']
+            image = new_image['url']
 
         )
         db.session.add(new_story)
         db.session.commit()
 
-        for genre in genres:
+        genres = form.data['genres']
+        genre_list = genres.split(',')
+
+        for genre in genre_list:
             genre_to_add = StoryGenre(
                 story_id = new_story.id,
                 genre_id = genre
             )
             db.session.add(genre_to_add)
             db.session.commit()
-
-    return new_story.to_dict()
-
+        return new_story.to_dict()
 
     if form.errors:
         return jsonify(form.errors), 400
@@ -234,9 +253,6 @@ def update_story(storyId):
 
 
         return story_to_edit.to_dict()
-
-
-
 
     if form.errors:
         return jsonify(form.errors), 400

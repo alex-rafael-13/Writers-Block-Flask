@@ -34,10 +34,7 @@ export const createSTory = (story) => async (dispatch) => {
 
     const res = await fetch('/api/stories/',{
         method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(story),
+		body: story
 
     })
 
