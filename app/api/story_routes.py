@@ -132,20 +132,26 @@ def create_story():
     if form.validate_on_submit():
 
         story_image = form.data['image']
-        story_image.filename = get_unique_filename(story_image.filename)
-        print('\n\n\n\n', story_image)
 
-        uploaded_image = upload_file_to_s3(story_image)
-        print('\n\n\n\n',uploaded_image)
+        new_image = {}
 
-        if 'url' not in uploaded_image:
-            return jsonify({"error": "Error uploading file to AWS"}, 401)
+        if(story_image):
+            story_image.filename = get_unique_filename(story_image.filename)
+            print('\n\n\n\n', story_image)
+
+            new_image = upload_file_to_s3(story_image)
+            print('\n\n\n\n',new_image)
+
+            if 'url' not in new_image:
+                return jsonify({"error": "Error uploading file to AWS"}, 401)
+        else:
+            new_image['url'] = ''
 
         new_story = Story(
             user_id = current_user.id,
             title = form.data['title'],
             content = form.data['content'],
-            image = uploaded_image['url']
+            image = new_image['url']
 
         )
         db.session.add(new_story)

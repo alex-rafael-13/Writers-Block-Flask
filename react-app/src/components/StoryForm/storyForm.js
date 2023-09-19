@@ -110,20 +110,29 @@ export default function UpdateStoryForm() {
             return
         }
 
+        const genresStr = genres.join()
+        console.log(genresStr)
 
-
-
+        const formData = new FormData()
+        formData.append('title', title)
+        formData.append('content', content)
+        formData.append('genres', genresStr)
+        
+        if(image){
+            formData.append('image', image)
+        }
 
         const story = {
 
             title,
             content,
             image,
-            genres: genres
+            genres: genres.join()
 
         }
 
-        dispatch(createSTory(story)).then(story => {
+        dispatch(createSTory(formData))
+            .then(story => {
             history.push(`/stories/${story.id}`)
 
         })
