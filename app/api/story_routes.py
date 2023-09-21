@@ -261,14 +261,19 @@ def update_story(storyId):
 @login_required
 def delete_story(storyId):
 
-
     story_to_delete = Story.query.get(storyId)
-
-    remove_file_from_s3(story_to_delete.to_dict()['image'])
-
-
+    
     if not story_to_delete:
         return {'errors': ['Story does not exist']}, 400
+    
+    # Checking if its default image
+    substring = 'default'
+    image_url = story_to_delete.to_dict()['image']
+
+    #If it is not default image, delete from bucket
+    if substring not in image_url:
+        print(f'\n\n\n\n\n {image_url}')
+        remove_file_from_s3(image_url)
 
     db.session.delete(story_to_delete)
     db.session.commit()
