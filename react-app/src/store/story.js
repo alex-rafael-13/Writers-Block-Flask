@@ -94,16 +94,13 @@ export const retrieveOneStory = (id) => async (dispatch) => {
     return response
 }
 
-export const editStory = (story) => async (dispatch) => {
+export const editStory = (story, storyId) => async (dispatch) => {
 
     // console.log(story,'sending')
 
-    const res = await fetch(`/api/stories/${story.id}`,{
+    const res = await fetch(`/api/stories/${storyId}`,{
         method: "PUT",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(story),
+		body: story
 
     })
 

@@ -100,10 +100,6 @@ export default function UpdateStoryForm() {
 
         // console.log(errors)
 
-
-
-
-
         setErrors(errors)
 
         if (Object.values(errors).length) {
