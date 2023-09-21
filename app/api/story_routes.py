@@ -257,17 +257,14 @@ def update_story(storyId):
     if form.errors:
         return jsonify(form.errors), 400
 
-
-
-
-
-
 @story_routes.route('/<int:storyId>',methods=['DELETE'])
 @login_required
 def delete_story(storyId):
 
 
     story_to_delete = Story.query.get(storyId)
+
+    remove_file_from_s3(story_to_delete.to_dict()['image'])
 
 
     if not story_to_delete:
