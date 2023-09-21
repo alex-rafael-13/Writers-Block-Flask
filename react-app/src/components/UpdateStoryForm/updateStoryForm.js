@@ -29,12 +29,6 @@ export default function UpdateStoryForm() {
     const { storyId } = useParams()
     const history = useHistory()
 
-
-
-
-
-
-
     useEffect(() => {
 
         dispatch(getAllGenres())
@@ -50,30 +44,19 @@ export default function UpdateStoryForm() {
         if (Object.values(story).length && Object.values(genresList).length) {
             setTitle(story.story.title)
             setContent(story.story.content)
-            setImage(story.story.image)
+            // setImage(story.story.image)
             const storyGenres = story.genre
             // console.log(storyGenres,'++++')
 
             let currentGenres = []
             for (let gen of storyGenres) {
 
-
                 const genreToAdd = Object.values(genresList).find(genre => genre.name === gen)
-
-
 
                 currentGenres = [...currentGenres, genreToAdd.id]
 
             }
             setGenres(currentGenres)
-
-
-
-
-
-
-
-
         }
 
     }, [story])
@@ -134,18 +117,19 @@ export default function UpdateStoryForm() {
             return
         }
 
+        const formData = new FormData()
 
-        const story = {
-            id: storyId,
-            title,
-            content,
-            image,
-            genres: genres
-
+        formData.append('id', storyId)
+        formData.append('title', title)
+        formData.append('content', content)
+        formData.append('genres', genres)
+        
+        if(image){
+            formData.append('image', image)
         }
 
-
-        dispatch(editStory(story)).then(story => {
+        dispatch(editStory(formData, storyId))
+            .then(story => {
             history.push(`/stories/${story.id}`)
 
         })
@@ -202,8 +186,6 @@ export default function UpdateStoryForm() {
 
                                 {Object.values(genresList).map(genre => (
                                     <>
-
-
                                         {genres.includes(genre.id) ? <p onClick={(e) => addGenre(e)} className="genre-list-option2 greenDisplay" id={genre.id} value={genre.id}>{genre.name}</p> :
                                             <p onClick={(e) => addGenre(e)} className="genre-list-option2" id={genre.id} value={genre.id}>{genre.name}</p>}
                                     </>
@@ -216,9 +198,14 @@ export default function UpdateStoryForm() {
                 <div className="story-form-upper">
                     {/* <label>Update Image?</label> */}
                     {/* <button type="button" onClick={() => alert('Test') }className="button-56">Update Image</button> */}
-                    <OpenModalButton 
+                    {/* <OpenModalButton 
                         buttonText="Update Image"
                         modalComponent={<UpdateStoryImage />}
+                    /> */}
+                    <label>Update Image:</label>
+                    <input 
+                        type= 'file'
+                        onChange={(e) => setImage(e.target.files[0])}
                     />
                 </div>
                 <textarea required value={content} onChange={(e) => setContent(e.target.value)} />

@@ -123,24 +123,22 @@ def create_story():
 
     form = StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('\n\n\nIn here')
     # data = request.get_json()
     # print(data)
     # genres = data['genres']
 
+    new_image = {}
 
     if form.validate_on_submit():
 
         story_image = form.data['image']
 
-        new_image = {}
-
         if(story_image):
             story_image.filename = get_unique_filename(story_image.filename)
-            print('\n\n\n\n', story_image)
+            # print('\n\n\n\n', story_image)
 
             new_image = upload_file_to_s3(story_image)
-            print('\n\n\n\n',new_image)
+            # print('\n\n\n\n',new_image)
 
             if 'url' not in new_image:
                 return jsonify({"error": "Error uploading file to AWS"}, 401)
@@ -179,6 +177,7 @@ def create_story():
 def update_story(storyId):
 
     story_to_edit = Story.query.get(storyId)
+    new_image = {}
 
     if not story_to_edit:
         return {
@@ -186,34 +185,31 @@ def update_story(storyId):
         }, 404
 
     form = StoryForm()
-    data = request.get_json()
-    genres = data['genres']
-
-
-
-
-
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
-
-
-
     if form.validate_on_submit():
+        story_dict = story_to_edit.to_dict()
 
+        story_image = form.data['image']
 
+        if(story_image):
+            story_image.filename = get_unique_filename(story_image.filename)
+                # Checking if its default image
+            substring = 'default'
+            image_url = story_dict['image']
 
+            #If it is not default image, delete from bucket
+            if substring not in image_url:
+                # print(f'\n\n\n\n\n {image_url}')
+                remove_file_from_s3(image_url)
 
-
+            new_image = upload_file_to_s3(story_image)
+            story_to_edit.image = new_image['url']
 
         story_to_edit.title = form.data['title']
         story_to_edit.content = form.data['content']
-        story_to_edit.image = form.data['image']
-
 
         db.session.commit()
-
-
 
         # for genreId, action in genres.items():
 
@@ -235,7 +231,7 @@ def update_story(storyId):
             db.session.delete(entry)
             db.session.commit()
 
-
+        genres = form.data['genres']
 
         for genreId in genres:
 
@@ -257,21 +253,23 @@ def update_story(storyId):
     if form.errors:
         return jsonify(form.errors), 400
 
-
-
-
-
-
 @story_routes.route('/<int:storyId>',methods=['DELETE'])
 @login_required
 def delete_story(storyId):
 
-
     story_to_delete = Story.query.get(storyId)
-
-
+    
     if not story_to_delete:
         return {'errors': ['Story does not exist']}, 400
+    
+    # Checking if its default image
+    substring = 'default'
+    image_url = story_to_delete.to_dict()['image']
+
+    #If it is not default image, delete from bucket
+    if substring not in image_url:
+        print(f'\n\n\n\n\n {image_url}')
+        remove_file_from_s3(image_url)
 
     db.session.delete(story_to_delete)
     db.session.commit()
