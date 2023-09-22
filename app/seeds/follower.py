@@ -23,7 +23,7 @@ def undo_follower():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.followers RESTART IDENTITY CASCADE")
     else:
-        db.session.execute(text("DELETE FROM follower"))
+        db.session.execute(text("DELETE FROM followers"))
 
 
     db.session.commit()
