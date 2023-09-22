@@ -20,7 +20,7 @@ def seed_story():
         user_id = 1,
         title = 'The Jedi\'s Apprentice',
         content = THE_JEDIS_APPRENTINCE,
-        image='https://i.redd.it/7p3elhmwqrs61.png'
+        image='https://writers-block-1.s3.us-west-1.amazonaws.com/default/jedi.png'
     )
     matt1 = Story(
         user_id = 2,
@@ -55,14 +55,14 @@ def seed_story():
     jon3 = Story(
         user_id = 3,
         title = 'Dragon\'s Passion',
-        content = DRAGONS,
+        content = DANI,
         image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxkEPxvoxPVs2bPvUY3wZ0azT-PpRSRjVENg&usqp=CAU'
     )
     adam1 = Story(
         user_id = 4,
         title = 'Journey of a Struggling Chef',
         content = JENNA,
-        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy50lFPCa-KC2J-8dNAWJFtPvnLDvUi4tHPw&usqp=CAU'
+        image='https://writers-block-1.s3.us-west-1.amazonaws.com/default/chef.jpeg'
     )
     adam2 = Story(
         user_id = 4,
@@ -123,7 +123,7 @@ def undo_story():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.stories RESTART IDENTITY CASCADE")
     else:
-        db.session.execute(text("DELETE FROM story"))
+        db.session.execute(text("DELETE FROM stories"))
 
 
     db.session.commit()
