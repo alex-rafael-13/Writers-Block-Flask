@@ -15,6 +15,21 @@
     margin-left: 50px;
 }
 
+.profile-content-cards{
+  display: flex;
+  flex-direction: row;
+}
+
+.story-buttons-cont{
+  display: flex;
+  flex-direction: column;
+}
+
+.story-buttons-cont > a {
+  text-decoration: none;
+  color:black ;
+}
+
 
 .button-55 {
   align-self: center;
@@ -104,6 +119,14 @@
 
 .profile-comment{ 
   display: flex;
-  flex-direction: column;
-  
+  flex-direction: column; 
+}
+
+.profile-comment > a{
+  text-decoration: none;
+  color: black;
+}
+
+.profile-comment:hover{
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
 }
