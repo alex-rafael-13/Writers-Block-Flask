@@ -1,4 +1,3 @@
-
 .form-title {
     text-align: center;
     margin: 1%;
@@ -48,6 +47,7 @@
 
 
 }
+
 .story-form-upper label {
 
     font-size: 19px;
@@ -60,6 +60,7 @@
 
 
 }
+
 .story-form-upper input {
     display: flex;
 
@@ -91,7 +92,7 @@
 
 }
 
-.genre-lists select{
+.genre-lists select {
     display: flex;
     background-color: rgb(252, 248, 255);
     border-radius: 10px;
@@ -99,17 +100,15 @@
     width: 90px;
     margin: 0 3px;
     border: none;
-
-
-
     /* margin: 0 auto; */
 
 }
-.genre-lists select option{
+
+.genre-lists select option {
     background-color: rgb(186, 187, 187);
     border-radius: 40px;
     padding: 10px;
-
+    cursor: pointer;
 
 
     /* margin: 0 auto; */
@@ -121,6 +120,7 @@
     font-size: 19px;
     color: #67d4b1;
     margin-left: 10%;
+    cursor: pointer;
 }
 
 
@@ -133,7 +133,8 @@
     border: none;
     border-radius: 8px;
     font-weight: 1000;
-    background-color: #67d4b1;;
+    background-color: #67d4b1;
+    ;
 
     margin: 5% 0 0 2%;
 }
@@ -149,8 +150,8 @@
     margin: 10px 0;
 
     size: 167px;
+    cursor: pointer;
 }
-
 
 .error {
     color: red;
@@ -192,7 +193,7 @@
 
 .chat-box::-webkit-scrollbar {
     width: 18px;
-  }
+}
 
 
 .chat-display {
@@ -261,7 +262,7 @@
 .assistant {
     background-color: #eaeefd;
     margin: 0;
-    padding:12px;
+    padding: 12px;
     border-radius: 10px;
     width: 95%;
     margin: auto;
@@ -298,20 +299,20 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-  }
+}
 
-  #chat-button {
+#chat-button {
 
     align-self: flex-start;
     margin-left: 5%;
     margin-top: 1%;
-  }
+}
 
-  #place-holder {
+#place-holder {
     color: #000000;
     padding: 12px;
     margin: 0;
-  }
+}
 
 
 #genre-list {
@@ -323,7 +324,7 @@
     align-items: center;
     margin-left: 1%;
     border-radius: 10px;
-    height:100px;
+    height: 100px;
     overflow-y: scroll;
 
 
@@ -341,13 +342,13 @@
 
 
 
-.genre-list-option2{
+.genre-list-option2 {
 
     color: black;
     margin: 4px;
     font-size: 16px;
     font-weight: bold;
-
+    cursor: pointer;
 }
 
 .greenDisplay {
