@@ -80,6 +80,7 @@ li .fa-solid {
 .icon-image {
     width: 180px;
     border-radius: 50px;
+    cursor: pointer;
 }
 
 .navbar {

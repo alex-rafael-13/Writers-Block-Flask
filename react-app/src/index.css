@@ -14,7 +14,7 @@ body{
     /* background-color: #6e6c6c; */
     align-items: center;
     justify-content: center;
-    min-height: 100vh
+    min-height: 100vh;
     /* border: solid black; */
 }
 .navbar{
@@ -23,7 +23,7 @@ body{
 }
 .side-bar-cont{
     height: 100%;
-    width: 10%;
+    width: 12%;
     background-color: rgb(37,47,54);;
 }
 .main-side-navbar{
@@ -34,6 +34,7 @@ body{
 }
 .content-body{
     width: 90%;
+    padding-bottom: 40px;
 }
 
 
