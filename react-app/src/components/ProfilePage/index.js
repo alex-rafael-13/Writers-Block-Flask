@@ -53,7 +53,7 @@ function ProfilePage() {
     if (currentUser && !currentUser.icon) {
       return (
         <img
-          className="user-icon-placeholder"
+          className="user-icon-image"
           src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
         ></img>
       );
@@ -72,7 +72,7 @@ function ProfilePage() {
       return <h1>You dont have any comment</h1>
     }
   }
-  let followerButtonText = `follower:${allFollwers.length}`
+  let followerButtonText = `followers:${allFollwers.length}`
   let followingButtonText = `following:${allFollowing.length}`
 
   const openFollowerModal = () => {
@@ -82,7 +82,7 @@ function ProfilePage() {
     />
   }
 
-  const openFolloingModal = () => {
+  const openFollowingModal = () => {
     return <OpenModalButton
       buttonText={followingButtonText}
       modalComponent={<GetFollowing userId={currentUser?.id} />}
@@ -112,12 +112,16 @@ function ProfilePage() {
       {loaded &&
       
         <div className="profile-container">
-          <h1>Your Profile</h1>
-          {replaceIconIfNull()}
-          <h3>{currentUser?.firstname} {currentUser?.lastname}</h3>
-          <h3>Email: {currentUser?.email}</h3>
-          <h3>Bio: {currentUser?.bio}</h3>
-          <h4>{openFollowerModal()} {openFolloingModal()}</h4>
+          {/* <h1>Your Profile</h1> */}
+          <div className="img-username-cont">
+            {replaceIconIfNull()}
+            <div className="user-name-un-cont">
+              <h1 className="name-cont">{currentUser?.firstname} {currentUser?.lastname}</h1>
+              <h3 className="username-cont">@{currentUser?.username}</h3>
+            </div>
+          </div>
+          <h4 className="following-follower-cont">{openFollowerModal()} {openFollowingModal()}</h4>
+          <div className="bio-cont">{currentUser?.bio}</div>
           <div className='navbar-in-profile'>
             <button className={toggleStory ? 'button-56 active' : 'button-56'} onClick={clickStory}>Story</button>
             <button className={toggleComment ? 'button-56 active' : 'button-56'} onClick={clickComment}>Comments</button>
