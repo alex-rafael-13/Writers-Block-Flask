@@ -16,12 +16,14 @@ function UsersProfile() {
     const allUser = useSelector(state => state.users.user)
     let currentUser = allUser[0]
     const currentedUser = useSelector(state => state.session.user)
+    const [loaded, setLoaded] = useState(false)
 
     // console.log(currentUser)
     useEffect(() => {
         dispatch(getSingleUser(userId))
         dispatch(getAllFollower(userId))
         dispatch(getAllFollowing(userId))
+        .then(() => setLoaded(true))
     }, [dispatch])
 
     const replaceIconIfNull = () => {
@@ -47,7 +49,7 @@ function UsersProfile() {
         />
     }
 
-    const openFolloingModal = () => {
+    const openFollowingModal = () => {
         return <OpenModalButton
             buttonText={followingButtonText}
             modalComponent={<GetFollowing userId={userId} />}
@@ -89,32 +91,46 @@ function UsersProfile() {
         }
     }
 
-    if (!currentUser || !currentUser.stories) return <h1>Something went wrong, refresh</h1>
+    // if (!currentUser || !currentUser.stories) return <h1>Something went wrong, refresh</h1>
 
     return (
-        <div>
-            <h1>{currentUser.username} profile</h1>
-            {replaceIconIfNull()}
-            {followedOrNot()}
-            <h3>{currentUser.firstname} {currentUser?.lastname}</h3>
-            <h3>Email: {currentUser.email}</h3>
-            <h3>Bio: {currentUser.bio}</h3>
-            <h4>{openFollowerModal()}{openFolloingModal()}</h4>
-            <div className='navbar-in-profile'>
-                {currentUser?.stories?.map(story => (
-                    <NavLink exact to={`/stories/${story.id}`}>
-                        <div className="story-card" key={story.id}>
-                            <h3>Story: {story.title}</h3>
-                            <img className='preview-image' src={!story.image ? 'https://cdn.leadx.org/wp-content/uploads/2017/06/Storytelling.jpg' : story.image} alt='image.txt'></img>
-                            <div className='genres-cont'>
-                                {story.genres.map(genre => (
-                                    <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
-                                ))}
-                            </div>
-                        </div>
-                    </NavLink>))}
+        <>{loaded &&
+            <div className="profile-container">
+                {/* <h1>{currentUser.username} profile</h1>
+                {replaceIconIfNull()}
+                <h3>{currentUser.firstname} {currentUser?.lastname}</h3>
+                <h3>Email: {currentUser.email}</h3>
+                <h3>Bio: {currentUser.bio}</h3>
+            <h4>{openFollowerModal()}{openFolloingModal()}</h4> */}
+                <div className="img-username-cont">
+                    {replaceIconIfNull()}
+                    <div className="user-name-un-cont">
+                        <h1 className="name-cont">{currentUser?.firstname} {currentUser?.lastname}</h1>
+                        <h3 className="username-cont">@{currentUser?.username}</h3>
+                        {followedOrNot()}   
+                    </div>
+                </div>
+                <h4 className="following-follower-cont">{openFollowerModal()} {openFollowingModal()}</h4>
+                <div className="bio-cont">{currentUser?.bio}</div>
+                <div className='navbar-in-profile'>
+                    <div className="profile-content-cards">
+                        {currentUser?.stories?.map(story => (
+                            <NavLink exact to={`/stories/${story.id}`}>
+                                <div className="story-card" key={story.id}>
+                                    <h3>{story.title}</h3>
+                                    <img className='preview-image' src={story.image} alt='image.txt'></img>
+                                    <div className='genres-cont'>
+                                        {story.genres.map(genre => (
+                                            <nav key={genre} className={`genre ${genre}`}>{genre}</nav>
+                                        ))}
+                                    </div>
+                                </div>
+                            </NavLink>))}
+                    </div>
+                </div>
             </div>
-        </div>
+        }
+        </>
     )
 }
 
