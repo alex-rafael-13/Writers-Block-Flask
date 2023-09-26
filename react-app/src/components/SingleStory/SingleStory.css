@@ -3,6 +3,7 @@
     flex-direction:column;
     width: 70%;
     gap: 10px;
+    margin-left: 2%;
 }
 .title-genre-cont{
     display: flex;
